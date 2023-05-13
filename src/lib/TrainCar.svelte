@@ -6,7 +6,7 @@
 	$: _color = color && color !== 'none' ? `${color}cc` : COLORS.BASE
 </script>
 
-<svg viewBox="0 0 375 300" width="75" height="60">
+<svg viewBox="0 0 375 300" width="100%">
 	<circle cx="87.5" cy="262.5" r="25" style="fill:{COLORS.BASE};stroke:{COLORS.POP};" />
 	<circle cx="287.5" cy="262.5" r="25" style="fill:{COLORS.BASE};stroke:{COLORS.POP};" />
 	<rect
