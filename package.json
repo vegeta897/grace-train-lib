@@ -1,6 +1,6 @@
 {
 	"name": "grace-train-lib",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -44,5 +44,9 @@
 	"type": "module",
 	"license": "MIT",
 	"description": "A Svelte component library for Grace Train cars and decorations",
-	"author": "Devin Spikowski"
+	"author": "Devin Spikowski",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vegeta897/grace-train-lib.git"
+	}
 }
