@@ -1,5 +1,6 @@
 <script lang="ts">
 	import TrainCar from '../lib/TrainCar.svelte'
+	import TankerCar from '../lib/TankerCar.svelte'
 </script>
 
 <svelte:head>
@@ -7,6 +8,7 @@
 </svelte:head>
 <div class="showcase">
 	<TrainCar />
+	<TankerCar />
 </div>
 
 <style>
@@ -16,5 +18,7 @@
 	.showcase {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
+		row-gap: 2rem;
+		column-gap: 2rem;
 	}
 </style>
