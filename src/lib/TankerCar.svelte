@@ -24,7 +24,7 @@
 		style="fill:{COLORS.POP};stroke:{COLORS.POP};"
 	/>
 	<path
-		d="M37.5,200c0,-0 -25,-0.021 -25,-74.652c0,-75.353 25,-75.348 25,-75.348l300,0c0,0 25.058,0.062 25.058,75c-0,75.229 -25.058,75 -25.058,75l-300,-0Z"
+		d="M37.5,200c0,0 -25,0 -25,-75c0,-75 25,-75 25,-75l300,0c0,0 25,0 25,75c-0,75 -25,75 -25,75l-300,-0Z"
 		style="fill:{COLORS.BASE};stroke:{COLORS.BASE};"
 	/>
 	<path d="M12.5,212.5l350,0" style="fill:none;stroke:{COLORS.BASE};" />
