@@ -27,6 +27,9 @@
 		d="M37.5,212.5l-25,-175l350,0l-25,175l-300,0Z"
 		style="fill:{COLORS.BASE};stroke:{COLORS.BASE};"
 	/>
+	<g clip-path="url(#body-decals)">
+		<slot />
+	</g>
 	<path d="M12.5,212.5l350,0" style="fill:none;stroke:{COLORS.BASE};" />
 	{#if color !== 'none'}
 		<path
@@ -34,6 +37,11 @@
 			style="fill:{_color}"
 		/>
 	{/if}
+	<defs>
+		<clipPath id="body-decals">
+			<path d="M37.5,212.5l-25,-175l350,0l-25,175l-300,0Z" />
+		</clipPath>
+	</defs>
 </svg>
 
 <style>
