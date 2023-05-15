@@ -9,7 +9,7 @@
 </svelte:head>
 <div class="showcase">
 	<TrainCar>
-		<Star translate={{ x: 150, y: 50 }} scale={1.7} />
+		<Star translate={{ x: 375 / 2, y: 120 }} scale={2} rotate={0} />
 	</TrainCar>
 	<TankerCar />
 </div>

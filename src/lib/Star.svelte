@@ -1,12 +1,13 @@
 <script lang="ts">
 	export let fill = '#94f20d'
-	export let scale = 1
+	export let rotate = 0
 	export let translate = { x: 0, y: 0 }
+	export let scale = 1
 </script>
 
 <path
-	transform="translate({translate.x},{translate.y}) scale({scale})"
-	d="M95.106,0l22.451,69.098l72.654,0l-58.778,42.705l22.451,69.099l-58.778,-42.705l-58.779,42.705l22.452,-69.099l-58.779,-42.705l72.654,0l22.452,-69.098Z"
+	transform="rotate({rotate},{translate.x},{translate.y}) translate({translate.x -
+		50 * scale},{translate.y - 50 * scale}) scale({scale})"
+	d="M50,4.775l11.226,34.549l36.327,-0l-29.389,21.352l11.225,34.549l-29.389,-21.352l-29.389,21.352l11.225,-34.549l-29.389,-21.352l36.327,-0l11.226,-34.549Z"
 	style:fill
-	style:transform-origin="100px 100px"
 />
