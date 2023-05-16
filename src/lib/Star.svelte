@@ -4,11 +4,19 @@
 	export let translate = { x: 0, y: 0 }
 	export let scale = 1
 	export let transition = false
+
+	// TODO: Maybe use svg's transform when transitions aren't needed,
+	// because it might be more performant than a css transform
+	/*
+  transform="rotate({rotate},{translate.x},{translate.y}) translate({translate.x -
+  50 * scale},{translate.y - 50 * scale}) scale({scale})"
+  */
 </script>
 
 <path
-	transform="rotate({rotate},{translate.x},{translate.y}) translate({translate.x -
-		50 * scale},{translate.y - 50 * scale}) scale({scale})"
+	style:transform-origin="50px 50px"
+	style:transform="translate({translate.x - 50}px,{translate.y - 50}px) rotate({rotate}deg)
+	scale({scale})"
 	d="M50,0l11.226,34.549l36.327,0l-29.389,21.353l11.225,34.549l-29.389,-21.353l-29.389,21.353l11.225,-34.549l-29.389,-21.353l36.327,0l11.226,-34.549Z"
 	style:fill
 	class:transition
