@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+	export type DecalName = keyof typeof PATH_DATA
 	const PATH_DATA = {
 		star: 'M50,0l11.226,34.549l36.327,0l-29.389,21.353l11.225,34.549l-29.389,-21.353l-29.389,21.353l11.225,-34.549l-29.389,-21.353l36.327,0l11.226,-34.549Z',
 		heart:
