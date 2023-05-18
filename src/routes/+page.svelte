@@ -1,7 +1,7 @@
 <script lang="ts">
 	import TrainCar from '../lib/TrainCar.svelte'
 	import TankerCar from '../lib/TankerCar.svelte'
-	import Star from '$lib/Star.svelte'
+	import Decal from '$lib/Decal.svelte'
 </script>
 
 <svelte:head>
@@ -9,9 +9,11 @@
 </svelte:head>
 <div class="showcase">
 	<TrainCar>
-		<Star translate={{ x: 375 / 2, y: 120 }} scale={2} rotate={0} />
+		<Decal name="star" translate={{ x: 375 / 2, y: 120 }} scale={1.8} rotate={0} />
 	</TrainCar>
-	<TankerCar />
+	<TankerCar>
+		<Decal name="heart" translate={{ x: 375 / 2, y: 120 }} scale={1.5} rotate={0} />
+	</TankerCar>
 </div>
 
 <style>
