@@ -26,7 +26,7 @@
 	}
 	.showcase {
 		display: grid;
-		grid-template-columns: repeat(4, 150px);
+		grid-template-columns: repeat(4, 250px);
 		row-gap: 2rem;
 		column-gap: 2rem;
 	}
