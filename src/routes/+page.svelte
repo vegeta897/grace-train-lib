@@ -9,10 +9,16 @@
 </svelte:head>
 <div class="showcase">
 	<TrainCar>
-		<Decal name="star" translate={{ x: 375 / 2, y: 120 }} scale={1.8} rotate={0} />
+		<Decal
+			name="star"
+			transform={{ translate: { x: 375 / 2, y: 120 }, scale: 1.8, rotate: 0 }}
+		/>
 	</TrainCar>
 	<TankerCar>
-		<Decal name="heart" translate={{ x: 375 / 2, y: 120 }} scale={1.5} rotate={0} />
+		<Decal
+			name="heart"
+			transform={{ translate: { x: 375 / 2, y: 120 }, scale: 1.5, rotate: 0 }}
+		/>
 	</TankerCar>
 </div>
 

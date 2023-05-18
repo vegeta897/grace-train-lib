@@ -9,9 +9,11 @@
 <script lang="ts">
 	export let name: keyof typeof PATH_DATA
 	export let fill = '#94f20d'
-	export let rotate = 0
-	export let translate = { x: 0, y: 0 }
-	export let scale = 1
+	export let transform = {
+		translate: { x: 0, y: 0 },
+		scale: 1,
+		rotate: 0,
+	}
 	export let transition = false
 
 	// TODO: Maybe use svg's transform when transitions aren't needed,
@@ -24,8 +26,8 @@
 
 <path
 	style:transform-origin="50px 50px"
-	style:transform="translate({translate.x - 50}px,{translate.y - 50}px) rotate({rotate}deg)
-	scale({scale})"
+	style:transform="translate({transform.translate.x - 50}px,{transform.translate.y -
+		50}px) rotate({transform.rotate}deg) scale({transform.scale})"
 	d={PATH_DATA[name]}
 	style:fill
 	class:transition
