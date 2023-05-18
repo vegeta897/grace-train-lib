@@ -27,10 +27,6 @@
 </script>
 
 <path
-	on:mouseover
-	on:focus
-	on:click
-	on:keypress
 	style:transform-origin="50px 50px"
 	style:transform="translate({transform.translate.x - 50}px,{transform.translate.y -
 		50}px) rotate({transform.rotate}deg) scale({transform.scale})"
