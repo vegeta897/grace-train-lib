@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Body from '../lib/Body.svelte'
 	import Decal from '$lib/Decal.svelte'
+
+	const defaultTransform = { translate: { x: 375 / 2, y: 120 }, scale: 1.5, rotate: 0 }
 </script>
 
 <svelte:head>
@@ -8,22 +10,13 @@
 </svelte:head>
 <div class="showcase">
 	<Body name="boxy">
-		<Decal
-			name="star"
-			transform={{ translate: { x: 375 / 2, y: 120 }, scale: 1.5, rotate: 0 }}
-		/>
+		<Decal name="star" transform={defaultTransform} />
 	</Body>
 	<Body name="tanky">
-		<Decal
-			name="heart"
-			transform={{ translate: { x: 375 / 2, y: 120 }, scale: 1.5, rotate: 0 }}
-		/>
+		<Decal name="heart" transform={defaultTransform} />
 	</Body>
 	<Body name="boxy">
-		<Decal
-			name="circle"
-			transform={{ translate: { x: 375 / 2, y: 120 }, scale: 1.5, rotate: 0 }}
-		/>
+		<Decal name="circle" transform={defaultTransform} />
 	</Body>
 </div>
 
