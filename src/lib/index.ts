@@ -1,5 +1,4 @@
-export { default as TrainCar } from './TrainCar.svelte'
-export { default as TankerCar } from './TankerCar.svelte'
+export { default as Body, type BodyName } from './Body.svelte'
 export { default as Decal, type DecalName } from './Decal.svelte'
 
 // Maybe export these as properties of objects

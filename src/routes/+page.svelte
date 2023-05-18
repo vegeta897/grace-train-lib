@@ -1,6 +1,5 @@
 <script lang="ts">
-	import TrainCar from '../lib/TrainCar.svelte'
-	import TankerCar from '../lib/TankerCar.svelte'
+	import Body from '../lib/Body.svelte'
 	import Decal from '$lib/Decal.svelte'
 </script>
 
@@ -8,18 +7,24 @@
 	<title>Grace Train Component Library</title>
 </svelte:head>
 <div class="showcase">
-	<TrainCar>
+	<Body name="boxy">
 		<Decal
 			name="star"
-			transform={{ translate: { x: 375 / 2, y: 120 }, scale: 1.8, rotate: 0 }}
+			transform={{ translate: { x: 375 / 2, y: 120 }, scale: 1.5, rotate: 0 }}
 		/>
-	</TrainCar>
-	<TankerCar>
+	</Body>
+	<Body name="tanky">
 		<Decal
 			name="heart"
 			transform={{ translate: { x: 375 / 2, y: 120 }, scale: 1.5, rotate: 0 }}
 		/>
-	</TankerCar>
+	</Body>
+	<Body name="boxy">
+		<Decal
+			name="circle"
+			transform={{ translate: { x: 375 / 2, y: 120 }, scale: 1.5, rotate: 0 }}
+		/>
+	</Body>
 </div>
 
 <style>
