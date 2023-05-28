@@ -20,6 +20,8 @@
 
 	// TODO: Maybe use svg's transform when transitions aren't needed,
 	// because it might be more performant than a css transform
+	// TODO: Export a property to toggle between "depot mode" and "overlay mode"
+	// Each mode will be optimized towards its use-case
 	/*
   transform="rotate({rotate},{translate.x},{translate.y}) translate({translate.x -
   50 * scale},{translate.y - 50 * scale}) scale({scale})"
@@ -39,7 +41,7 @@
 	.transition {
 		/* Matches tailwind's transition-transform class */
 		/* Maybe expose this as a class prop instead */
-		transition-property: transform;
+		transition-property: all;
 		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 		transition-duration: 150ms;
 	}
