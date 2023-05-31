@@ -1,5 +1,6 @@
 <script lang="ts" context="module">
 	export type DecalName = keyof typeof PATH_DATA
+	export type DecalTransitionProperty = 'transform' | 'opacity' | 'fill'
 	const PATH_DATA = {
 		star: 'M50,0l11.226,34.549l36.327,0l-29.389,21.353l11.225,34.549l-29.389,-21.353l-29.389,21.353l11.225,-34.549l-29.389,-21.353l36.327,0l11.226,-34.549Z',
 		heart:
@@ -16,7 +17,11 @@
 		scale: 1,
 		rotate: 0,
 	}
-	export let transition = false
+	export let transition:
+		| DecalTransitionProperty
+		| DecalTransitionProperty[]
+		| 'all'
+		| 'none' = 'none'
 
 	// TODO: Maybe use svg's transform when transitions aren't needed,
 	// because it might be more performant than a css transform
@@ -34,14 +39,16 @@
 		50}px) rotate({transform.rotate}deg) scale({transform.scale})"
 	d={PATH_DATA[name]}
 	style:fill
-	class:transition
+	style:transition-property={Array.isArray(transition)
+		? transition.join(',')
+		: transition}
+	class:transition-metrics={transition !== 'none'}
 />
 
 <style>
-	.transition {
+	.transition-metrics {
 		/* Matches tailwind's transition-transform class */
 		/* Maybe expose this as a class prop instead */
-		transition-property: all;
 		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 		transition-duration: 150ms;
 	}
