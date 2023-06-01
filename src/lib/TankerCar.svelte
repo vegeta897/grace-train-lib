@@ -18,9 +18,7 @@
 	d="M37.5,200c0,0 -25,0 -25,-75c0,-75 25,-75 25,-75l300,0c0,0 25,0 25,75c-0,75 -25,75 -25,75l-300,-0Z"
 	style="fill:{COLORS.BASE};stroke:{COLORS.BASE};"
 />
-<g clip-path="url(#tanker-decal-clip)">
-	<slot />
-</g>
+<slot />
 <path d="M12.5,212.5l350,0" style="fill:none;stroke:{COLORS.BASE};" />
 {#if color !== 'none'}
 	<path
@@ -28,10 +26,3 @@
 		style="fill:{color}"
 	/>
 {/if}
-<defs>
-	<clipPath id="tanker-decal-clip">
-		<path
-			d="M16.577,200c-8.597,-11.4 -16.577,-33.157 -16.577,-74.652c0,-90.642 37.484,-87.849 37.503,-87.848l299.997,0c0.01,0 0.021,0 0.031,0c0,0 37.527,-2.726 37.527,87.5c-0,41.713 -7.98,63.564 -16.595,75l-341.886,0Z"
-		/>
-	</clipPath>
-</defs>

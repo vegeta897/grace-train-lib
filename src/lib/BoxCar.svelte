@@ -18,9 +18,7 @@
 	d="M37.5,212.5l-25,-175l350,0l-25,175l-300,0Z"
 	style="fill:{COLORS.BASE};stroke:{COLORS.BASE};"
 />
-<g clip-path="url(#boxcar-decal-clip)">
-	<slot />
-</g>
+<slot />
 <path d="M12.5,212.5l350,0" style="fill:none;stroke:{COLORS.BASE};" />
 {#if color !== 'none'}
 	<path
@@ -28,10 +26,3 @@
 		style="fill:{color}"
 	/>
 {/if}
-<defs>
-	<clipPath id="boxcar-decal-clip">
-		<path
-			d="M23.087,200l-22.961,-160.732c-0.513,-3.587 0.557,-7.221 2.931,-9.958c2.374,-2.738 5.819,-4.31 9.443,-4.31l350,0c3.624,-0 7.069,1.572 9.443,4.31c2.374,2.737 3.444,6.371 2.931,9.958l-22.961,160.732l-328.826,0Z"
-		/>
-	</clipPath>
-</defs>
