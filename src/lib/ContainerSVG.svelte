@@ -3,7 +3,12 @@
 	export { className as class }
 </script>
 
-<svg viewBox="0 0 375 300" class={className} width="100%">
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 375 300"
+	class={className}
+	width="100%"
+>
 	<slot />
 </svg>
 
