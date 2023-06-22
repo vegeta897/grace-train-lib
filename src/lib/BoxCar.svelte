@@ -1,11 +1,10 @@
 <script lang="ts">
+	import Wheels from './Wheels.svelte'
 	import { COLORS } from './colors.js'
 
 	export let color: string = 'none'
 </script>
 
-<circle cx="87.5" cy="262.5" r="25" style="fill:{COLORS.BASE};stroke:{COLORS.POP};" />
-<circle cx="287.5" cy="262.5" r="25" style="fill:{COLORS.BASE};stroke:{COLORS.POP};" />
 <rect x="162.5" y="12.5" width="50" height="25" style="fill:none;stroke:{COLORS.POP};" />
 <rect
 	x="37.5"
@@ -14,6 +13,7 @@
 	height="25"
 	style="fill:{COLORS.POP};stroke:{COLORS.POP};"
 />
+<Wheels />
 <path
 	d="M37.5,212.5l-25,-175l350,0l-25,175l-300,0Z"
 	style="fill:{COLORS.BASE};stroke:{COLORS.BASE};"
