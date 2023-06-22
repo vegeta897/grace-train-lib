@@ -1,4 +1,6 @@
 <script lang="ts" context="module">
+	import { COLORS } from './colors.js'
+	import Wheels from './Wheels.svelte'
 	import BoxCar from './BoxCar.svelte'
 	import TankerCar from './TankerCar.svelte'
 	import ContainerSvg from './ContainerSVG.svelte'
@@ -16,8 +18,6 @@
 </script>
 
 <script lang="ts">
-	import { COLORS } from './colors.js'
-
 	export let name: BodyName
 	export let color: string | null = 'none'
 
@@ -26,8 +26,11 @@
 
 <ContainerSvg>
 	<svelte:component this={COMPONENTS[name]} color={_color}>
-		<g clip-path="url(#{name}-decal-clip)">
-			<slot />
+		<slot name="wheels" slot="wheels">
+			<Wheels />
+		</slot>
+		<g clip-path="url(#{name}-decal-clip)" slot="decals">
+			<slot name="decals" />
 		</g>
 	</svelte:component>
 	<defs>

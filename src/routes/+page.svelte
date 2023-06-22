@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Body from '../lib/Body.svelte'
 	import Decal from '$lib/Decal.svelte'
+	import Wheels from '$lib/Wheels.svelte'
 
 	const defaultTransform = { translate: { x: 375 / 2, y: 120 }, scale: 1.5, rotate: 0 }
 
@@ -13,13 +14,14 @@
 {#each sizes as size}
 	<div class="showcase" style="--column-size: {size}">
 		<Body name="boxy">
-			<Decal name="star" transform={defaultTransform} />
+			<Decal name="star" transform={defaultTransform} slot="decals" />
 		</Body>
 		<Body name="tanky">
-			<Decal name="heart" transform={defaultTransform} />
+			<Decal name="heart" transform={defaultTransform} slot="decals" />
+			<Wheels slot="wheels" rimColor="#94f20d" />
 		</Body>
 		<Body name="boxy">
-			<Decal name="circle" transform={defaultTransform} />
+			<Decal name="circle" transform={defaultTransform} slot="decals" />
 		</Body>
 	</div>
 {/each}
