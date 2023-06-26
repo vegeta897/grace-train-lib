@@ -19,7 +19,7 @@
 
 	const rimAnimationOptions: [Keyframe[], KeyframeAnimationOptions] = [
 		[{ strokeDashoffset: rimCircumference }, { strokeDashoffset: 0 }],
-		{ duration: 500, easing: 'ease-out' },
+		{ duration: 400, easing: 'ease-out' },
 	]
 
 	function onRimColorChange(color: string) {
