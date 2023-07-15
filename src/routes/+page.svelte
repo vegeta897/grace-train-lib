@@ -3,7 +3,7 @@
 	import Decal from '$lib/Decal.svelte'
 	import Wheels from '$lib/Wheels.svelte'
 	import WheelsChange from '$lib/WheelsChange.svelte'
-	import { onDestroy, onMount } from 'svelte'
+	import { onMount } from 'svelte'
 	import { COLORS } from '$lib/colors.js'
 
 	const defaultTransform = { translate: { x: 375 / 2, y: 120 }, scale: 1.5, rotate: 0 }
@@ -13,16 +13,15 @@
 	const changingRimColors = [COLORS.POP, '#94f20d']
 	let changingRimColor = changingRimColors[0]
 
-	let changingRimInterval: number
 	onMount(() => {
-		changingRimInterval = setInterval(() => {
+		const changingRimInterval = setInterval(() => {
 			changingRimColor =
 				changingRimColors[
 					(changingRimColors.indexOf(changingRimColor) + 1) % changingRimColors.length
 				]
 		}, 2000)
+		return () => clearInterval(changingRimInterval)
 	})
-	onDestroy(() => clearInterval(changingRimInterval))
 </script>
 
 <svelte:head>
