@@ -1,6 +1,6 @@
 {
 	"name": "grace-train-lib",
-	"version": "0.0.29",
+	"version": "0.0.30",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -24,7 +24,7 @@
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
-		"svelte": "^3.54.0"
+		"svelte": "^4.0.5"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.1.0",
