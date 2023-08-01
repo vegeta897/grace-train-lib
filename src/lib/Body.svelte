@@ -5,7 +5,8 @@
 	import TankerCar from './TankerCar.svelte'
 	import ContainerSvg from './ContainerSVG.svelte'
 
-	export type BodyName = keyof typeof COMPONENTS
+	export const BODY_NAMES = ['boxy', 'tanky'] as const
+	export type BodyName = (typeof BODY_NAMES)[number]
 	const COMPONENTS = {
 		boxy: BoxCar,
 		tanky: TankerCar,
@@ -32,6 +33,7 @@
 		<g clip-path="url(#{name}-decal-clip)" slot="decals">
 			<slot name="decals" />
 		</g>
+		<slot name="toppers" slot="toppers" />
 	</svelte:component>
 	<defs>
 		<clipPath id="{name}-decal-clip">

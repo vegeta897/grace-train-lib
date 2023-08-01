@@ -25,3 +25,4 @@
 		style="fill:{color}"
 	/>
 {/if}
+<slot name="toppers" />

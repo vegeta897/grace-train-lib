@@ -1,5 +1,6 @@
 <script lang="ts" context="module">
-	export type DecalName = keyof typeof PATH_DATA
+	export const DECAL_NAMES = ['star', 'heart', 'circle'] as const
+	export type DecalName = (typeof DECAL_NAMES)[number]
 	export type DecalTransitionProperty = 'transform' | 'opacity' | 'fill'
 	const PATH_DATA = {
 		star: 'M50,0l11.226,34.549l36.327,0l-29.389,21.353l11.225,34.549l-29.389,-21.353l-29.389,21.353l11.225,-34.549l-29.389,-21.353l36.327,0l11.226,-34.549Z',
@@ -10,13 +11,9 @@
 </script>
 
 <script lang="ts">
-	export let name: keyof typeof PATH_DATA
+	export let name: DecalName
 	export let fill = '#94f20d'
-	export let transform = {
-		translate: { x: 0, y: 0 },
-		scale: 1,
-		rotate: 0,
-	}
+	export let transform = { translate: { x: 0, y: 0 }, scale: 1, rotate: 0 }
 	export let transition:
 		| DecalTransitionProperty
 		| DecalTransitionProperty[]

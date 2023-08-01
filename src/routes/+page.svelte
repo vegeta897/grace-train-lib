@@ -1,8 +1,9 @@
 <script lang="ts">
-	import Body from '../lib/Body.svelte'
+	import Body from '$lib/Body.svelte'
 	import Decal from '$lib/Decal.svelte'
 	import Wheels from '$lib/Wheels.svelte'
 	import WheelsChange from '$lib/WheelsChange.svelte'
+	import Topper from '$lib/Topper.svelte'
 	import { onMount } from 'svelte'
 	import { COLORS } from '$lib/colors.js'
 
@@ -42,6 +43,12 @@
 		</Body>
 		<Body name="boxy">
 			<Decal name="circle" transform={defaultTransform} slot="decals" />
+			<Topper
+				colors={['#79f800', '#00adf8']}
+				name="party_hat"
+				transform={{ translate: { x: 20, y: -95 }, scale: 1, rotate: 0 }}
+				slot="toppers"
+			/>
 		</Body>
 	</div>
 {/each}
@@ -57,5 +64,6 @@
 		row-gap: 2rem;
 		column-gap: 2rem;
 		margin-bottom: 1rem;
+		padding-top: 3rem;
 	}
 </style>

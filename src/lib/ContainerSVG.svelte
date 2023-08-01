@@ -13,5 +13,6 @@
 		stroke-linecap: round;
 		stroke-linejoin: round;
 		stroke-width: 25px;
+		overflow: visible;
 	}
 </style>
