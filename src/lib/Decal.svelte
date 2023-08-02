@@ -13,7 +13,7 @@
 <script lang="ts">
 	export let name: DecalName
 	export let fill = '#94f20d'
-	export let transform = { translate: { x: 0, y: 0 }, scale: 1, rotate: 0 }
+	export let transform = { x: 0, y: 0, scale: 1, rotate: 0 }
 	export let transition:
 		| DecalTransitionProperty
 		| DecalTransitionProperty[]
@@ -25,15 +25,15 @@
 	// TODO: Export a property to toggle between "depot mode" and "overlay mode"
 	// Each mode will be optimized towards its use-case
 	/*
-  transform="rotate({rotate},{translate.x},{translate.y}) translate({translate.x -
-  50 * scale},{translate.y - 50 * scale}) scale({scale})"
+  transform="rotate({rotate},{x},{y}) translate({x -
+  50 * scale},{y - 50 * scale}) scale({scale})"
   */
 </script>
 
 <path
 	style:transform-origin="50px 50px"
-	style:transform="translate({transform.translate.x - 50}px,{transform.translate.y -
-		50}px) rotate({transform.rotate}deg) scale({transform.scale})"
+	style:transform="translate({transform.x - 50}px,{transform.y - 50}px) rotate({transform.rotate}deg)
+	scale({transform.scale})"
 	d={PATH_DATA[name]}
 	style:fill
 	style:transition-property={Array.isArray(transition)

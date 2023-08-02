@@ -14,14 +14,14 @@
 <script lang="ts">
 	export let name: TopperName
 	export let colors: string[]
-	export let transform = { translate: { x: 0, y: 0 }, scale: 1, rotate: 0 }
+	export let transform = { x: 0, y: 0, scale: 1, rotate: 0 }
 
 	$: colorVars = colors.map((c, i) => `--topper-color-${i + 1}: ${c}`).join(';')
 </script>
 
 <g
 	style={colorVars}
-	style:transform="translate({transform.translate.x}px,{transform.translate.y}px) rotate({transform.rotate}deg)
+	style:transform="translate({transform.x}px,{transform.y}px) rotate({transform.rotate}deg)
 	scale({transform.scale})"
 >
 	{#each SVG_DATA[name] as svgNode}

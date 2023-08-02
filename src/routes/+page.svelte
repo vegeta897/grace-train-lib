@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte'
 	import { COLORS } from '$lib/colors.js'
 
-	const defaultTransform = { translate: { x: 375 / 2, y: 120 }, scale: 1.5, rotate: 0 }
+	const defaultTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
 	const sizes = ['250px', '100px', '50px']
 
@@ -46,7 +46,7 @@
 			<Topper
 				colors={['#79f800', '#00adf8']}
 				name="party_hat"
-				transform={{ translate: { x: 20, y: -95 }, scale: 1, rotate: 0 }}
+				transform={{ x: 20, y: -95, scale: 1, rotate: 0 }}
 				slot="toppers"
 			/>
 		</Body>
