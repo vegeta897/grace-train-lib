@@ -20,20 +20,24 @@
 		| 'all'
 		| 'none' = 'none'
 
-	// TODO: Maybe use svg's transform when transitions aren't needed,
-	// because it might be more performant than a css transform
-	// TODO: Export a property to toggle between "depot mode" and "overlay mode"
-	// Each mode will be optimized towards its use-case
-	/*
-  transform="rotate({rotate},{x},{y}) translate({x -
-  50 * scale},{y - 50 * scale}) scale({scale})"
-  */
+	// Use svg transform prop when transition does not include transform
+	$: transitionTransform = transition === 'transform' || transition.includes('transform')
+	$: style = transitionTransform
+		? `transform-origin: 50px 50px; transform: translate(${transform.x - 50}px,${
+				transform.y - 50
+		  }px) rotate(${transform.rotate}deg)
+	scale(${transform.scale})`
+		: null
+	$: pathTransform = transitionTransform
+		? null
+		: `rotate(${transform.rotate},${transform.x},${transform.y}) translate(${
+				transform.x - 50 * transform.scale
+		  },${transform.y - 50 * transform.scale}) scale(${transform.scale})`
 </script>
 
 <path
-	style:transform-origin="50px 50px"
-	style:transform="translate({transform.x - 50}px,{transform.y - 50}px) rotate({transform.rotate}deg)
-	scale({transform.scale})"
+	{style}
+	transform={pathTransform}
 	d={PATH_DATA[name]}
 	style:fill
 	style:transition-property={Array.isArray(transition)
