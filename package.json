@@ -1,6 +1,6 @@
 {
 	"name": "grace-train-lib",
-	"version": "0.0.33",
+	"version": "0.0.34",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -28,16 +28,16 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.1.0",
-		"@sveltejs/kit": "^1.22.4",
-		"@sveltejs/package": "^2.2.0",
-		"prettier": "^3.0.0",
+		"@sveltejs/kit": "^1.22.5",
+		"@sveltejs/package": "^2.2.1",
+		"prettier": "^3.0.1",
 		"prettier-plugin-svelte": "^3.0.3",
 		"publint": "^0.2.0",
-		"svelte": "^4.1.2",
-		"svelte-check": "^3.4.6",
+		"svelte": "^4.2.0",
+		"svelte-check": "^3.5.0",
 		"tslib": "^2.6.1",
 		"typescript": "^5.1.6",
-		"vite": "^4.4.8"
+		"vite": "^4.4.9"
 	},
 	"types": "./dist/index.d.ts",
 	"type": "module",
