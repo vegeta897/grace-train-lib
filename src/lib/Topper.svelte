@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-	export const TOPPER_NAMES = ['party_hat']
+	export const TOPPER_NAMES = ['party_hat'] as const
 	export type TopperName = (typeof TOPPER_NAMES)[number]
 	export type TopperPosition = [x: number, y: number, rotate?: number]
 
