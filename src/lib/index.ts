@@ -14,7 +14,12 @@ export { COLORS } from './colors.js'
 export { default as ContainerSvg } from './ContainerSVG.svelte'
 export { default as Wheels } from './Wheels.svelte'
 export { default as WheelsChange } from './WheelsChange.svelte'
-export { default as Topper } from './Topper.svelte'
+export {
+	default as Topper,
+	TOPPER_NAMES,
+	type TopperName,
+	type TopperPosition,
+} from './Topper.svelte'
 
 // Maybe export these as properties of objects
 // Like an object for bodies, an object for decals, etc

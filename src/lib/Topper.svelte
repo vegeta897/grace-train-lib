@@ -1,8 +1,12 @@
 <script lang="ts" context="module">
-	export type TopperName = keyof typeof SVG_DATA
+	export const TOPPER_NAMES = ['party_hat']
+	export type TopperName = (typeof TOPPER_NAMES)[number]
 	export type TopperPosition = [x: number, y: number, rotate?: number]
 
-	const SVG_DATA = {
+	const SVG_DATA: Record<
+		TopperName,
+		{ svgNodes: string[]; origin: { x: number; y: number } }
+	> = {
 		party_hat: {
 			svgNodes: [
 				'<path d="M12.533,116.534c23.039,9.04 46.445,9.623 70.294,-0l-34.073,-104.001l-36.221,104.001Z" style="fill:#79f800;stroke:var(--topper-color-1);stroke-width:25px;"/>',
@@ -12,7 +16,7 @@
 			],
 			origin: { x: 48, y: 120 },
 		},
-	} as const
+	}
 </script>
 
 <script lang="ts">
