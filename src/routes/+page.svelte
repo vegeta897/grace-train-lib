@@ -15,13 +15,13 @@
 	let changingRimColor = changingRimColors[0]
 
 	onMount(() => {
-		const changingRimInterval = setInterval(() => {
-			changingRimColor =
-				changingRimColors[
-					(changingRimColors.indexOf(changingRimColor) + 1) % changingRimColors.length
-				]
-		}, 2000)
-		return () => clearInterval(changingRimInterval)
+		// const changingRimInterval = setInterval(() => {
+		// 	changingRimColor =
+		// 		changingRimColors[
+		// 			(changingRimColors.indexOf(changingRimColor) + 1) % changingRimColors.length
+		// 		]
+		// }, 2000)
+		// return () => clearInterval(changingRimInterval)
 	})
 </script>
 
@@ -35,6 +35,14 @@
 		</Body>
 		<Body name="tanky">
 			<Decal name="heart" transform={defaultTransform} slot="decals" />
+			<svelte:fragment slot="toppers" let:positions>
+				<Topper
+					position={positions[0]}
+					colors={['#79f800', '#00adf8']}
+					name="party_hat"
+					adjust={{ x: 0, y: 0, scale: 1, rotate: 0 }}
+				/>
+			</svelte:fragment>
 			<Wheels slot="wheels" rimColor="#94f20d" />
 		</Body>
 		<Body name="tanky">
@@ -43,19 +51,13 @@
 		</Body>
 		<Body name="boxy">
 			<Decal name="circle" transform={defaultTransform} slot="decals" />
-			<Topper
-				colors={['#79f800', '#00adf8']}
-				name="party_hat"
-				transform={{ x: 20, y: -95, scale: 1, rotate: 0 }}
-				slot="toppers"
-			/>
 		</Body>
 	</div>
 {/each}
 
 <style>
 	:global(html) {
-		background: #29185e;
+		background: #1d124a;
 		padding: 1rem;
 	}
 	.showcase {
