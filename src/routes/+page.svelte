@@ -66,6 +66,5 @@
 		row-gap: 2rem;
 		column-gap: 2rem;
 		margin-bottom: 1rem;
-		padding-top: 3rem;
 	}
 </style>

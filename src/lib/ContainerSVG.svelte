@@ -1,7 +1,7 @@
 <script lang="ts">
 	let className = ''
 	export { className as class }
-	export let viewBox = '0 0 375 300'
+	export let viewBox = '-20 -80 415 380'
 </script>
 
 <svg
