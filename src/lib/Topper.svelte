@@ -25,7 +25,7 @@
 	export let colors: string[]
 	export let position: number
 	export let topLine: XyTuple[]
-	export let height = 0
+	export let offset = 0
 	export let scale = 1
 	export let rotate = 0
 
@@ -45,7 +45,7 @@
 
 	$: xSpan = topLine[topLine.length - 1][0] - topLine[0][0]
 	$: x = topLine[0][0] + xSpan * Math.min(Math.max(position, 0), 1)
-	$: y = getYposition(x, topLine) + height
+	$: y = getYposition(x, topLine) - offset
 
 	// Will probably need this function in other components later
 	function replaceColors(node: string, colors: string[]) {
