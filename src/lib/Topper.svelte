@@ -1,7 +1,8 @@
 <script lang="ts" context="module">
 	export const TOPPER_NAMES = ['party_hat'] as const
 	export type TopperName = (typeof TOPPER_NAMES)[number]
-	export type TopperPosition = [x: number, y: number, rotate?: number]
+	export type XyTuple = [x: number, y: number]
+	import { sineInOut } from 'svelte/easing'
 
 	const SVG_DATA: Record<
 		TopperName,
@@ -22,14 +23,31 @@
 <script lang="ts">
 	export let name: TopperName
 	export let colors: string[]
-	export let position: TopperPosition
-	export let adjust = { x: 0, y: 0, scale: 1, rotate: 0 }
+	export let position: number
+	export let topLine: XyTuple[]
+	export let height = 0
+	export let scale = 1
+	export let rotate = 0
 
-	$: x = position[0] + adjust.x
-	$: y = position[1] + adjust.y
-	$: rotate = (position[2] ?? 0) + adjust.rotate
+	function getYposition(x: number, topLine: XyTuple[]) {
+		for (let i = 0; i < topLine.length; i++) {
+			const point = topLine[i]
+			if (point[0] === x) return point[1]
+			const nextPoint = topLine[i + 1]
+			if (x > point[0] && x < nextPoint[0]) {
+				const betweenPoints = sineInOut((x - point[0]) / (nextPoint[0] - point[0])) // YES!
+				const yDiff = nextPoint[1] - point[1]
+				return point[1] + yDiff * betweenPoints
+			}
+		}
+		return topLine[topLine.length - 1][1] // Should never return here
+	}
 
-	// Will probably need this in other components later
+	$: xSpan = topLine[topLine.length - 1][0] - topLine[0][0]
+	$: x = topLine[0][0] + xSpan * Math.min(Math.max(position, 0), 1)
+	$: y = getYposition(x, topLine) + height
+
+	// Will probably need this function in other components later
 	function replaceColors(node: string, colors: string[]) {
 		for (let i = 0; i < colors.length; i++) {
 			node = node.replace(new RegExp(`\\{${i + 1}\\}`, 'g'), colors[i])
@@ -42,8 +60,8 @@
 </script>
 
 <g
-	transform="rotate({rotate},{x},{y}) translate({x - data.origin.x * adjust.scale},{y -
-		data.origin.y * adjust.scale}) scale({adjust.scale})"
+	transform="rotate({rotate},{x},{y}) translate({x - data.origin.x * scale},{y -
+		data.origin.y * scale}) scale({scale})"
 >
 	{#each svgNodes as svgNode}
 		{@html svgNode}

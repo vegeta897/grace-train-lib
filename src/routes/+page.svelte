@@ -9,10 +9,12 @@
 
 	const defaultTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
-	const sizes = ['250px', '100px', '50px']
+	const sizes = ['300px', '150px', '50px']
 
 	const changingRimColors = [COLORS.POP, '#94f20d']
 	let changingRimColor = changingRimColors[0]
+
+	let topperPosition = 0.15
 
 	onMount(() => {
 		// const changingRimInterval = setInterval(() => {
@@ -22,6 +24,10 @@
 		// 		]
 		// }, 2000)
 		// return () => clearInterval(changingRimInterval)
+		// const topperInterval = setInterval(() => {
+		// 	topperPosition = (topperPosition + 0.005) % 1
+		// }, 30)
+		// return () => clearInterval(topperInterval)
 	})
 </script>
 
@@ -32,15 +38,27 @@
 	<div class="showcase" style="--column-size: {size}">
 		<Body name="boxy">
 			<Decal name="star" transform={defaultTransform} slot="decals" />
+			<svelte:fragment slot="toppers" let:topLine>
+				<Topper
+					{topLine}
+					position={topperPosition}
+					colors={['#79f800', '#00adf8']}
+					name="party_hat"
+					scale={1}
+					rotate={0}
+				/>
+			</svelte:fragment>
 		</Body>
 		<Body name="tanky">
 			<Decal name="heart" transform={defaultTransform} slot="decals" />
-			<svelte:fragment slot="toppers" let:positions>
+			<svelte:fragment slot="toppers" let:topLine>
 				<Topper
-					position={positions[0]}
-					colors={['#79f800', '#00adf8']}
+					{topLine}
+					position={topperPosition}
+					colors={['#00adf8', '#79f800']}
 					name="party_hat"
-					adjust={{ x: 0, y: 0, scale: 1, rotate: 0 }}
+					scale={1}
+					rotate={0}
 				/>
 			</svelte:fragment>
 			<Wheels slot="wheels" rimColor="#94f20d" />

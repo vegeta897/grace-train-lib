@@ -4,7 +4,7 @@
 	import BoxCar from './BoxCar.svelte'
 	import TankerCar from './TankerCar.svelte'
 	import ContainerSvg from './ContainerSVG.svelte'
-	import type { TopperPosition } from './Topper.svelte'
+	import type { XyTuple } from './Topper.svelte'
 
 	export const BODY_NAMES = ['boxy', 'tanky'] as const
 	export type BodyName = (typeof BODY_NAMES)[number]
@@ -18,24 +18,22 @@
 		tanky:
 			'M16.577,200c-8.597,-11.4 -16.577,-33.157 -16.577,-74.652c0,-90.642 37.484,-87.849 37.503,-87.848l299.997,0c0.01,0 0.021,0 0.031,0c0,0 37.527,-2.726 37.527,87.5c-0,41.713 -7.98,63.564 -16.595,75l-341.886,0Z',
 	} as const
-	export const TOPPER_POSITIONS: Record<BodyName, TopperPosition[]> = {
+	const TOPPER_LINES: Record<BodyName, XyTuple[]> = {
 		boxy: [
-			[10, 26, -15],
-			[80, 25],
-			[145, 10, -30],
-			[187.5, 0],
-			[230, 10, 30],
-			[295, 25],
-			[365, 26, 15],
+			[12, 25],
+			[110, 25],
+			[160, 0],
+			[215, 0],
+			[265, 25],
+			[363, 25],
 		],
 		tanky: [
-			[28, 39, -15],
-			[87, 38],
-			[145, 12, -40],
-			[187.5, 0],
-			[230, 12, 40],
-			[288, 38],
-			[347, 39, 15],
+			[34, 38],
+			[107, 38],
+			[160, 0],
+			[215, 0],
+			[268, 38],
+			[341, 38],
 		],
 	}
 </script>
@@ -57,19 +55,11 @@
 		</g>
 		<!-- <slot name="toppers" slot="toppers" /> -->
 		<svelte:fragment slot="toppers">
-			<slot name="toppers" positions={TOPPER_POSITIONS[name]} />
+			<slot name="toppers" topLine={TOPPER_LINES[name]} />
 			<!-- TODO: Remove? Use an actual topper to test with -->
-			<!-- {#each TOPPER_POSITIONS[name] as [tpx, tpy, rotate = 0]}
-					<g transform="rotate({rotate},{tpx},{tpy})">
-						<circle cx={tpx} cy={tpy} r="3" fill="red"></circle>
-						<path
-							d="M{tpx - 10},{tpy} h20 l-10,-20 l-10,20"
-							fill="none"
-							stroke="red"
-							stroke-width="2"
-						/>
-					</g>
-				{/each} -->
+			<!-- {#each TOPPER_LINES[name] as [tpx, tpy]}
+				<circle cx={tpx} cy={tpy} r="3" fill="none" stroke-width="2" stroke="red" />
+			{/each} -->
 		</svelte:fragment>
 	</svelte:component>
 	<defs>

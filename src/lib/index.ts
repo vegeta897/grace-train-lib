@@ -18,7 +18,7 @@ export {
 	default as Topper,
 	TOPPER_NAMES,
 	type TopperName,
-	type TopperPosition,
+	type XyTuple,
 } from './Topper.svelte'
 
 // Maybe export these as properties of objects
