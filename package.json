@@ -1,6 +1,6 @@
 {
 	"name": "grace-train-lib",
-	"version": "0.0.44",
+	"version": "0.0.45",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -30,6 +30,7 @@
 		"@sveltejs/adapter-auto": "^2.1.0",
 		"@sveltejs/kit": "^1.22.6",
 		"@sveltejs/package": "^2.2.1",
+		"color2k": "^2.0.2",
 		"prettier": "^3.0.2",
 		"prettier-plugin-svelte": "^3.0.3",
 		"publint": "^0.2.0",

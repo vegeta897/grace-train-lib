@@ -1,5 +1,4 @@
 <script lang="ts" context="module">
-	import { COLORS } from './colors.js'
 	import Wheels from './Wheels.svelte'
 	import BoxCar from './BoxCar.svelte'
 	import TankerCar from './TankerCar.svelte'
@@ -40,13 +39,15 @@
 
 <script lang="ts">
 	export let name: BodyName
-	export let color: string | null = 'none'
+	export let baseColor: string | undefined = undefined
+	export let stripeColor: string | null = 'none'
 
-	$: _color = color === 'none' ? 'none' : color ? `${color}cc` : COLORS.BASE
+	$: _stripeColor =
+		stripeColor === 'none' ? 'none' : stripeColor ? `${stripeColor}cc` : undefined
 </script>
 
 <ContainerSvg>
-	<svelte:component this={COMPONENTS[name]} color={_color}>
+	<svelte:component this={COMPONENTS[name]} {baseColor} stripeColor={_stripeColor}>
 		<slot name="wheels" slot="wheels">
 			<Wheels />
 		</slot>

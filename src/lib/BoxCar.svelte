@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { COLORS } from './colors.js'
 
-	export let color: string = 'none'
+	export let baseColor: string = COLORS.BASE
+	export let stripeColor: string = 'none'
 </script>
 
 <rect x="162.5" y="12.5" width="50" height="25" style="fill:none;stroke:{COLORS.POP};" />
@@ -15,14 +16,14 @@
 <slot name="wheels" />
 <path
 	d="M37.5,212.5l-25,-175l350,0l-25,175l-300,0Z"
-	style="fill:{COLORS.BASE};stroke:{COLORS.BASE};"
+	style="fill:{baseColor};stroke:{baseColor};"
 />
 <slot name="decals" />
-<path d="M12.5,212.5l350,0" style="fill:none;stroke:{COLORS.BASE};" />
-{#if color !== 'none'}
+<path d="M12.5,212.5l350,0" style="fill:none;stroke:{baseColor};" />
+{#if stripeColor !== 'none'}
 	<path
 		d="M366.143,99.934l-357.286,0l8.144,56.945l340.998,0l8.144,-56.945Z"
-		style="fill:{color}"
+		style="fill:{stripeColor}"
 	/>
 {/if}
 <slot name="toppers" />
