@@ -5,13 +5,12 @@
 	import WheelsChange from '$lib/WheelsChange.svelte'
 	import Topper from '$lib/Topper.svelte'
 	import { onMount } from 'svelte'
-	import { COLORS } from '$lib/colors.js'
 
 	const defaultTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
 	const sizes = ['300px', '150px', '50px']
 
-	const changingRimColors = [COLORS.POP, '#94f20d']
+	const changingRimColors = [undefined, '#94f20d']
 	let changingRimColor = changingRimColors[0]
 
 	let topperPosition = 0.15
@@ -69,6 +68,7 @@
 		</Body>
 		<Body name="boxy">
 			<Decal name="circle" transform={defaultTransform} slot="decals" />
+			<Wheels slot="wheels" rimColor={undefined} />
 		</Body>
 	</div>
 {/each}
