@@ -68,7 +68,7 @@
 		</Body>
 		<Body name="boxy">
 			<Decal name="circle" transform={defaultTransform} slot="decals" />
-			<Wheels slot="wheels" rimColor={undefined} />
+			<Wheels slot="wheels" rimColor={changingRimColor} />
 		</Body>
 	</div>
 {/each}
