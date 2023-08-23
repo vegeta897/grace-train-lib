@@ -2,16 +2,20 @@
 	import { COLORS } from './colors.js'
 
 	export let baseColor: string = COLORS.BASE
+	export let popColor: string = COLORS.POP
 	export let stripeColor: string = 'none'
+
+	$: baseColor = baseColor || COLORS.BASE
+	$: popColor = popColor || COLORS.POP
 </script>
 
-<rect x="162.5" y="12.5" width="50" height="25" style="fill:none;stroke:{COLORS.POP};" />
+<rect x="162.5" y="12.5" width="50" height="25" style="fill:none;stroke:{popColor};" />
 <rect
 	x="37.5"
 	y="212.5"
 	width="300"
 	height="25"
-	style="fill:{COLORS.POP};stroke:{COLORS.POP};"
+	style="fill:{popColor};stroke:{popColor};"
 />
 <slot name="wheels" />
 <path

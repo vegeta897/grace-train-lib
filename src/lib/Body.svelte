@@ -40,6 +40,7 @@
 <script lang="ts">
 	export let name: BodyName
 	export let baseColor: string | undefined = undefined
+	export let popColor: string | undefined = undefined
 	export let stripeColor: string | null = 'none'
 
 	$: _stripeColor =
@@ -47,7 +48,12 @@
 </script>
 
 <ContainerSvg>
-	<svelte:component this={COMPONENTS[name]} {baseColor} stripeColor={_stripeColor}>
+	<svelte:component
+		this={COMPONENTS[name]}
+		{baseColor}
+		{popColor}
+		stripeColor={_stripeColor}
+	>
 		<slot name="wheels" slot="wheels">
 			<Wheels />
 		</slot>
