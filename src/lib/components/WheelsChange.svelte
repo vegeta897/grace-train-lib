@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { COLORS } from './colors.js'
+	import { COLORS } from '$lib/colors.js'
 	import Wheels from './Wheels.svelte'
 
 	export let rimColor = COLORS.POP

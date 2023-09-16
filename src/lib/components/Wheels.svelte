@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { COLORS } from './colors.js'
+	import { COLORS } from '$lib/colors.js'
 
 	export let rimColor = COLORS.POP
 	export let capColor = COLORS.BASE

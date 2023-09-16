@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Body from '$lib/Body.svelte'
-	import Decal from '$lib/Decal.svelte'
-	import Wheels from '$lib/Wheels.svelte'
-	import WheelsChange from '$lib/WheelsChange.svelte'
-	import Topper from '$lib/Topper.svelte'
+	import Body from '$lib/components/Body.svelte'
+	import Decal from '$lib/components/Decal.svelte'
+	import Wheels from '$lib/components/Wheels.svelte'
+	import WheelsChange from '$lib/components/WheelsChange.svelte'
+	import Topper from '$lib/components/Topper.svelte'
 	import { onMount } from 'svelte'
 
 	const defaultTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }

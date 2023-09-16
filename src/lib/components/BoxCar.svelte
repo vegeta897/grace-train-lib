@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { COLORS } from './colors.js'
+	import { COLORS } from '$lib/colors.js'
 
 	export let baseColor: string = COLORS.BASE
 	export let popColor: string = COLORS.POP
