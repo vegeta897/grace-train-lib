@@ -3,8 +3,8 @@
 	import { COLORS } from '$lib/colors.js'
 	import Wheels from './Wheels.svelte'
 
-	export let rimColor = COLORS.POP
-	export let capColor = COLORS.BASE
+	export let rimColor: string = COLORS.POP[1]
+	export let capColor: string = COLORS.BASE[3]
 	export let fromCenter = 100
 
 	let prevRimColor: string

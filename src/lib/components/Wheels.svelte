@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { COLORS } from '$lib/colors.js'
 
-	export let rimColor = COLORS.POP
-	export let capColor = COLORS.BASE
+	export let rimColor: string = COLORS.POP[1]
+	export let capColor: string = COLORS.BASE[3]
 	export let fromCenter = 100
 
 	// Note! Default values are not reverted to if undefined is passed in after init
-	$: rimColor = rimColor || COLORS.POP
-	$: capColor = capColor || COLORS.BASE
+	$: rimColor = rimColor || COLORS.POP[3]
+	$: capColor = capColor || COLORS.BASE[1]
 	$: fromCenter = fromCenter || 100
 </script>
 

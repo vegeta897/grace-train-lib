@@ -1,25 +1,22 @@
 <script lang="ts" context="module">
-	export const DECAL_NAMES = ['star', 'heart', 'circle'] as const
-	export type DecalName = (typeof DECAL_NAMES)[number]
 	export type DecalTransitionProperty = 'transform' | 'opacity' | 'fill'
-	const PATH_DATA = {
-		star: 'M50,0l11.226,34.549l36.327,0l-29.389,21.353l11.225,34.549l-29.389,-21.353l-29.389,21.353l11.225,-34.549l-29.389,-21.353l36.327,0l11.226,-34.549Z',
-		heart:
-			'M50,20c10.526,-20 31.579,-20 42.105,-10c10.527,10 10.527,30 0,50c-7.368,15 -26.316,30 -42.105,40c-15.79,-10 -34.737,-25 -42.105,-40c-10.527,-20 -10.527,-40 -0,-50c10.526,-10 31.579,-10 42.105,10Z',
-		circle: 'M0,50a50,50 0 1,0 100,0a50,50 0 1,0 -100,0Z',
-	} as const
 </script>
 
 <script lang="ts">
+	import { COLORS } from '$lib'
+	import { decal, type DecalName } from './decal'
+
 	export let name: DecalName
-	export let fill = '#94f20d'
+	export let fill = COLORS.POP[5]
 	export let transform = { x: 0, y: 0, scale: 1, rotate: 0 }
 	export let transition:
 		| DecalTransitionProperty
 		| DecalTransitionProperty[]
 		| 'all'
 		| 'none' = 'none'
+	export let params: (typeof decal)[typeof name]['params'] = []
 
+	$: paramsObject = Object.fromEntries(params.map((p) => [p[0], p[1].value]))
 	// Use svg transform prop when transition does not include transform
 	$: transitionTransform = transition === 'transform' || transition.includes('transform')
 	$: style = transitionTransform
@@ -35,16 +32,21 @@
 		  },${transform.y - 50 * transform.scale}) scale(${transform.scale})`
 </script>
 
-<path
+<g
 	{style}
 	transform={pathTransform}
-	d={PATH_DATA[name]}
-	style:fill
+	stroke-linecap="round"
+	stroke-linejoin="round"
+	stroke-width="25"
+	stroke={fill}
+	{fill}
 	style:transition-property={Array.isArray(transition)
 		? transition.join(',')
 		: transition}
 	class:transition-metrics={transition !== 'none'}
-/>
+>
+	<svelte:component this={decal[name].component} {...paramsObject}></svelte:component>
+</g>
 
 <style>
 	.transition-metrics {

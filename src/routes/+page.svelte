@@ -5,15 +5,23 @@
 	import WheelsChange from '$lib/components/WheelsChange.svelte'
 	import Topper from '$lib/components/Topper.svelte'
 	import { onMount } from 'svelte'
+	import ContainerSvg from '$lib/components/ContainerSVG.svelte'
+	import { COLORS } from '$lib'
+	import { decal, type DecalParam } from '$lib/components/decal'
+	import DecalParams from './DecalParams.svelte'
 
 	const defaultTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
-	const sizes = ['300px', '150px', '50px']
+	const columnSizes = ['300px', '150px', '50px']
 
-	const changingRimColors = [undefined, '#94f20d']
+	const changingRimColors = [undefined, COLORS.POP[5]]
 	let changingRimColor = changingRimColors[0]
 
 	let topperPosition = 0.15
+
+	let heartParams: DecalParam[] = decal.heart.params.map((p) => [p[0], { ...p[1] }])
+	let starParams: DecalParam[] = decal.star.params.map((p) => [p[0], { ...p[1] }])
+	let circleParams: DecalParam[] = decal.circle.params.map((p) => [p[0], { ...p[1] }])
 
 	onMount(() => {
 		// const changingRimInterval = setInterval(() => {
@@ -33,49 +41,71 @@
 <svelte:head>
 	<title>Grace Train Component Library</title>
 </svelte:head>
-{#each sizes as size}
+<DecalParams title="Heart Params" bind:params={heartParams} />
+<DecalParams title="Star Params" bind:params={starParams} />
+<DecalParams title="Circle Params" bind:params={circleParams} />
+{#each columnSizes as size}
 	<div class="showcase" style="--column-size: {size}">
-		<Body name="boxy">
-			<Decal name="star" transform={defaultTransform} slot="decals" />
-			<svelte:fragment slot="toppers" let:topLine>
-				<Topper
-					{topLine}
-					position={topperPosition}
-					colors={['#79f800', '#00adf8']}
-					name="party_hat"
-					scale={1}
-					rotate={0}
+		<ContainerSvg>
+			<Body name="boxy">
+				<Decal
+					name="circle"
+					params={circleParams}
+					transform={defaultTransform}
+					slot="decals"
 				/>
-			</svelte:fragment>
-		</Body>
-		<Body name="tanky">
-			<Decal name="heart" transform={defaultTransform} slot="decals" />
-			<svelte:fragment slot="toppers" let:topLine>
-				<Topper
-					{topLine}
-					position={topperPosition}
-					colors={['#00adf8', '#79f800']}
-					name="party_hat"
-					scale={1}
-					rotate={0}
+				<svelte:fragment slot="toppers" let:topLine>
+					<Topper
+						{topLine}
+						position={topperPosition}
+						colors={['#79f800', '#00adf8']}
+						name="party_hat"
+						scale={1}
+						rotate={0}
+					/>
+				</svelte:fragment>
+			</Body>
+		</ContainerSvg>
+		<ContainerSvg>
+			<Body name="tanky">
+				<Decal
+					name="heart"
+					params={heartParams}
+					transform={defaultTransform}
+					slot="decals"
 				/>
-			</svelte:fragment>
-			<Wheels slot="wheels" rimColor="#94f20d" />
-		</Body>
-		<Body name="tanky">
-			<Decal name="heart" transform={defaultTransform} slot="decals" />
-			<WheelsChange slot="wheels" rimColor={changingRimColor} />
-		</Body>
-		<Body name="boxy">
-			<Decal name="circle" transform={defaultTransform} slot="decals" />
-			<Wheels slot="wheels" rimColor={changingRimColor} />
-		</Body>
+				<svelte:fragment slot="toppers" let:topLine>
+					<Topper
+						{topLine}
+						position={topperPosition}
+						colors={['#00adf8', '#79f800']}
+						name="party_hat"
+						scale={1}
+						rotate={0}
+					/>
+				</svelte:fragment>
+				<Wheels slot="wheels" rimColor={COLORS.POP[5]} />
+			</Body>
+		</ContainerSvg>
+		<ContainerSvg>
+			<Body name="tanky">
+				<Decal
+					name="star"
+					params={starParams}
+					transform={defaultTransform}
+					slot="decals"
+				/>
+				<WheelsChange slot="wheels" rimColor={changingRimColor} />
+			</Body>
+		</ContainerSvg>
 	</div>
 {/each}
 
 <style>
 	:global(html) {
 		background: #1d124a;
+		color: #fff;
+		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 		padding: 1rem;
 	}
 	.showcase {

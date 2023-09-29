@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { COLORS } from '$lib/colors.js'
 
-	export let baseColor: string = COLORS.BASE
-	export let popColor: string = COLORS.POP
+	export let baseColor: string = COLORS.BASE[3]
+	export let popColor: string = COLORS.POP[1]
 	export let stripeColor: string = 'none'
 
-	$: baseColor = baseColor || COLORS.BASE
-	$: popColor = popColor || COLORS.POP
+	$: baseColor = baseColor || COLORS.BASE[3]
+	$: popColor = popColor || COLORS.POP[1]
 </script>
 
 <rect
@@ -27,10 +27,24 @@
 />
 <slot name="wheels" />
 <path
-	d="M37.5,200c0,0 -25,0 -25,-75c0,-75 25,-75 25,-75l300,0c0,0 25,0 25,75c-0,75 -25,75 -25,75l-300,-0Z"
+	d="M37.5,212.5l-25,-175l350,0l-25,175l-300,0Z"
 	class="color-transition"
 	style="fill:{baseColor};stroke:{baseColor};"
 />
+<mask
+	id="boxy_decal_mask"
+	y="25"
+	x="0"
+	width="375"
+	height="175"
+	maskUnits="userSpaceOnUse"
+>
+	<path
+		d="M37.5,212.5l-25,-175l350,0l-25,175l-300,0Z"
+		class="color-transition"
+		style="fill:#fff;stroke:#fff;"
+	/>
+</mask>
 <slot name="decals" />
 <path
 	d="M12.5,212.5l350,0"
@@ -39,7 +53,7 @@
 />
 {#if stripeColor !== 'none'}
 	<path
-		d="M374.044,99.934l-373.024,0c-0,0 -1.02,9.223 -1.02,28.473c0,15.457 1.763,28.472 1.763,28.472l371.616,0c0,0 1.663,-13.268 1.663,-28.472c0,-17.099 -0.998,-28.473 -0.998,-28.473Z"
+		d="M366.143,99.934l-357.286,0l8.144,56.945l340.998,0l8.144,-56.945Z"
 		style="fill:{stripeColor}"
 	/>
 {/if}
