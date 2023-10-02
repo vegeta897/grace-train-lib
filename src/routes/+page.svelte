@@ -7,8 +7,9 @@
 	import { onMount } from 'svelte'
 	import ContainerSvg from '$lib/components/ContainerSVG.svelte'
 	import { COLORS } from '$lib'
-	import { decal, type DecalParam } from '$lib/components/decal'
+	import { decalDefs } from '$lib/components/decal'
 	import DecalParams from './DecalParams.svelte'
+	import { getDefaultParamsObject } from '$lib/components/decal/params'
 
 	const defaultTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
@@ -19,9 +20,9 @@
 
 	let topperPosition = 0.15
 
-	let heartParams: DecalParam[] = decal.heart.params.map((p) => [p[0], { ...p[1] }])
-	let starParams: DecalParam[] = decal.star.params.map((p) => [p[0], { ...p[1] }])
-	let circleParams: DecalParam[] = decal.circle.params.map((p) => [p[0], { ...p[1] }])
+	let heartParams = getDefaultParamsObject(decalDefs.heart.paramConfig)
+	let starParams = getDefaultParamsObject(decalDefs.star.paramConfig)
+	let circleParams = getDefaultParamsObject(decalDefs.circle.paramConfig)
 
 	onMount(() => {
 		// const changingRimInterval = setInterval(() => {
@@ -41,9 +42,9 @@
 <svelte:head>
 	<title>Grace Train Component Library</title>
 </svelte:head>
-<DecalParams title="Heart Params" bind:params={heartParams} />
-<DecalParams title="Star Params" bind:params={starParams} />
-<DecalParams title="Circle Params" bind:params={circleParams} />
+<DecalParams decalName="heart" bind:params={heartParams} />
+<DecalParams decalName="star" bind:params={starParams} />
+<DecalParams decalName="circle" bind:params={circleParams} />
 {#each columnSizes as size}
 	<div class="showcase" style="--column-size: {size}">
 		<ContainerSvg>
@@ -53,6 +54,7 @@
 					params={circleParams}
 					transform={defaultTransform}
 					slot="decals"
+					animateAppear
 				/>
 				<svelte:fragment slot="toppers" let:topLine>
 					<Topper
@@ -73,6 +75,8 @@
 					params={heartParams}
 					transform={defaultTransform}
 					slot="decals"
+					animateAppear
+					delayAppear={100}
 				/>
 				<svelte:fragment slot="toppers" let:topLine>
 					<Topper
@@ -94,6 +98,8 @@
 					params={starParams}
 					transform={defaultTransform}
 					slot="decals"
+					animateAppear
+					delayAppear={200}
 				/>
 				<WheelsChange slot="wheels" rimColor={changingRimColor} />
 			</Body>

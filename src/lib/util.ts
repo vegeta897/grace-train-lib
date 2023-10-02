@@ -1,3 +1,5 @@
+import { backOut } from 'svelte/easing'
+
 type PathCommand = string | [string, number[][]]
 
 export function parsePathString(pathString: string): PathCommand[] {
@@ -47,4 +49,14 @@ export function transformPath(
 			),
 		]
 	})
+}
+
+export function popIn(node: Element, { delay, skip } = { delay: 0, skip: false }) {
+	if (skip) return {}
+	return {
+		duration: 300,
+		delay,
+		easing: backOut,
+		css: (t: number) => `opacity(${t}); transform: scale(${t})`,
+	}
 }

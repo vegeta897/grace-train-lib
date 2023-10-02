@@ -4,19 +4,24 @@
 
 <script lang="ts">
 	import { COLORS } from '$lib'
-	import { decal, type DecalName } from './decal'
+	import { popIn } from '$lib/util'
+	import type { DecalName } from './decal'
+	import { decalDefs } from './decal'
+	import type { ParamsObject } from './decal/params'
 
 	export let name: DecalName
-	export let fill = COLORS.POP[5]
+	export let fill: string = COLORS.POP[5]
 	export let transform = { x: 0, y: 0, scale: 1, rotate: 0 }
 	export let transition:
 		| DecalTransitionProperty
 		| DecalTransitionProperty[]
 		| 'all'
 		| 'none' = 'none'
-	export let params: (typeof decal)[typeof name]['params'] = []
+	export let params: ParamsObject
 
-	$: paramsObject = Object.fromEntries(params.map((p) => [p[0], p[1].value]))
+	export let animateAppear = false
+	export let delayAppear = 0
+
 	// Use svg transform prop when transition does not include transform
 	$: transitionTransform = transition === 'transform' || transition.includes('transform')
 	$: style = transitionTransform
@@ -45,7 +50,12 @@
 		: transition}
 	class:transition-metrics={transition !== 'none'}
 >
-	<svelte:component this={decal[name].component} {...paramsObject}></svelte:component>
+	<g
+		in:popIn|local={{ delay: delayAppear, skip: !animateAppear }}
+		style:transform-origin="50px 50px"
+	>
+		<svelte:component this={decalDefs[name].component} {params}></svelte:component>
+	</g>
 </g>
 
 <style>
