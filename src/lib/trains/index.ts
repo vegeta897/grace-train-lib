@@ -18,9 +18,9 @@ export type GraceTrainCar =
 	| string
 	| {
 			body: BodyName
-			bodyColor: string
-			bodyPopColor: string
-			wheelColor: string
+			bodyColor?: string
+			bodyPopColor?: string
+			wheelColor?: string
 			wheelFromCenter: string
 			decals: {
 				name: DecalName
