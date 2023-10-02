@@ -1,3 +1,5 @@
+import type { BodyName, DecalName, ParamsObject, TopperName } from '$lib/components'
+
 export type GraceEventBaseData = {
 	combo: number
 	score: number
@@ -11,10 +13,37 @@ export type HypeEventBaseData = {
 	graces: number
 }
 
+// TODO: Create (de)serializer functions?
+export type GraceTrainCar =
+	| string
+	| {
+			body: BodyName
+			bodyColor: string
+			bodyPopColor: string
+			wheelColor: string
+			wheelFromCenter: string
+			decals: {
+				name: DecalName
+				x: number
+				y: number
+				scale: number
+				rotate: number
+				params: ParamsObject
+			}[]
+			toppers: {
+				name: TopperName
+				colors: string[]
+				position: number
+				offset: number
+				scale: number
+				rotate: number
+			}[]
+	  }
+
 export type GraceTrainData = {
-	grace: GraceEventBaseData & { colors: string[]; frog?: boolean }
+	grace: GraceEventBaseData & { cars: GraceTrainCar[]; frog?: boolean }
 }
-export type GraceTrainAddData = { grace: GraceEventBaseData & { color: string } }
+export type GraceTrainAddData = { grace: GraceEventBaseData & { car: GraceTrainCar } }
 export type GraceTrainEndData = { grace: GraceEventBaseData & { username: string } }
 export type HypeTrainData = {
 	hype: HypeEventBaseData & { contributions: HypeProgress[] }
