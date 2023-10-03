@@ -11,7 +11,7 @@
 	import DecalParams from './DecalParams.svelte'
 	import { getDefaultParamsObject } from '$lib/components/decal/params'
 
-	const defaultTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
+	const decalTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
 	const columnSizes = ['300px', '150px', '50px']
 
@@ -52,7 +52,7 @@
 				<Decal
 					name="circle"
 					params={circleParams}
-					transform={defaultTransform}
+					{...decalTransform}
 					slot="decals"
 					animateAppear
 				/>
@@ -73,7 +73,7 @@
 				<Decal
 					name="heart"
 					params={heartParams}
-					transform={defaultTransform}
+					{...decalTransform}
 					slot="decals"
 					animateAppear
 					delayAppear={100}
@@ -96,7 +96,7 @@
 				<Decal
 					name="star"
 					params={starParams}
-					transform={defaultTransform}
+					{...decalTransform}
 					slot="decals"
 					animateAppear
 					delayAppear={200}

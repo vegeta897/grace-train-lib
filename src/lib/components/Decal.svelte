@@ -11,7 +11,10 @@
 
 	export let name: DecalName
 	export let fill: string = COLORS.POP[5]
-	export let transform = { x: 0, y: 0, scale: 1, rotate: 0 }
+	export let x = 0
+	export let y = 0
+	export let scale = 1
+	export let rotate = 0
 	export let transition:
 		| DecalTransitionProperty
 		| DecalTransitionProperty[]
@@ -25,16 +28,16 @@
 	// Use svg transform prop when transition does not include transform
 	$: transitionTransform = transition === 'transform' || transition.includes('transform')
 	$: style = transitionTransform
-		? `transform-origin: 50px 50px; transform: translate(${transform.x - 50}px,${
-				transform.y - 50
-		  }px) rotate(${transform.rotate}deg)
-	scale(${transform.scale})`
+		? `transform-origin: 50px 50px; transform: translate(${x - 50}px,${
+				y - 50
+		  }px) rotate(${rotate}deg)
+	scale(${scale})`
 		: null
 	$: pathTransform = transitionTransform
 		? null
-		: `rotate(${transform.rotate},${transform.x},${transform.y}) translate(${
-				transform.x - 50 * transform.scale
-		  },${transform.y - 50 * transform.scale}) scale(${transform.scale})`
+		: `rotate(${rotate},${x},${y}) translate(${x - 50 * scale},${
+				y - 50 * scale
+		  }) scale(${scale})`
 </script>
 
 <g

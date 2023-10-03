@@ -19,12 +19,10 @@
 					<Decal
 						name={decal.name}
 						fill={decal.fill}
-						transform={{
-							x: decal.x,
-							y: decal.y,
-							scale: decal.scale,
-							rotate: decal.rotate,
-						}}
+						x={decal.x}
+						y={decal.y}
+						scale={decal.scale}
+						rotate={decal.rotate}
 						params={decal.params}
 					/>
 				{/each}
