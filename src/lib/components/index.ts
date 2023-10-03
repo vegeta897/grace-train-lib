@@ -6,6 +6,7 @@ export { type ParamsObject, type ParamDefinition } from './decal/params.js'
 export { default as ContainerSvg } from './ContainerSVG.svelte'
 export { default as Wheels } from './Wheels.svelte'
 export { default as WheelsChange } from './WheelsChange.svelte'
+export { default as Car } from './Car.svelte'
 export {
 	default as Topper,
 	TOPPER_NAMES,
