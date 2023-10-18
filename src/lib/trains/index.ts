@@ -77,3 +77,19 @@ export type TrainWSMessage =
 	| { type: 'train-add'; data: TrainAddData }
 	| { type: 'train-end'; data: TrainEndData }
 	| { type: 'overlay'; data: OverlayOptions }
+
+type DepotTrainBaseRequest = {
+	trainId: number
+	score: number
+}
+
+export type DepotTrainStartRequest = DepotTrainBaseRequest & {
+	graces: { userId: string; color: string }[]
+}
+
+export type DepotTrainAddRequest = DepotTrainBaseRequest & {
+	index: number
+	grace: { userId: string; color: string }
+}
+
+export type DepotTrainEndRequest = DepotTrainBaseRequest
