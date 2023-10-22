@@ -41,7 +41,6 @@
 >
 	<path
 		d="M37.5,200c0,0 -25,0 -25,-75c0,-75 25,-75 25,-75l300,0c0,0 25,0 25,75c-0,75 -25,75 -25,75l-300,-0Z"
-		class="color-transition"
 		style="fill:#fff;stroke:#fff;"
 	/>
 </mask>
@@ -61,7 +60,7 @@
 
 <style>
 	.color-transition {
-		transition-property: fill stroke;
+		transition-property: fill, stroke;
 		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 		transition-duration: 150ms;
 	}

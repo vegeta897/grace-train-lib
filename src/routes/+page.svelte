@@ -24,7 +24,14 @@
 	let starParams = getDefaultParamsObject(decalDefs.star.paramConfig)
 	let circleParams = getDefaultParamsObject(decalDefs.circle.paramConfig)
 
+	let changingDecalFill: string = COLORS.POP[0]
+	let changingDecalFillIndex = 0
 	onMount(() => {
+		const changingDecalFillInterval = setInterval(() => {
+			changingDecalFillIndex = (changingDecalFillIndex + 1) % COLORS.POP.length
+			changingDecalFill = COLORS.POP[changingDecalFillIndex]
+		}, 1000)
+		return () => clearInterval(changingDecalFillInterval)
 		// const changingRimInterval = setInterval(() => {
 		// 	changingRimColor =
 		// 		changingRimColors[
@@ -51,6 +58,8 @@
 			<Body name="boxy">
 				<Decal
 					name="circle"
+					fill={changingDecalFill}
+					transition={['fill', 'stroke']}
 					params={circleParams}
 					{...decalTransform}
 					slot="decals"

@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-	export type DecalTransitionProperty = 'transform' | 'opacity' | 'fill'
+	export type DecalTransitionProperty = 'transform' | 'opacity' | 'fill' | 'stroke'
 </script>
 
 <script lang="ts">

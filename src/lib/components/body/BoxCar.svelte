@@ -39,11 +39,7 @@
 	height="175"
 	maskUnits="userSpaceOnUse"
 >
-	<path
-		d="M37.5,212.5l-25,-175l350,0l-25,175l-300,0Z"
-		class="color-transition"
-		style="fill:#fff;stroke:#fff;"
-	/>
+	<path d="M37.5,212.5l-25,-175l350,0l-25,175l-300,0Z" style="fill:#fff;stroke:#fff;" />
 </mask>
 <slot name="decals" />
 <path
@@ -61,7 +57,7 @@
 
 <style>
 	.color-transition {
-		transition-property: fill stroke;
+		transition-property: fill, stroke;
 		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 		transition-duration: 150ms;
 	}

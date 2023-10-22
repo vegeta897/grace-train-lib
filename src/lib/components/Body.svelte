@@ -19,6 +19,7 @@
 		<Wheels />
 	</slot>
 	<!-- <g clip-path="url(#{name}-decal-clip)" slot="decals"> -->
+	<!-- TODO: Masked decals look kinda blurry, find out how to increase resolution -->
 	<g mask="url(#{name}_decal_mask)" slot="decals">
 		<slot name="decals" />
 	</g>
