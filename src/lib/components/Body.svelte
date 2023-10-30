@@ -18,9 +18,9 @@
 	<slot name="wheels" slot="wheels">
 		<Wheels />
 	</slot>
-	<!-- <g clip-path="url(#{name}-decal-clip)" slot="decals"> -->
-	<!-- TODO: Masked decals look kinda blurry, find out how to increase resolution -->
-	<g mask="url(#{name}_decal_mask)" slot="decals">
+	<!-- Clip paths work on elements with strokes! -->
+	<!-- The clip path itself ignores its own stroke, but we don't care! -->
+	<g clip-path="url(#{name}-decal-clip)" slot="decals">
 		<slot name="decals" />
 	</g>
 	<!-- <slot name="toppers" slot="toppers" /> -->

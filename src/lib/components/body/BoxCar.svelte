@@ -31,16 +31,6 @@
 	class="color-transition"
 	style="fill:{baseColor};stroke:{baseColor};"
 />
-<mask
-	id="boxy_decal_mask"
-	y="25"
-	x="0"
-	width="375"
-	height="175"
-	maskUnits="userSpaceOnUse"
->
-	<path d="M37.5,212.5l-25,-175l350,0l-25,175l-300,0Z" style="fill:#fff;stroke:#fff;" />
-</mask>
 <slot name="decals" />
 <path
 	d="M12.5,212.5l350,0"

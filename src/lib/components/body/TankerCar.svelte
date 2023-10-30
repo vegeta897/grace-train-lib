@@ -31,19 +31,6 @@
 	class="color-transition"
 	style="fill:{baseColor};stroke:{baseColor};"
 />
-<mask
-	id="tanky_decal_mask"
-	y="37.5"
-	x="0"
-	width="375"
-	height="162.5"
-	maskUnits="userSpaceOnUse"
->
-	<path
-		d="M37.5,200c0,0 -25,0 -25,-75c0,-75 25,-75 25,-75l300,0c0,0 25,0 25,75c-0,75 -25,75 -25,75l-300,-0Z"
-		style="fill:#fff;stroke:#fff;"
-	/>
-</mask>
 <slot name="decals" />
 <path
 	d="M12.5,212.5l350,0"
