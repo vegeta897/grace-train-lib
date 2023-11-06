@@ -24,7 +24,7 @@
 <g>
 	{#key params.flag}
 		<g clip-path="url(#flag)">
-			<g in:wipe={{ duration: 200 }} out:noAnim={{ delay: 200 }}>
+			<g in:wipe={{ duration: 250 }} out:noAnim={{ delay: 250 }}>
 				{@html prideFlagData[params.flag]}
 			</g>
 		</g>

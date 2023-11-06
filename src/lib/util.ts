@@ -68,11 +68,10 @@ export function popIn(node: Element, { delay, skip } = { delay: 0, skip: false }
 	}
 }
 
-export function wipe(node: Element, { duration } = { duration: 1000 }) {
+export function wipe(node: Element, { duration } = { duration: 250 }) {
 	return {
 		duration,
 		easing: cubicOut,
-		// css: (t: number) => `clip-path: inset(0 ${(1 - t) * 100}px 0 0)`,
 		css: (t: number) => `clip-path: path("M-20,0 h${t * 120} l20,100 h-${t * 120} Z")`,
 	}
 }
