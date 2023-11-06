@@ -28,14 +28,7 @@
 
 	let changingDecalFill: string = COLORS.POP[0]
 	// let changingDecalFillIndex = 0
-	let changingFlagName: string = PRIDE_FLAGS[0]
-	let changingFlagIndex = 0
 	onMount(() => {
-		const changingFlagInterval = setInterval(() => {
-			changingFlagIndex = (changingFlagIndex + 1) % PRIDE_FLAGS.length
-			changingFlagName = PRIDE_FLAGS[changingFlagIndex]
-		}, 1000)
-		return () => clearInterval(changingFlagInterval)
 		// const changingDecalFillInterval = setInterval(() => {
 		// 	changingDecalFillIndex = (changingDecalFillIndex + 1) % COLORS.POP.length
 		// 	changingDecalFill = COLORS.POP[changingDecalFillIndex]
@@ -72,7 +65,7 @@
 			<Body name="boxy">
 				<Decal
 					name="flag"
-					params={{ flag: changingFlagName }}
+					params={{ flag }}
 					{...decalTransform}
 					rotate={0}
 					slot="decals"

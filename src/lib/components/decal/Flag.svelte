@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
 	import { defineStringList } from './params'
-	import { onMount } from 'svelte'
+	import { noAnim, wipe } from '$lib/util'
 	export const noFill = true
 	export const PRIDE_FLAGS = ['rainbow', 'trans', 'bi', 'lesbian', 'pan'] as const
 	export const paramConfig = [defineStringList('flag', [...PRIDE_FLAGS], 'rainbow')]
@@ -19,49 +19,17 @@
 <script lang="ts">
 	$$restProps // Captures "fill" prop so we don't get unknown prop warnings in console
 	export let params: { flag: string }
-
-	let prevFlag: string | null = null
-	let wipeAnimationElem: SVGAnimateElement
-
-	$: if (params.flag !== prevFlag) {
-		if (wipeAnimationElem) {
-			wipeAnimationElem?.beginElement()
-		} else {
-			prevFlag = params.flag
-		}
-	}
-
-	onMount(() =>
-		wipeAnimationElem.addEventListener('endEvent', () => (prevFlag = params.flag))
-	)
 </script>
 
 <g>
-	{#if prevFlag}
-		<g clip-path="url(#flag-static)" transform="translate(0.2 0.2) scale(0.995)">
-			{@html prideFlagData[prevFlag]}
+	{#key params.flag}
+		<g clip-path="url(#flag)">
+			<g in:wipe={{ duration: 200 }} out:noAnim={{ delay: 200 }}>
+				{@html prideFlagData[params.flag]}
+			</g>
 		</g>
-	{/if}
-	<g clip-path="url(#flag)">
-		{@html prideFlagData[params.flag]}
-	</g>
-	<clipPath id="flag-static">
-		<rect width="100" y="20" height="60" rx="10" />
-	</clipPath>
+	{/key}
 	<clipPath id="flag">
-		<rect clip-path="url(#flag-wipe)" width="100" y="20" height="60" rx="10" />
-	</clipPath>
-	<clipPath id="flag-wipe">
-		<rect width="120" y="20" x="-20" height="85" transform="rotate(-15)">
-			<animate
-				bind:this={wipeAnimationElem}
-				attributeName="width"
-				values="0;120"
-				keySplines="0 0.6 0.6 1;"
-				calcMode="spline"
-				dur="400ms"
-				restart="always"
-			/>
-		</rect>
+		<rect width="100" y="20" height="60" rx="10" />
 	</clipPath>
 </g>

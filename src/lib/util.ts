@@ -1,4 +1,4 @@
-import { backOut } from 'svelte/easing'
+import { backOut, cubicOut } from 'svelte/easing'
 
 type PathCommand = string | [string, number[][]]
 
@@ -51,6 +51,13 @@ export function transformPath(
 	})
 }
 
+export function noAnim(node: Element, { delay } = { delay: 0 }) {
+	return {
+		duration: 0,
+		delay,
+	}
+}
+
 export function popIn(node: Element, { delay, skip } = { delay: 0, skip: false }) {
 	if (skip) return {}
 	return {
@@ -58,5 +65,14 @@ export function popIn(node: Element, { delay, skip } = { delay: 0, skip: false }
 		delay,
 		easing: backOut,
 		css: (t: number) => `opacity(${t}); transform: scale(${t})`,
+	}
+}
+
+export function wipe(node: Element, { duration } = { duration: 1000 }) {
+	return {
+		duration,
+		easing: cubicOut,
+		// css: (t: number) => `clip-path: inset(0 ${(1 - t) * 100}px 0 0)`,
+		css: (t: number) => `clip-path: path("M-20,0 h${t * 120} l20,100 h-${t * 120} Z")`,
 	}
 }
