@@ -46,18 +46,16 @@
 	stroke-linecap="round"
 	stroke-linejoin="round"
 	stroke-width="25"
-	stroke={fill}
-	{fill}
 	style:transition-property={Array.isArray(transition)
 		? transition.join(',')
 		: transition}
 	class:transition-metrics={transition !== 'none'}
 >
 	<g
-		in:popIn|local={{ delay: delayAppear, skip: !animateAppear }}
+		in:popIn|global={{ delay: delayAppear, skip: !animateAppear }}
 		style:transform-origin="50px 50px"
 	>
-		<svelte:component this={decalDefs[name].component} {params}></svelte:component>
+		<svelte:component this={decalDefs[name].component} {fill} {params}></svelte:component>
 	</g>
 </g>
 

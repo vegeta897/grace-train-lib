@@ -5,6 +5,7 @@
 </script>
 
 <script lang="ts">
+	export let fill: string
 	export let params: { pinch: number; hollow: number }
 	$: rx = 50 - Math.max(0, params.pinch - 0.5) * 60
 	$: ry = 50 - Math.max(0, 0.5 - params.pinch) * 60
@@ -22,5 +23,6 @@
 	d="M50,{50 - ry} A{rx},{ry} 0 0,1 50,{50 + ry}A{rx},{ry} 0 0,1 50,{50 -
 		ry}Z{hollowPath}"
 	fill-rule="evenodd"
+	{fill}
 	stroke="none"
 />

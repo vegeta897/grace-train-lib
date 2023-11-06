@@ -18,6 +18,7 @@
 </script>
 
 <script lang="ts">
+	export let fill: string
 	export let params: { dip: number; taper: number; outline: boolean; strokeWidth: number }
 	$: strokeWidthPx = 10 + 10 * params.strokeWidth
 	$: d = stringifyPathCommands(
@@ -31,4 +32,4 @@
 	)
 </script>
 
-<path {d} stroke-width="{strokeWidthPx}px" fill={params.outline ? 'none' : undefined} />
+<path {d} stroke-width="{strokeWidthPx}px" fill={params.outline ? 'none' : fill} />

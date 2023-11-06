@@ -10,6 +10,7 @@
 	import { decalDefs } from '$lib/components/decal'
 	import DecalParams from './DecalParams.svelte'
 	import { getDefaultParamsObject } from '$lib/components/decal/params'
+	import { PRIDE_FLAGS } from '$lib/components/decal/Flag.svelte'
 
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
@@ -23,15 +24,23 @@
 	let heartParams = getDefaultParamsObject(decalDefs.heart.paramConfig)
 	let starParams = getDefaultParamsObject(decalDefs.star.paramConfig)
 	let circleParams = getDefaultParamsObject(decalDefs.circle.paramConfig)
+	let flag = 'rainbow'
 
 	let changingDecalFill: string = COLORS.POP[0]
-	let changingDecalFillIndex = 0
+	// let changingDecalFillIndex = 0
+	let changingFlagName: string = PRIDE_FLAGS[0]
+	let changingFlagIndex = 0
 	onMount(() => {
-		const changingDecalFillInterval = setInterval(() => {
-			changingDecalFillIndex = (changingDecalFillIndex + 1) % COLORS.POP.length
-			changingDecalFill = COLORS.POP[changingDecalFillIndex]
+		const changingFlagInterval = setInterval(() => {
+			changingFlagIndex = (changingFlagIndex + 1) % PRIDE_FLAGS.length
+			changingFlagName = PRIDE_FLAGS[changingFlagIndex]
 		}, 1000)
-		return () => clearInterval(changingDecalFillInterval)
+		return () => clearInterval(changingFlagInterval)
+		// const changingDecalFillInterval = setInterval(() => {
+		// 	changingDecalFillIndex = (changingDecalFillIndex + 1) % COLORS.POP.length
+		// 	changingDecalFill = COLORS.POP[changingDecalFillIndex]
+		// }, 1000)
+		// return () => clearInterval(changingDecalFillInterval)
 		// const changingRimInterval = setInterval(() => {
 		// 	changingRimColor =
 		// 		changingRimColors[
@@ -52,18 +61,21 @@
 <DecalParams decalName="heart" bind:params={heartParams} />
 <DecalParams decalName="star" bind:params={starParams} />
 <DecalParams decalName="circle" bind:params={circleParams} />
+<div>
+	{#each PRIDE_FLAGS as flagName}
+		<button on:click={() => (flag = flagName)}>{flagName}</button>
+	{/each}
+</div>
 {#each columnSizes as size}
 	<div class="showcase" style="--column-size: {size}">
 		<ContainerSvg>
 			<Body name="boxy">
 				<Decal
-					name="circle"
-					fill={changingDecalFill}
-					transition={['fill', 'stroke']}
-					params={circleParams}
+					name="flag"
+					params={{ flag: changingFlagName }}
 					{...decalTransform}
+					rotate={0}
 					slot="decals"
-					animateAppear
 				/>
 				<svelte:fragment slot="toppers" let:topLine>
 					<Topper
@@ -78,15 +90,53 @@
 			</Body>
 		</ContainerSvg>
 		<ContainerSvg>
-			<Body name="tanky">
-				<Decal
-					name="heart"
-					params={heartParams}
-					{...decalTransform}
-					slot="decals"
-					animateAppear
-					delayAppear={100}
-				/>
+			<Body name="boxy" baseColor={COLORS.BASE[0]}>
+				<svelte:fragment slot="decals">
+					<Decal
+						name="heart"
+						params={heartParams}
+						{...decalTransform}
+						scale={1.9398}
+						animateAppear
+						delayAppear={100}
+					/>
+					<Decal
+						name="star"
+						params={starParams}
+						{...decalTransform}
+						x={60}
+						y={200}
+						fill={COLORS.POP[3]}
+						rotate={30}
+						scale={1.9398}
+						animateAppear
+						delayAppear={100}
+					/>
+					<Decal
+						name="circle"
+						params={circleParams}
+						{...decalTransform}
+						x={360}
+						y={200}
+						fill={COLORS.POP[6]}
+						rotate={30}
+						scale={1.9398}
+						animateAppear
+						delayAppear={100}
+					/>
+					<Decal
+						name="star"
+						params={starParams}
+						{...decalTransform}
+						x={360}
+						y={50}
+						fill={COLORS.POP[5]}
+						rotate={30.005}
+						scale={1.9398}
+						animateAppear
+						delayAppear={100}
+					/>
+				</svelte:fragment>
 				<svelte:fragment slot="toppers" let:topLine>
 					<Topper
 						{topLine}
@@ -109,6 +159,20 @@
 					slot="decals"
 					animateAppear
 					delayAppear={200}
+				/>
+				<WheelsChange slot="wheels" rimColor={changingRimColor} />
+			</Body>
+		</ContainerSvg>
+		<ContainerSvg>
+			<Body name="tanky">
+				<Decal
+					name="circle"
+					fill={changingDecalFill}
+					transition={['fill', 'stroke']}
+					params={circleParams}
+					{...decalTransform}
+					slot="decals"
+					animateAppear
 				/>
 				<WheelsChange slot="wheels" rimColor={changingRimColor} />
 			</Body>
