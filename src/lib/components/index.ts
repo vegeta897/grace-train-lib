@@ -13,3 +13,4 @@ export {
 	type TopperName,
 	type XyTuple,
 } from './Topper.svelte'
+export { PRIDE_FLAGS } from './decal/Flag.svelte'

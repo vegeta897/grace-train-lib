@@ -22,4 +22,9 @@
 	$: d = stringifyPathCommands(lerpPath(pentagonPath, pinchPath, params.pinch))
 </script>
 
-<path {d} stroke-width="{strokeWidthPx}px" fill={params.outline ? 'none' : fill} />
+<path
+	{d}
+	stroke-width="{strokeWidthPx}px"
+	stroke={fill}
+	fill={params.outline ? 'none' : fill}
+/>
