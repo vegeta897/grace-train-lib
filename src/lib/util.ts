@@ -68,10 +68,38 @@ export function popIn(node: Element, { delay, skip } = { delay: 0, skip: false }
 	}
 }
 
-export function wipe(node: Element, { duration } = { duration: 250 }) {
+export function flagWipe(
+	node: Element,
+	{ duration, direction }: { duration?: number; direction?: 'down' | 'right' } = {}
+) {
 	return {
-		duration,
+		duration: duration ?? 250,
 		easing: cubicOut,
-		css: (t: number) => `clip-path: path("M-20,0 h${t * 120} l20,100 h-${t * 120} Z")`,
+		css: (t: number) =>
+			(direction || 'down') === 'right'
+				? // 0,0 is top left of flag
+				  `clip-path: path("M-10,0 h${t * 110} l10,60 h-${t * 110} Z")`
+				: `clip-path: path("M0,0 v${t * 70} l100,-10 v-${t * 70} Z")`,
 	}
 }
+
+// export function stickOn(node: Element, { duration } = { duration: 500 }) {
+// 	const copy = node.cloneNode(true) as Element
+// 	node.insertAdjacentElement('afterend', copy)
+// 	copy.style.filter = 'hue-rotate(30deg)'
+// 	copy.animate(
+// 		{
+// 			clipPath: ['path("M100,0 h-200 L100,200 Z")', 'path("M100,0 h0 L100,0 Z")'],
+// 			transform: [
+// 				'scaleX(-1) rotate(90deg) translate(100px,-100px)',
+// 				'scaleX(-1) rotate(90deg) translate(-100px,100px)',
+// 			],
+// 		},
+// 		{ duration, fill: 'both', easing: 'cubic-bezier(0.33, 1, 0.68, 1)' }
+// 	)
+// 	return {
+// 		duration,
+// 		easing: cubicOut,
+// 		css: (t: number) => `clip-path: path("M0,100 h${t * 200} L0,${100 - t * 200} Z")`,
+// 	}
+// }
