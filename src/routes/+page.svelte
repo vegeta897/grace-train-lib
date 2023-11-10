@@ -14,12 +14,12 @@
 
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
-	const columnSizes = ['300px', '150px', '50px']
+	const columnSizes = [900, 300 /*, 150*/, 100]
 
 	const changingRimColors = [undefined, COLORS.POP[5]]
 	let changingRimColor = changingRimColors[0]
 
-	let topperPosition = 0.15
+	let topperPosition = 0.8
 
 	let heartParams = getDefaultParamsObject(decalDefs.heart.paramConfig)
 	let starParams = getDefaultParamsObject(decalDefs.star.paramConfig)
@@ -60,24 +60,55 @@
 	{/each}
 </div>
 {#each columnSizes as size}
-	<div class="showcase" style="--column-size: {size}">
+	<div class="showcase" style="--column-size: {size}px">
 		<ContainerSvg>
 			<Body name="boxy">
-				<Decal
-					name="flag"
-					params={{ flag }}
-					{...decalTransform}
-					rotate={0}
-					slot="decals"
-				/>
-				<svelte:fragment slot="toppers" let:topLine>
-					<Topper
-						{topLine}
-						position={topperPosition}
-						colors={['#79f800', '#00adf8']}
-						name="party_hat"
-						scale={1}
+				<svelte:fragment slot="decals">
+					<!-- <Decal name="flag" params={{ flag }} {...decalTransform} rotate={0} /> -->
+					<!-- <Decal
+						name="arc"
+						params={{ piece: '90', lines: 4, thickness: 25 }}
+						{...decalTransform}
+						x={230}
+						y={110}
+						rotate={90}
+						scale={1.5}
+					/> -->
+					<Decal
+						name="arc"
+						params={{ piece: '90', lines: 3, thickness: 25 }}
+						{...decalTransform}
+						x={85}
+						y={160}
+						rotate={90}
+						scale={0.5}
+					/>
+					<Decal
+						name="arc"
+						params={{ piece: '90', lines: 3, thickness: 25 }}
+						{...decalTransform}
+						x={85}
+						y={160}
 						rotate={0}
+						scale={1}
+					/>
+					<!-- <Decal
+						name="arc"
+						params={{ piece: '90', lines: 3, thickness: 25 }}
+						{...decalTransform}
+						x={100}
+						y={85}
+						rotate={0}
+						scale={1}
+					/> -->
+					<Decal
+						name="arc"
+						params={{ piece: '90', lines: 3, thickness: 25 }}
+						{...decalTransform}
+						x={330}
+						y={45}
+						rotate={-90}
+						scale={3}
 					/>
 				</svelte:fragment>
 			</Body>

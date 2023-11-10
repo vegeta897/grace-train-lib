@@ -55,7 +55,8 @@
 		in:popIn|global={{ delay: delayAppear, skip: !animateAppear }}
 		style:transform-origin="50px 50px"
 	>
-		<svelte:component this={decalDefs[name].component} {fill} {params}></svelte:component>
+		<svelte:component this={decalDefs[name].component} {fill} {scale} {params}
+		></svelte:component>
 	</g>
 </g>
 

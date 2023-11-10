@@ -18,6 +18,7 @@
 </script>
 
 <script lang="ts">
+	$$restProps
 	export let fill: string
 	export let params: { dip: number; taper: number; outline: boolean; strokeWidth: number }
 	$: strokeWidthPx = 10 + 10 * params.strokeWidth

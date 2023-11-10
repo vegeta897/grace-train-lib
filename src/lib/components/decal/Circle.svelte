@@ -5,6 +5,7 @@
 </script>
 
 <script lang="ts">
+	$$restProps
 	export let fill: string
 	export let params: { pinch: number; hollow: number }
 	$: rx = 50 - Math.max(0, params.pinch - 0.5) * 60

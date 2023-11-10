@@ -4,6 +4,7 @@ export type ParamDefinition = {
 	| { type: 'scalar'; defaultValue: number }
 	| { type: 'toggle'; defaultValue: boolean }
 	| { type: 'stringList'; list: string[]; defaultValue: string }
+	| { type: 'numberList'; list: number[]; defaultValue: number }
 )
 export type ParamsObject = Record<string, any>
 
@@ -19,6 +20,19 @@ export function defineToggle(name: string, defaultValue = false): ParamDefinitio
 	return {
 		type: 'toggle',
 		name,
+		defaultValue,
+	}
+}
+
+export function defineNumberList<T extends number[]>(
+	name: string,
+	list: T,
+	defaultValue: T[number]
+): ParamDefinition {
+	return {
+		type: 'numberList',
+		name,
+		list,
 		defaultValue,
 	}
 }
