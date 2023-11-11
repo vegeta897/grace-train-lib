@@ -11,11 +11,11 @@
 	import DecalParams from './DecalParams.svelte'
 	import { getDefaultParamsObject } from '$lib/components/decal/params'
 	import { PRIDE_FLAGS } from '$lib/components/decal/Flag.svelte'
-	import { getArcEndpoints } from '$lib/components'
+	import type { ArcParams } from '$lib/components'
 
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
-	const columnSizes = [900, 300 /*, 150*/, 100]
+	const columnSizes = [900, 300, 150, 100]
 
 	const changingRimColors = [undefined, COLORS.POP[5]]
 	let changingRimColor = changingRimColors[0]
@@ -27,9 +27,8 @@
 	let circleParams = getDefaultParamsObject(decalDefs.circle.paramConfig)
 	let flag = 'rainbow'
 
-	const arcTransform = { x: 120, y: 140, rotate: 0, scale: 1.5 }
-	const arcParams = { piece: '90', lines: 3, thickness: 25 }
-	const snapPoints = getArcEndpoints({ ...arcTransform, ...arcParams })
+	const arcTransform = { x: 90, y: 180, rotate: 0, scale: 1 }
+	const arcParams: ArcParams = { thickness: 25 }
 
 	let changingDecalFill: string = COLORS.POP[0]
 	// let changingDecalFillIndex = 0
@@ -69,6 +68,38 @@
 		<ContainerSvg>
 			<Body name="boxy">
 				<svelte:fragment slot="decals">
+					<Decal
+						name="arc"
+						params={{
+							nodes: [
+								// { length: 2, noDraw: [0, 2] },
+								{ turnAngle: 90, length: 4 },
+								// { length: 1 },
+								// { turnAngle: -90, length: 2 },
+								// { turnAngle: -90, length: 1 },
+								// { length: 2, noDraw: [2] },
+								// { turnAngle: 90, length: 2 },
+								// { turnAngle: 90, length: 2 },
+								// { length: 2, noDraw: [0] },
+								// { turnAngle: 90, length: 5 },
+								// { turnAngle: -90, length: 3, noDraw: [1, 2] },
+								// { turnAngle: -90, length: 2 },
+								// { length: 2 },
+								// { turnAngle: 90, length: 1 },
+								// { length: 1 },
+								// { turnAngle: 90, length: 1 },
+								// { turnAngle: -90, length: 1 },
+								// { turnAngle: -90, length: 1 },
+								// { length: 2 },
+								// { turnAngle: -90, length: 1 },
+								// { length: 5 },
+								// { turnAngle: -90, length: 2 },
+							],
+							...arcParams,
+						}}
+						{...decalTransform}
+						{...arcTransform}
+					/>
 					<!-- <Decal name="flag" params={{ flag }} {...decalTransform} rotate={0} /> -->
 					<!-- <Decal
 						name="arc"
@@ -88,7 +119,6 @@
 						rotate={90}
 						scale={0.5}
 					/> -->
-					<Decal name="arc" params={arcParams} {...decalTransform} {...arcTransform} />
 					<!-- <Decal
 						name="arc"
 						params={{ piece: '90', lines: 3, thickness: 25 }}
@@ -107,9 +137,9 @@
 						rotate={-90}
 						scale={3}
 					/> -->
-					{#each snapPoints as point}
+					<!-- {#each snapPoints as point}
 						<circle cx={point.x} cy={point.y} r="1" />
-					{/each}
+					{/each} -->
 				</svelte:fragment>
 			</Body>
 		</ContainerSvg>
