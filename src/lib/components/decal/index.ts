@@ -31,3 +31,30 @@ export const decalDefs = {
 	flag: defineDecal(Flag),
 	arc: defineDecal(Arc),
 } as const
+
+// Converts relative decal x,y to global
+export function decalLocalToGlobal(
+	{
+		x: dx,
+		y: dy,
+		scale,
+		rotate,
+	}: {
+		x: number
+		y: number
+		scale: number
+		rotate: number
+	},
+	x: number,
+	y: number
+): { x: number; y: number } {
+	const radians = rotate * (Math.PI / 180)
+	const cos = Math.cos(radians)
+	const sin = Math.sin(radians)
+	const xDelta = (x - 50) * scale
+	const yDelta = (y - 50) * scale
+	return {
+		x: dx + xDelta * cos - yDelta * sin,
+		y: dy + xDelta * sin + yDelta * cos,
+	}
+}

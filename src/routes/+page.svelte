@@ -11,6 +11,7 @@
 	import DecalParams from './DecalParams.svelte'
 	import { getDefaultParamsObject } from '$lib/components/decal/params'
 	import { PRIDE_FLAGS } from '$lib/components/decal/Flag.svelte'
+	import { getArcEndpoints } from '$lib/components'
 
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
@@ -25,6 +26,10 @@
 	let starParams = getDefaultParamsObject(decalDefs.star.paramConfig)
 	let circleParams = getDefaultParamsObject(decalDefs.circle.paramConfig)
 	let flag = 'rainbow'
+
+	const arcTransform = { x: 120, y: 140, rotate: 0, scale: 1.5 }
+	const arcParams = { piece: '90', lines: 3, thickness: 25 }
+	const snapPoints = getArcEndpoints({ ...arcTransform, ...arcParams })
 
 	let changingDecalFill: string = COLORS.POP[0]
 	// let changingDecalFillIndex = 0
@@ -74,7 +79,7 @@
 						rotate={90}
 						scale={1.5}
 					/> -->
-					<Decal
+					<!-- <Decal
 						name="arc"
 						params={{ piece: '90', lines: 3, thickness: 25 }}
 						{...decalTransform}
@@ -82,16 +87,8 @@
 						y={160}
 						rotate={90}
 						scale={0.5}
-					/>
-					<Decal
-						name="arc"
-						params={{ piece: '90', lines: 3, thickness: 25 }}
-						{...decalTransform}
-						x={85}
-						y={160}
-						rotate={0}
-						scale={1}
-					/>
+					/> -->
+					<Decal name="arc" params={arcParams} {...decalTransform} {...arcTransform} />
 					<!-- <Decal
 						name="arc"
 						params={{ piece: '90', lines: 3, thickness: 25 }}
@@ -101,7 +98,7 @@
 						rotate={0}
 						scale={1}
 					/> -->
-					<Decal
+					<!-- <Decal
 						name="arc"
 						params={{ piece: '90', lines: 3, thickness: 25 }}
 						{...decalTransform}
@@ -109,7 +106,10 @@
 						y={45}
 						rotate={-90}
 						scale={3}
-					/>
+					/> -->
+					{#each snapPoints as point}
+						<circle cx={point.x} cy={point.y} r="1" />
+					{/each}
 				</svelte:fragment>
 			</Body>
 		</ContainerSvg>

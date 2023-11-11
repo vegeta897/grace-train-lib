@@ -1,5 +1,10 @@
 import { backOut, cubicOut } from 'svelte/easing'
 
+export function wrapNumber(val: number, min: number, max: number) {
+	const range = max - min
+	return min + ((((val - min) % range) + range) % range)
+}
+
 type PathCommand = string | [string, number[][]]
 
 export function parsePathString(pathString: string): PathCommand[] {
