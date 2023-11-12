@@ -5,14 +5,12 @@
 	import { defineNumberList } from './params'
 	import { linear } from 'svelte/easing'
 
-	// TODO: Rename to Stripes
-
 	const THICKNESS = 25
 	export const noFill = true
 	export function getBoundingBox() {
 		// TODO: All decals should have this, set up a default 100x100 in /decals/index.ts
 	}
-	export type ArcParams = { thickness: number }
+	export type StripesParams = { thickness: number }
 	export const paramConfig = [defineNumberList('thickness', [25, 50], 25)]
 
 	function angleToXY(angle: number) {

@@ -3,19 +3,26 @@ import * as Heart from './Heart.svelte'
 import * as Star from './Star.svelte'
 import * as Circle from './Circle.svelte'
 import * as Flag from './Flag.svelte'
-import * as Arc from './Arc.svelte'
-import { getDefaultParamsObject, type ParamDefinition } from './params'
+import * as Stripes from './Stripes.svelte'
+import { getDefaultParamsObject, type ParamDefinition, type ParamsObject } from './params'
 
-export const DECAL_NAMES = ['star', 'heart', 'circle', 'flag', 'arc'] as const
+export const DECAL_NAMES = ['star', 'heart', 'circle', 'flag', 'stripes'] as const
 export type DecalName = (typeof DECAL_NAMES)[number]
 
 // TODO: Abstract params stuff to be used for body and topper as well
+
+type DecalDef = {
+	component: ComponentType<SvelteComponent>
+	paramConfig: ParamDefinition[]
+	noFill: boolean
+	getDefaultParamsObject: () => ParamsObject
+}
 
 function defineDecal(importObject: {
 	default: ComponentType<SvelteComponent>
 	paramConfig?: ParamDefinition[]
 	noFill?: boolean
-}) {
+}): DecalDef {
 	return {
 		component: importObject.default,
 		paramConfig: importObject.paramConfig || [],
@@ -24,12 +31,12 @@ function defineDecal(importObject: {
 	}
 }
 
-export const decalDefs = {
+export const decalDefs: Record<DecalName, DecalDef> = {
 	heart: defineDecal(Heart),
 	star: defineDecal(Star),
 	circle: defineDecal(Circle),
 	flag: defineDecal(Flag),
-	arc: defineDecal(Arc),
+	stripes: defineDecal(Stripes),
 } as const
 
 // Converts relative decal x,y to global

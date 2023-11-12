@@ -11,7 +11,7 @@
 	import DecalParams from './DecalParams.svelte'
 	import { getDefaultParamsObject } from '$lib/components/decal/params'
 	import { PRIDE_FLAGS } from '$lib/components/decal/Flag.svelte'
-	import type { ArcParams } from '$lib/components'
+	import type { StripesParams } from '$lib/components'
 	import { colorRun } from '$lib/colors'
 
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
@@ -28,9 +28,9 @@
 	let circleParams = getDefaultParamsObject(decalDefs.circle.paramConfig)
 	let flag = 'rainbow'
 
-	const arcTransform = { x: 70, y: 150, rotate: 0, scale: 1 }
-	const arcParams: ArcParams = { thickness: 25 }
-	let showArc = true
+	const stripesTransform = { x: 70, y: 150, rotate: 0, scale: 1 }
+	const stripesParams: StripesParams = { thickness: 25 }
+	let showStripes = true
 
 	let changingDecalFill: string = COLORS.POP[0]
 	// let changingDecalFillIndex = 0
@@ -67,16 +67,16 @@
 </div>
 <label
 	>Draw stripes
-	<input type="checkbox" bind:checked={showArc} />
+	<input type="checkbox" bind:checked={showStripes} />
 </label>
 {#each columnSizes as size}
 	<div class="showcase" style="--column-size: {size}px">
 		<ContainerSvg>
 			<Body name="boxy">
 				<svelte:fragment slot="decals">
-					{#if showArc}
+					{#if showStripes}
 						<Decal
-							name="arc"
+							name="stripes"
 							params={{
 								nodes: [
 									{
@@ -98,49 +98,13 @@
 									},
 									{ length: 2, colors: colorRun('POP', 3, 3) },
 								],
-								...arcParams,
+								...stripesParams,
 							}}
 							{...decalTransform}
-							{...arcTransform}
+							{...stripesTransform}
 						/>
 					{/if}
 					<!-- <Decal name="flag" params={{ flag }} {...decalTransform} rotate={0} /> -->
-					<!-- <Decal
-						name="arc"
-						params={{ piece: '90', lines: 4, thickness: 25 }}
-						{...decalTransform}
-						x={230}
-						y={110}
-						rotate={90}
-						scale={1.5}
-					/> -->
-					<!-- <Decal
-						name="arc"
-						params={{ piece: '90', lines: 3, thickness: 25 }}
-						{...decalTransform}
-						x={85}
-						y={160}
-						rotate={90}
-						scale={0.5}
-					/> -->
-					<!-- <Decal
-						name="arc"
-						params={{ piece: '90', lines: 3, thickness: 25 }}
-						{...decalTransform}
-						x={100}
-						y={85}
-						rotate={0}
-						scale={1}
-					/> -->
-					<!-- <Decal
-						name="arc"
-						params={{ piece: '90', lines: 3, thickness: 25 }}
-						{...decalTransform}
-						x={330}
-						y={45}
-						rotate={-90}
-						scale={3}
-					/> -->
 					<!-- {#each snapPoints as point}
 						<circle cx={point.x} cy={point.y} r="1" />
 					{/each} -->
