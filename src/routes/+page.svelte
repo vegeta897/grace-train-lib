@@ -12,6 +12,7 @@
 	import { getDefaultParamsObject } from '$lib/components/decal/params'
 	import { PRIDE_FLAGS } from '$lib/components/decal/Flag.svelte'
 	import type { ArcParams } from '$lib/components'
+	import { colorRun } from '$lib/colors'
 
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
@@ -27,8 +28,9 @@
 	let circleParams = getDefaultParamsObject(decalDefs.circle.paramConfig)
 	let flag = 'rainbow'
 
-	const arcTransform = { x: 90, y: 180, rotate: 0, scale: 1 }
+	const arcTransform = { x: 70, y: 150, rotate: 0, scale: 1 }
 	const arcParams: ArcParams = { thickness: 25 }
+	let showArc = true
 
 	let changingDecalFill: string = COLORS.POP[0]
 	// let changingDecalFillIndex = 0
@@ -63,43 +65,45 @@
 		<button on:click={() => (flag = flagName)}>{flagName}</button>
 	{/each}
 </div>
+<label
+	>Draw stripes
+	<input type="checkbox" bind:checked={showArc} />
+</label>
 {#each columnSizes as size}
 	<div class="showcase" style="--column-size: {size}px">
 		<ContainerSvg>
 			<Body name="boxy">
 				<svelte:fragment slot="decals">
-					<Decal
-						name="arc"
-						params={{
-							nodes: [
-								// { length: 2, noDraw: [0, 2] },
-								{ turnAngle: 90, length: 4 },
-								// { length: 1 },
-								// { turnAngle: -90, length: 2 },
-								// { turnAngle: -90, length: 1 },
-								// { length: 2, noDraw: [2] },
-								// { turnAngle: 90, length: 2 },
-								// { turnAngle: 90, length: 2 },
-								// { length: 2, noDraw: [0] },
-								// { turnAngle: 90, length: 5 },
-								// { turnAngle: -90, length: 3, noDraw: [1, 2] },
-								// { turnAngle: -90, length: 2 },
-								// { length: 2 },
-								// { turnAngle: 90, length: 1 },
-								// { length: 1 },
-								// { turnAngle: 90, length: 1 },
-								// { turnAngle: -90, length: 1 },
-								// { turnAngle: -90, length: 1 },
-								// { length: 2 },
-								// { turnAngle: -90, length: 1 },
-								// { length: 5 },
-								// { turnAngle: -90, length: 2 },
-							],
-							...arcParams,
-						}}
-						{...decalTransform}
-						{...arcTransform}
-					/>
+					{#if showArc}
+						<Decal
+							name="arc"
+							params={{
+								nodes: [
+									{
+										length: 2,
+										colors: colorRun('POP', 1, 3) /*, noDraw: [0, 2]*/,
+									},
+									{ turnAngle: 90, length: 1, colors: colorRun('POP', 1, 3) },
+									{ length: 2, noDraw: [0, 2], colors: colorRun('POP', 1, 3) },
+									// { turnAngle: -90, length: 2 },
+									{ turnAngle: 90, length: 1, colors: colorRun('POP', 1, 3) },
+									// { turnAngle: 90, length: 2 },
+									// { turnAngle: 90, length: 5 },
+									{ turnAngle: -90, length: 2, colors: colorRun('POP', 2, 3) },
+									{
+										turnAngle: -90,
+										length: 2,
+										noDraw: [1],
+										colors: colorRun('POP', 2, 3),
+									},
+									{ length: 2, colors: colorRun('POP', 3, 3) },
+								],
+								...arcParams,
+							}}
+							{...decalTransform}
+							{...arcTransform}
+						/>
+					{/if}
 					<!-- <Decal name="flag" params={{ flag }} {...decalTransform} rotate={0} /> -->
 					<!-- <Decal
 						name="arc"

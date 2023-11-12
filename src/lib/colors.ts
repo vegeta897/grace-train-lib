@@ -12,3 +12,7 @@ export const COLORS = {
 	],
 	BASE: ['#ae1e81', '#9e2aa0', '#723bda', '#605de9', '#376dd8', '#2383b9'],
 } as const
+
+export function colorRun(palette: 'POP' | 'BASE', start: number, length: number) {
+	return COLORS[palette].slice(start, start + length)
+}
