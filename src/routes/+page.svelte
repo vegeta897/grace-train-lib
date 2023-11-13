@@ -28,9 +28,10 @@
 	let circleParams = getDefaultParamsObject(decalDefs.circle.paramConfig)
 	let flag = 'rainbow'
 
-	const stripesTransform = { x: 70, y: 150, rotate: 0, scale: 1 }
+	const stripesTransform = { x: 80, y: 120, rotate: 0, scale: 1 }
 	const stripesParams: StripesParams = { thickness: 25 }
 	let showStripes = true
+	let arcTurn = 60
 
 	let changingDecalFill: string = COLORS.POP[0]
 	// let changingDecalFillIndex = 0
@@ -69,6 +70,11 @@
 	>Draw stripes
 	<input type="checkbox" bind:checked={showStripes} />
 </label>
+<label>
+	Turn angle
+	<input type="range" min={15} max={180} step={15} bind:value={arcTurn} />
+</label>
+{arcTurn}
 {#each columnSizes as size}
 	<div class="showcase" style="--column-size: {size}px">
 		<ContainerSvg>
@@ -78,25 +84,16 @@
 						<Decal
 							name="stripes"
 							params={{
+								colors: colorRun('POP', 1, 3),
+								mixColors: colorRun('POP', 3, 3),
 								nodes: [
-									{
-										length: 2,
-										colors: colorRun('POP', 1, 3) /*, noDraw: [0, 2]*/,
-									},
-									{ turnAngle: 90, length: 1, colors: colorRun('POP', 1, 3) },
-									{ length: 2, noDraw: [0, 2], colors: colorRun('POP', 1, 3) },
-									// { turnAngle: -90, length: 2 },
-									{ turnAngle: 90, length: 1, colors: colorRun('POP', 1, 3) },
-									// { turnAngle: 90, length: 2 },
-									// { turnAngle: 90, length: 5 },
-									{ turnAngle: -90, length: 2, colors: colorRun('POP', 2, 3) },
-									{
-										turnAngle: -90,
-										length: 2,
-										noDraw: [1],
-										colors: colorRun('POP', 2, 3),
-									},
-									{ length: 2, colors: colorRun('POP', 3, 3) },
+									{ turn: arcTurn * 1.5 },
+									{ length: 2 },
+									{ turn: arcTurn * 1 },
+									{},
+									{ turn: arcTurn * -1.5 },
+									{ length: 2 },
+									{ turn: arcTurn * 1 },
 								],
 								...stripesParams,
 							}}

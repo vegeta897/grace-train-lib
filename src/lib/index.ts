@@ -1,1 +1,1 @@
-export { COLORS } from './colors.js'
+export { COLORS, colorRun } from './colors.js'
