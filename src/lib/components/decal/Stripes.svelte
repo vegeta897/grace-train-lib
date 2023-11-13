@@ -18,7 +18,7 @@
 	const getUnitCircleX = (angle: number) => Math.cos(degToRad(angle + 180))
 	const getUnitCircleY = (angle: number) => Math.sin(degToRad(angle + 180))
 
-	type Node = { turn?: number; length?: number; noDraw?: number[] }
+	type Node = [turn: number, length?: number, noDraw?: number[]]
 	// type Path = { d: string; stroke: string }
 	// type Gradient = { from: string; to: string; x: number; y: number; id: string }
 	function nodesToStripePaths(nodes: Node[]): string[] {
@@ -33,12 +33,14 @@
 		let lastY = 0
 		for (let n = 0; n < nodes.length; n++) {
 			const node = nodes[n]
-			const length = node.length || 1
-			const turn = node.turn || 0
-			const noDraw = node.noDraw || []
+			const turn = node[0] || 0
+			const length = node[1] || 1
+			const noDraw = node[2] || []
 			const toAngle = wrapNumber(lastAngle + turn, 0, 360)
 			const startX = getUnitCircleX(lastAngle)
 			const startY = getUnitCircleY(lastAngle)
+			// TODO: Since bounding box will be dynamic, change origin stripe to index 0
+			// And maybe allow custom stripe count
 			stripes.forEach((stripe, s) => {
 				if (noDraw.includes(s)) {
 					stripe.draw = false
