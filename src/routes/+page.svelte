@@ -28,7 +28,7 @@
 	let circleParams = getDefaultParamsObject(decalDefs.circle.paramConfig)
 	let flag = 'rainbow'
 
-	const stripesTransform = { x: 80, y: 120, rotate: 0, scale: 1 }
+	const stripesTransform = { x: 60, y: 190, rotate: 0, scale: 0.5 }
 	const stripesParams: StripesParams = { thickness: 25 }
 	let showStripes = true
 	let arcTurn = 60
@@ -87,13 +87,24 @@
 								colors: colorRun('POP', 1, 3),
 								mixColors: colorRun('POP', 3, 3),
 								nodes: [
-									[arcTurn * 1.5],
-									[0, 2],
+									[],
+									[arcTurn * 1, 2],
+									[0, 2, [0, 1, 2]],
+									[],
+									[0, 2, [0, 1, 2]],
+									[],
 									[arcTurn],
 									[],
 									[arcTurn * -1.5],
 									[0, 2],
-									[arcTurn],
+									[arcTurn * 1.75],
+									[],
+									[arcTurn * -1.5, 8],
+									[],
+									[0, 1, [0, 1, 2]],
+									[],
+									[0, 1, [0, 1, 2]],
+									[],
 								],
 								...stripesParams,
 							}}

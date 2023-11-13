@@ -21,35 +21,36 @@
 	type Node = [turn: number, length?: number, noDraw?: number[]]
 	// type Path = { d: string; stroke: string }
 	// type Gradient = { from: string; to: string; x: number; y: number; id: string }
-	function nodesToStripePaths(nodes: Node[]): string[] {
+	function nodesToStripePaths(nodes: Node[], stripeCount = 3): string[] {
+		const outsideRadius = stripeCount - 1
 		const firstNode = nodes[0]
 		if (!firstNode) return []
-		const stripes: { pathData: string; draw: boolean }[] = [0, 0, 0].map((_, s) => ({
-			pathData: `M${ORIGIN_X + (s - 1) * THICKNESS} ${ORIGIN_Y}`,
-			draw: true,
-		}))
+		const stripes: { pathData: string; draw: boolean }[] = Array.from(
+			{ length: stripeCount },
+			(_, s) => ({
+				pathData: `M${ORIGIN_X - s * THICKNESS} ${ORIGIN_Y}`,
+				draw: true,
+			})
+		)
 		let lastAngle = 0
 		let lastX = 0
 		let lastY = 0
 		for (let n = 0; n < nodes.length; n++) {
 			const node = nodes[n]
 			const turn = node[0] || 0
-			const length = node[1] || 1
+			const length = node[1] || 0
 			const noDraw = node[2] || []
-			const toAngle = wrapNumber(lastAngle + turn, 0, 360)
 			const startX = getUnitCircleX(lastAngle)
 			const startY = getUnitCircleY(lastAngle)
-			// TODO: Since bounding box will be dynamic, change origin stripe to index 0
-			// And maybe allow custom stripe count
 			stripes.forEach((stripe, s) => {
 				if (noDraw.includes(s)) {
 					stripe.draw = false
 				} else if (!stripe.draw) {
 					// Start or resume stripe with a new path
-					;(stripe.pathData += ` M${ORIGIN_X + (lastX - (s - 1) * startX) * THICKNESS} ${
-						ORIGIN_Y + (lastY - (s - 1) * startY) * THICKNESS
-					}`),
-						(stripe.draw = true)
+					stripe.pathData += ` M${ORIGIN_X + (lastX + s * startX) * THICKNESS} ${
+						ORIGIN_Y + (lastY + s * startY) * THICKNESS
+					}`
+					stripe.draw = true
 				}
 			})
 			if (turn === 0) {
@@ -69,13 +70,15 @@
 				const side = Math.sign(turn) // Turning left or right
 				const sweepFlag = side < 0 ? 0 : 1
 				const largeArcFlag = Math.abs(turn) > 180 ? 1 : 0
-				const deltaX = getUnitCircleX(toAngle) - startX
-				const deltaY = getUnitCircleY(toAngle) - startY
-				lastX += length * side * deltaX
-				lastY += length * side * deltaY
+				const toAngle = wrapNumber(lastAngle + turn, 0, 360)
+				lastAngle = toAngle
+				const deltaX = (getUnitCircleX(toAngle) - startX) * side
+				const deltaY = (getUnitCircleY(toAngle) - startY) * side
+				lastX += (length + (side < 0 ? outsideRadius : 0)) * deltaX
+				lastY += (length + (side < 0 ? outsideRadius : 0)) * deltaY
 				stripes.forEach((stripe, s) => {
 					if (!stripe.draw) return
-					const radius = (length - (s - 1) * side) * THICKNESS * side
+					const radius = (length + (side < 0 ? outsideRadius - s : s)) * THICKNESS
 					let arcToX = deltaX * radius
 					let arcToY = deltaY * radius
 					if (arcToX === 0) arcToX = 0.0001 // Prevent zero-area bounding box
@@ -83,7 +86,6 @@
 					const arc = ` a${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${arcToX} ${arcToY}`
 					stripe.pathData += arc
 				})
-				lastAngle = toAngle
 			}
 		}
 		return stripes.map((stripe) => stripe.pathData)
@@ -93,15 +95,18 @@
 <script lang="ts">
 	$$restProps
 	export let params: { nodes: Node[]; colors: string[]; mixColors?: string[] }
-	$: stripePaths = nodesToStripePaths(params.nodes)
+	$: stripePaths = nodesToStripePaths(params.nodes, 3)
 </script>
 
 {#each stripePaths as pathData, s}
+	{@const colorIndex = s % params.colors.length}
 	<path
 		stroke-width={THICKNESS + 0.3}
 		fill="none"
 		d={pathData}
-		stroke={params.mixColors ? `url(#stripe-grad-${s})` : params.colors[s]}
+		stroke={params.mixColors
+			? `url(#stripe-grad-${colorIndex})`
+			: params.colors[colorIndex]}
 	/>
 {/each}
 {#if params.mixColors}
