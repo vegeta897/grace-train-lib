@@ -28,10 +28,10 @@
 	let circleParams = getDefaultParamsObject(decalDefs.circle.paramConfig)
 	let flag = 'rainbow'
 
-	const stripesTransform = { x: 60, y: 190, rotate: 0, scale: 0.5 }
 	const stripesParams: StripesParams = { thickness: 25 }
 	let showStripes = true
 	let arcTurn = 60
+	let arcLength = 0
 
 	let changingDecalFill: string = COLORS.POP[0]
 	// let changingDecalFillIndex = 0
@@ -72,9 +72,14 @@
 </label>
 <label>
 	Turn angle
-	<input type="range" min={15} max={180} step={15} bind:value={arcTurn} />
+	<input type="range" min={-180} max={180} step={15} bind:value={arcTurn} />
 </label>
 {arcTurn}
+<label>
+	Turn length
+	<input type="range" min={0} max={8} bind:value={arcLength} />
+</label>
+{arcLength}
 {#each columnSizes as size}
 	<div class="showcase" style="--column-size: {size}px">
 		<ContainerSvg>
@@ -84,22 +89,33 @@
 						<Decal
 							name="stripes"
 							params={{
-								colors: colorRun('POP', 1, 3),
-								mixColors: colorRun('POP', 3, 3),
+								colors: [COLORS.POP[3], COLORS.POP[1]],
 								nodes: [
+									[15, 1, [0, 2]],
+									[30, 10],
+									[15, 1, [0, 2]],
+								],
+								...stripesParams,
+							}}
+							{...decalTransform}
+							{...{ x: 190, y: 110, rotate: -110, scale: 1 }}
+						/>
+						<Decal
+							name="stripes"
+							params={{
+								colors: colorRun('POP', 4, 3),
+								// mixColors: colorRun('POP', 1, 3),
+								nodes: [
+									[arcTurn * -1, arcLength],
+									[0, 1, [0, 1, 2]],
 									[],
-									[arcTurn * 1, 2],
-									[0, 2, [0, 1, 2]],
-									[],
-									[0, 2, [0, 1, 2]],
-									[],
-									[arcTurn],
+									[arcTurn * 2],
 									[],
 									[arcTurn * -1.5],
 									[0, 2],
 									[arcTurn * 1.75],
 									[],
-									[arcTurn * -1.5, 8],
+									[arcTurn * -1.5, arcLength],
 									[],
 									[0, 1, [0, 1, 2]],
 									[],
@@ -109,7 +125,7 @@
 								...stripesParams,
 							}}
 							{...decalTransform}
-							{...stripesTransform}
+							{...{ x: 330, y: 170, rotate: 0, scale: 1 }}
 						/>
 					{/if}
 					<!-- <Decal name="flag" params={{ flag }} {...decalTransform} rotate={0} /> -->
