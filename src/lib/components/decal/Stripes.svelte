@@ -144,16 +144,16 @@
 		const paths = stripeNodes.map(() => '')
 		stripeNodes.forEach((stripe, s) => {
 			for (const node of stripe) {
+				const x = Math.round(node.x * 100) / 100 // Should be enough precision
+				const y = Math.round(node.y * 100) / 100
 				switch (node.type) {
 					case 'M':
 					case 'L':
-						paths[s] += `${node.type}${node.x} ${node.y}`
+						paths[s] += `${node.type}${x} ${y}`
 						break
 					case 'A':
 						const sweepFlag = node.side < 0 ? 0 : 1
-						paths[
-							s
-						] += `A${node.radius} ${node.radius} 0 0 ${sweepFlag} ${node.x} ${node.y}`
+						paths[s] += `A${node.radius} ${node.radius} 0 0 ${sweepFlag} ${x} ${y}`
 						break
 				}
 			}
