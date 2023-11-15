@@ -13,7 +13,6 @@
 	import { PRIDE_FLAGS } from '$lib/components/decal/Flag.svelte'
 	import type { StripesParams } from '$lib/components'
 	import { colorRun } from '$lib/colors'
-	import { getBoundingBox, type StripesNode } from '$lib/components/decal/Stripes.svelte'
 
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
@@ -40,22 +39,19 @@
 	let arcLength = 0
 
 	$: stripeNodes = [
-		[-180, arcLength],
+		[-90, arcLength],
 		[0, 1, [0, 1, 2]],
 		[],
-		[arcTurn * (11 / 6), arcLength],
+		[arcTurn, arcLength],
 		[],
-		[arcTurn * -1.5, arcLength],
-		[arcTurn * 1.75, arcLength],
+		[arcTurn * -1, arcLength],
+		[arcTurn, arcLength],
 		[],
-		[arcTurn * -1.5, arcLength],
+		[arcTurn * -1, arcLength],
 		[],
 		[0, 1, [0, 1, 2]],
 		[],
 	]
-
-	$: bounds = getBoundingBox(stripeNodes as StripesNode[], 3)
-	$: console.log(bounds)
 
 	let changingDecalFill: string = COLORS.POP[0]
 	// let changingDecalFillIndex = 0
@@ -94,7 +90,7 @@
 	</label>
 	<label>
 		Turn angle
-		<input type="range" min={-180} max={180} step={15} bind:value={arcTurn} />
+		<input type="range" min={-90} max={90} step={15} bind:value={arcTurn} />
 	</label>
 	{arcTurn}
 	<label>
@@ -109,6 +105,7 @@
 			<Body name="boxy">
 				<svelte:fragment slot="decals">
 					{#if showStripes}
+						<!-- logo -->
 						<Decal
 							name="stripes"
 							params={{
@@ -116,8 +113,6 @@
 								// mixColors: colorRun('POP', 1, 3),
 								nodes: [
 									[-90, 0],
-									[0, 0],
-									[0, 1, [2]],
 									[0, 0],
 									[0, 1, [1, 2]],
 									[0, 0],
@@ -127,25 +122,57 @@
 								...stripesParams,
 							}}
 							{...decalTransform}
-							{...{ x: 100, y: 80, rotate: 0, scale: 0.5 }}
+							{...{ x: 80, y: 80, rotate: 0, scale: 0.5 }}
 						/>
+						<!-- bb test -->
 						<Decal
 							name="stripes"
 							params={{
 								colors: colorRun('POP', 1, 3),
 								// mixColors: colorRun('POP', 1, 3),
 								nodes: [
-									[180, 0],
-									[180, 1],
-									[180, 2],
-									[180, 3],
-									[180, 4],
+									[-30, 0, [0, 1, 2]],
+									[-30, 0, [1]],
+									[-30, 0],
+									[-30, 0],
+									[-30, 0],
+									[-30, 0],
+									[-30, 0],
+									[-30, 0],
+									[-30, 0],
+									[-30, 0],
+									[-30, 0, [1]],
 								],
 								...stripesParams,
 							}}
 							{...decalTransform}
-							{...{ x: 220, y: 80, rotate: 0, scale: 0.25 }}
+							{...{ x: 150, y: 60, rotate: 0, scale: 0.5 }}
 						/>
+						<!-- spirals -->
+						<Decal
+							name="stripes"
+							params={{
+								colors: [COLORS.POP[1], COLORS.POP[3]],
+								// mixColors: colorRun('POP', 1, 3),
+								nodes: [
+									[45, 0, [0, 1, 2]],
+									[90, 0],
+									[90, 0],
+									[90, 1],
+									[90, 1],
+									[90, 2],
+									[90, 2],
+									[90, 3],
+									[90, 3],
+									[90, 4],
+									[90, 4],
+								],
+								...stripesParams,
+							}}
+							{...decalTransform}
+							{...{ x: 250, y: 70, rotate: 0, scale: 0.25 }}
+						/>
+						<!-- controllable -->
 						<Decal
 							name="stripes"
 							params={{
@@ -155,7 +182,7 @@
 								...stripesParams,
 							}}
 							{...decalTransform}
-							{...{ x: 320, y: 120, rotate: 0, scale: 0.5 }}
+							{...{ x: 320, y: 180, rotate: 0, scale: 0.5 }}
 						/>
 						<!-- hot dog! -->
 						<Decal
