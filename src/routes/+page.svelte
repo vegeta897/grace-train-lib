@@ -148,6 +148,25 @@
 							{...decalTransform}
 							{...{ x: 150, y: 60, rotate: 0, scale: 0.5 }}
 						/>
+						<Decal
+							name="stripes"
+							params={{
+								colors: colorRun('POP', 1, 3),
+								// mixColors: colorRun('POP', 1, 3),
+								nodes: [
+									[30, 1, [0, 1, 2]],
+									[30, 1, [1]],
+									[30, 1],
+									[30, 1],
+									[30, 1],
+									[30, 1],
+									[30, 1, [1]],
+								],
+								...stripesParams,
+							}}
+							{...decalTransform}
+							{...{ x: 200, y: 80, rotate: 0, scale: 0.5 }}
+						/>
 						<!-- spirals -->
 						<Decal
 							name="stripes"
@@ -166,11 +185,12 @@
 									[90, 3],
 									[90, 4],
 									[90, 4],
+									[0, 4],
 								],
 								...stripesParams,
 							}}
 							{...decalTransform}
-							{...{ x: 250, y: 70, rotate: 0, scale: 0.25 }}
+							{...{ x: 325, y: 70, rotate: 0, scale: 0.25 }}
 						/>
 						<!-- controllable -->
 						<Decal

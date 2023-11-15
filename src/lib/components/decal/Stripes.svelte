@@ -31,22 +31,16 @@
 			if (y < yBounds[0]) yBounds[0] = y
 			if (y > yBounds[1]) yBounds[1] = y
 		}
-		// TODO: Bounding box for the arcs are easy!
-		// Remember it's a circle so it's always an axis-aligned square,
-		// and we can get the center and radius!
 		stripeNodes.forEach((stripe, s) => {
 			for (const node of stripe) {
 				const { x, y } = node
 				updateBounds(x, y)
 				if (node.type === 'A') {
-					// The only bounding box corners to consider are:
-					// - The start and end points of the arc (start is covered by previous node)
-					// - The 0,90,180,270 points on the arc, if they exist
-					const { cx, cy, radius, fromAngle, toAngle } = node
-					if (angleIsBetween(90, fromAngle, toAngle)) updateBounds(cx + radius, cy)
-					if (angleIsBetween(0, fromAngle, toAngle)) updateBounds(cx, cy - radius)
-					if (angleIsBetween(180, fromAngle, toAngle)) updateBounds(cx, cy + radius)
-					if (angleIsBetween(270, fromAngle, toAngle)) updateBounds(cx - radius, cy)
+					const { cx, cy, radius, sweepFrom, sweepTo } = node
+					if (angleIsBetween(90, sweepFrom, sweepTo)) updateBounds(cx + radius, cy)
+					if (angleIsBetween(0, sweepFrom, sweepTo)) updateBounds(cx, cy - radius)
+					if (angleIsBetween(180, sweepFrom, sweepTo)) updateBounds(cx, cy + radius)
+					if (angleIsBetween(270, sweepFrom, sweepTo)) updateBounds(cx - radius, cy)
 				}
 			}
 		})
@@ -58,16 +52,10 @@
 		}
 	}
 
-	const degToRad = (degrees: number) => (degrees * Math.PI) / 180
-	const getUnitCircleX = (angle: number) => Math.cos(degToRad(angle + 180))
-	const getUnitCircleY = (angle: number) => Math.sin(degToRad(angle + 180))
-
-	function getStripeXYOffset(angle: number, stripe: number) {
-		if (stripe === 0) return [0, 0]
-		return [
-			getUnitCircleX(angle) * stripe * THICKNESS,
-			getUnitCircleY(angle) * stripe * THICKNESS,
-		]
+	function getXYFromAngle(angle: number, radius = 1) {
+		if (radius === 0) return [0, 0]
+		const rad = ((angle + 180) * Math.PI) / 180
+		return [Math.cos(rad) * radius, Math.sin(rad) * radius]
 	}
 
 	export type StripesNode = [turn?: number, length?: number, noDraw?: number[]]
@@ -80,16 +68,11 @@
 				side: number
 				cx: number
 				cy: number
-				fromAngle: number
-				toAngle: number
+				sweepFrom: number
+				sweepTo: number
 		  }
 	)
 	function getStripeNodes(nodes: StripesNode[], stripeCount = 3) {
-		// TODO: Route each stripe in this function
-		// Need it for bounding box, and no use for just the origin stripe route
-
-		const outsideRadius = stripeCount - 1
-		const firstNode = nodes[0]
 		let angle = 0
 		const stripes = Array.from({ length: stripeCount }, (_, s) => ({
 			stripeNodes: [] as StripeNode[],
@@ -97,7 +80,8 @@
 			x: ORIGIN_X - s * THICKNESS,
 			y: ORIGIN_Y,
 		}))
-		if (!firstNode) return stripes.map((s) => s.stripeNodes)
+		if (!nodes[0]) return stripes.map((s) => s.stripeNodes)
+		const outsideRadius = stripeCount - 1
 		for (const node of nodes) {
 			const turn = Math.max(-90, Math.min(90, node[0] || 0))
 			const length = Math.min(20, node[1] || 0)
@@ -112,25 +96,28 @@
 				}
 			})
 			if (turn === 0) {
-				stripes.forEach((stripe, s) => {
-					stripe.x += getUnitCircleX(angle + 90) * length * THICKNESS
-					stripe.y += getUnitCircleY(angle + 90) * length * THICKNESS
+				const [xOffset, yOffset] = getXYFromAngle(angle + 90, length * THICKNESS)
+				stripes.forEach((stripe) => {
+					stripe.x += xOffset
+					stripe.y += yOffset
 					if (stripe.draw)
 						stripe.stripeNodes.push({ type: 'L', x: stripe.x, y: stripe.y })
 				})
 			} else {
 				const side = Math.sign(turn) // Turning left or right
-				const toAngle = wrapNumber(angle + turn, 0, 360)
-				const deltaX = (getUnitCircleX(toAngle) - getUnitCircleX(angle)) * side
-				const deltaY = (getUnitCircleY(toAngle) - getUnitCircleY(angle)) * side
-				const [xOffset, yOffset] = getStripeXYOffset(angle, 1)
+				const newAngle = wrapNumber(angle + turn, 0, 360)
+				// Sweep angles are perpendicular to stripe direction
+				const sweepFrom = wrapNumber(angle - 90 * side, 0, 360)
+				const sweepTo = wrapNumber(newAngle - 90 * side, 0, 360)
+				const insideStripe = side > 0 ? stripes[0] : stripes[stripes.length - 1]
+				const [xOffset, yOffset] = getXYFromAngle(angle)
+				const cx = insideStripe.x - xOffset * THICKNESS * length * side
+				const cy = insideStripe.y - yOffset * THICKNESS * length * side
+				const [xEndOffset, yEndOffset] = getXYFromAngle(newAngle)
 				stripes.forEach((stripe, s) => {
-					const unitRadius = length + (side < 0 ? outsideRadius - s : s)
-					const cx = stripe.x - unitRadius * xOffset * side
-					const cy = stripe.y - unitRadius * yOffset * side
-					const radius = unitRadius * THICKNESS
-					stripe.x += radius * deltaX
-					stripe.y += radius * deltaY
+					const radius = (length + (side < 0 ? outsideRadius - s : s)) * THICKNESS
+					stripe.x = cx + radius * xEndOffset * side
+					stripe.y = cy + radius * yEndOffset * side
 					if (stripe.draw)
 						stripe.stripeNodes.push({
 							type: 'A',
@@ -140,11 +127,11 @@
 							side,
 							cx,
 							cy,
-							fromAngle: wrapNumber(angle - 90 * side, 0, 360), // Arc angle is perpendicular to stripe angle
-							toAngle: wrapNumber(toAngle - 90 * side, 0, 360),
+							sweepFrom,
+							sweepTo,
 						})
 				})
-				angle = toAngle
+				angle = newAngle
 			}
 		}
 		return stripes.map((s) => s.stripeNodes)
