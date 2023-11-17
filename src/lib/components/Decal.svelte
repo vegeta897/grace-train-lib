@@ -7,7 +7,6 @@
 	import { popIn } from '$lib/util'
 	import type { DecalName } from './decal'
 	import { decalDefs } from './decal'
-	import { getBoundingBox } from './decal/Stripes.svelte'
 	import type { ParamsObject } from './decal/params'
 
 	export let name: DecalName
@@ -31,18 +30,14 @@
 	// Or just make a Depot version of this component
 	$: transitionTransform = transition === 'transform' || transition.includes('transform')
 	$: style = transitionTransform
-		? `transform-origin: 50px 50px; transform: translate(${x - 50}px,${
-				y - 50
-		  }px) rotate(${rotate}deg)
+		? `transform: translate(${x}px,${y}px) rotate(${rotate}deg)
 	scale(${scale})`
 		: null
 	$: pathTransform = transitionTransform
 		? null
-		: `rotate(${rotate},${x},${y}) translate(${x - 50 * scale},${
-				y - 50 * scale
-		  }) scale(${scale})`
+		: `rotate(${rotate},${x},${y}) translate(${x},${y}) scale(${scale})`
 
-	$: bounds = params.nodes && getBoundingBox(params.nodes)
+	// $: bounds = decalDefs[name].getBoundingBox(params)
 </script>
 
 <g
@@ -56,24 +51,21 @@
 		: transition}
 	class:transition-metrics={transition !== 'none'}
 >
-	<g
-		in:popIn|global={{ delay: delayAppear, skip: !animateAppear }}
-		style:transform-origin="50px 50px"
-	>
+	<g in:popIn|global={{ delay: delayAppear, skip: !animateAppear }}>
 		<svelte:component this={decalDefs[name].component} {fill} {scale} {params}
 		></svelte:component>
 	</g>
-	{#if bounds}
+	<!-- {#if bounds}
 		<rect
 			fill="none"
 			stroke="#fff"
 			stroke-width="1"
-			x={bounds.x}
-			y={bounds.y}
+			x={-bounds.width / 2}
+			y={-bounds.height / 2}
 			width={bounds.width}
 			height={bounds.height}
 		/>
-	{/if}
+	{/if} -->
 </g>
 
 <style>

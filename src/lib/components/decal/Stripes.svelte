@@ -1,10 +1,9 @@
 <script lang="ts" context="module">
 	import { wrapNumber } from '$lib/util'
-	import { defineNumberList } from './params'
+	import { defineNumberList, type ParamsObject } from './params'
 
 	const THICKNESS = 25
-	const ORIGIN_X = 50
-	const ORIGIN_Y = 50
+	const STRIPE_COUNT_DEFAULT = 3
 
 	export const noFill = true
 	export const minimumScale = 1 // TODO: Implement this for decal configs
@@ -20,9 +19,12 @@
 		}
 	}
 
-	export function getBoundingBox(nodes: StripesNode[], stripeCount = 3) {
-		// TODO: All decals should have this, set up a default 100x100 in /decals/index.ts
-		const stripeNodes = getStripeNodes(nodes, stripeCount)
+	export const getBoundingBox = (params: ParamsObject) => {
+		const stripeNodes = getStripeNodes(params.nodes, params.stripeCount)
+		return getBoundingBoxFromStripeNodes(stripeNodes)
+	}
+
+	function getBoundingBoxFromStripeNodes(stripeNodes: StripeNode[][]) {
 		let xBounds = [Infinity, -Infinity]
 		let yBounds = [Infinity, -Infinity]
 		function updateBounds(x: number, y: number) {
@@ -31,7 +33,7 @@
 			if (y < yBounds[0]) yBounds[0] = y
 			if (y > yBounds[1]) yBounds[1] = y
 		}
-		stripeNodes.forEach((stripe, s) => {
+		stripeNodes.forEach((stripe) => {
 			for (const node of stripe) {
 				const { x, y } = node
 				updateBounds(x, y)
@@ -44,11 +46,15 @@
 				}
 			}
 		})
+		const width = xBounds[1] - xBounds[0]
+		const height = yBounds[1] - yBounds[0]
 		return {
 			x: xBounds[0] - THICKNESS / 2,
 			y: yBounds[0] - THICKNESS / 2,
-			width: xBounds[1] - xBounds[0] + THICKNESS,
-			height: yBounds[1] - yBounds[0] + THICKNESS,
+			ox: xBounds[0] + width / 2,
+			oy: yBounds[0] + height / 2,
+			width: width + THICKNESS,
+			height: height + THICKNESS,
 		}
 	}
 
@@ -72,13 +78,13 @@
 				sweepTo: number
 		  }
 	)
-	function getStripeNodes(nodes: StripesNode[], stripeCount = 3) {
+	function getStripeNodes(nodes: StripesNode[], stripeCount = STRIPE_COUNT_DEFAULT) {
 		let angle = 0
 		const stripes = Array.from({ length: stripeCount }, (_, s) => ({
 			stripeNodes: [] as StripeNode[],
 			draw: true,
-			x: ORIGIN_X - s * THICKNESS,
-			y: ORIGIN_Y,
+			x: -s * THICKNESS,
+			y: 0,
 		}))
 		if (!nodes[0]) return stripes.map((s) => s.stripeNodes)
 		const outsideRadius = stripeCount - 1
@@ -164,24 +170,33 @@
 
 <script lang="ts">
 	$$restProps
-	export let params: { nodes: StripesNode[]; colors: string[]; mixColors?: string[] }
-	$: stripePaths = stripeNodesToPaths(getStripeNodes(params.nodes, 3))
+	export let params: {
+		nodes: StripesNode[]
+		stripeCount?: number
+		colors: string[]
+		mixColors?: string[]
+	}
+	$: stripeNodes = getStripeNodes(params.nodes, params.stripeCount)
+	$: stripePaths = stripeNodesToPaths(stripeNodes)
+	$: boundingBox = getBoundingBoxFromStripeNodes(stripeNodes)
 
 	// TODO: Compute all possible arc end positions (for a set length/angle range)
 	// and allow user to drag endpoint around in the canvas
 </script>
 
-{#each stripePaths as pathData, s}
-	{@const colorIndex = s % params.colors.length}
-	<path
-		stroke-width={THICKNESS + 0.3}
-		fill="none"
-		d={pathData}
-		stroke={params.mixColors
-			? `url(#stripe-grad-${colorIndex})`
-			: params.colors[colorIndex]}
-	/>
-{/each}
+<g transform="translate({-boundingBox.ox},{-boundingBox.oy})">
+	{#each stripePaths as pathData, s}
+		{@const colorIndex = s % params.colors.length}
+		<path
+			stroke-width={THICKNESS + 0.3}
+			fill="none"
+			d={pathData}
+			stroke={params.mixColors
+				? `url(#stripe-grad-${colorIndex})`
+				: params.colors[colorIndex]}
+		/>
+	{/each}
+</g>
 {#if params.mixColors}
 	{#each params.mixColors as toColor, m}
 		{@const fromColor = params.colors[m]}

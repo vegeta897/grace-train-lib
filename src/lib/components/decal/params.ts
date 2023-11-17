@@ -50,14 +50,19 @@ export function defineStringList<T extends string[]>(
 	}
 }
 
-export function updateParamsObject<P extends ParamDefinition>(
-	def: P,
-	value: P['defaultValue'],
-	paramsObject: ParamsObject
-) {
-	paramsObject[def.name] = value
-}
+// export function updateParamsObject<P extends ParamDefinition>(
+// 	def: P,
+// 	value: P['defaultValue'],
+// 	paramsObject: ParamsObject
+// ) {
+// 	paramsObject[def.name] = value
+// }
 
 export function getDefaultParamsObject(paramDefs: ParamDefinition[] = []): ParamsObject {
-	return Object.fromEntries(paramDefs.map((d) => [d.name, d.defaultValue]))
+	return Object.fromEntries(
+		paramDefs.map((d) => [
+			d.name,
+			Array.isArray(d.defaultValue) ? [...d.defaultValue] : d.defaultValue,
+		])
+	)
 }

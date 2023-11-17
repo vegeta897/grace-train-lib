@@ -14,15 +14,12 @@
 	$: hry = params.hollow * (ry - 10)
 	$: hollowPath =
 		params.hollow > 0
-			? `M50,${50 - hry}A${hrx},${hry} 0 0,1 50,${50 + hry}A${hrx},${hry} 0 0,1 50,${
-					50 - hry
-			  }Z`
+			? `M0,${-hry}A${hrx},${hry} 0 0,1 0,${hry}A${hrx},${hry} 0 0,1 0,${-hry}Z`
 			: ''
 </script>
 
 <path
-	d="M50,{50 - ry} A{rx},{ry} 0 0,1 50,{50 + ry}A{rx},{ry} 0 0,1 50,{50 -
-		ry}Z{hollowPath}"
+	d="M0,{-ry} A{rx},{ry} 0 0,1 0,{ry}A{rx},{ry} 0 0,1 0,{-ry}Z{hollowPath}"
 	fill-rule="evenodd"
 	{fill}
 	stroke="none"

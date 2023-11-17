@@ -17,7 +17,7 @@
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
 	const columnSizes = [
-		900,
+		500,
 		//300,
 		//150,
 		//100
@@ -237,6 +237,17 @@
 						scale={1.9398}
 						animateAppear
 						delayAppear={100}
+					/>
+					<Decal
+						name="flag"
+						params={{ flag }}
+						{...decalTransform}
+						x={75}
+						y={75}
+						scale={1.1398}
+						animateAppear
+						delayAppear={100}
+						rotate={-10}
 					/>
 					<Decal
 						name="star"

@@ -16,18 +16,21 @@ type DecalDef = {
 	paramConfig: ParamDefinition[]
 	noFill: boolean
 	getDefaultParamsObject: () => ParamsObject
+	getBoundingBox: BoundingBoxFn
 }
 
 function defineDecal(importObject: {
 	default: ComponentType<SvelteComponent>
 	paramConfig?: ParamDefinition[]
 	noFill?: boolean
+	getBoundingBox?: BoundingBoxFn
 }): DecalDef {
 	return {
 		component: importObject.default,
 		paramConfig: importObject.paramConfig || [],
 		noFill: importObject.noFill ?? false,
 		getDefaultParamsObject: () => getDefaultParamsObject(importObject.paramConfig),
+		getBoundingBox: importObject.getBoundingBox || (() => ({ width: 100, height: 100 })),
 	}
 }
 
@@ -65,3 +68,9 @@ export function decalLocalToGlobal(
 		y: dy + xDelta * sin + yDelta * cos,
 	}
 }
+
+type BoundingBox = {
+	width: number
+	height: number
+}
+export type BoundingBoxFn = (params: ParamsObject) => BoundingBox

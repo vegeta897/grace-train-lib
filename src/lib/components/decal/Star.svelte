@@ -24,6 +24,7 @@
 </script>
 
 <path
+	transform="translate(-50,-50)"
 	{d}
 	stroke-width="{strokeWidthPx}px"
 	stroke={fill}

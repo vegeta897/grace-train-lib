@@ -40,6 +40,11 @@
 		intersex:
 			'<rect y="20" width="100" height="60" fill="#ffe431"/><circle cx="50" cy="50" r="14.7" fill="none" stroke="#a33bda" stroke-width="5px"/>',
 	} satisfies Record<(typeof PRIDE_FLAGS)[number], string>
+
+	export const getBoundingBox = () => ({
+		width: 100,
+		height: 60,
+	})
 </script>
 
 <script lang="ts">
@@ -47,7 +52,7 @@
 	export let params: { flag: string }
 </script>
 
-<g>
+<g transform="translate(-50,-50)">
 	<g clip-path="url(#rounded-flag)">
 		{#key params.flag}
 			<g in:flagWipe={{ duration: 450 }} out:noAnim={{ delay: 450 }}>
