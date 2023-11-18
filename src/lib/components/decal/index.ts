@@ -73,4 +73,4 @@ type BoundingBox = {
 	width: number
 	height: number
 }
-export type BoundingBoxFn = (params: ParamsObject) => BoundingBox
+export type BoundingBoxFn = (params: ParamsObject<any>) => BoundingBox

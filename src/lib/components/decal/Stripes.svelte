@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
 	import { wrapNumber } from '$lib/util'
-	import { defineNumberList, type ParamsObject } from './params'
+	import { defineNumberList } from './params'
 
 	const THICKNESS = 25
 	const STRIPE_COUNT_DEFAULT = 3
@@ -19,7 +19,7 @@
 		}
 	}
 
-	export const getBoundingBox = (params: ParamsObject) => {
+	export const getBoundingBox = (params: Params) => {
 		const stripeNodes = getStripeNodes(params.nodes, params.stripeCount)
 		return getBoundingBoxFromStripeNodes(stripeNodes)
 	}
@@ -53,8 +53,8 @@
 			y: yBounds[0] - THICKNESS / 2,
 			ox: xBounds[0] + width / 2,
 			oy: yBounds[0] + height / 2,
-			width: width + THICKNESS,
-			height: height + THICKNESS,
+			width: Math.max(50, width + THICKNESS), // 50 is a good minimum size
+			height: Math.max(50, height + THICKNESS),
 		}
 	}
 
@@ -166,16 +166,18 @@
 		})
 		return paths
 	}
-</script>
 
-<script lang="ts">
-	$$restProps
-	export let params: {
+	type Params = {
 		nodes: StripesNode[]
 		stripeCount?: number
 		colors: string[]
 		mixColors?: string[]
 	}
+</script>
+
+<script lang="ts">
+	$$restProps
+	export let params: Params
 	$: stripeNodes = getStripeNodes(params.nodes, params.stripeCount)
 	$: stripePaths = stripeNodesToPaths(stripeNodes)
 	$: boundingBox = getBoundingBoxFromStripeNodes(stripeNodes)

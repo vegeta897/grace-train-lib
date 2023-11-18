@@ -6,7 +6,7 @@ export type ParamDefinition = {
 	| { type: 'stringList'; list: string[]; defaultValue: string }
 	| { type: 'numberList'; list: number[]; defaultValue: number }
 )
-export type ParamsObject = Record<string, any>
+export type ParamsObject<T extends Record<string, any> = Record<string, any>> = T
 
 export function defineScalar(name: string, defaultValue = 0): ParamDefinition {
 	return {
