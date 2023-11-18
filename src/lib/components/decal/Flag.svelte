@@ -61,6 +61,6 @@
 		{/key}
 	</g>
 	<clipPath id="rounded-flag">
-		<rect width="100" y="20" height="60" rx="10" />
+		<rect width="100" y="20" height="60" rx="12.5" />
 	</clipPath>
 </g>
