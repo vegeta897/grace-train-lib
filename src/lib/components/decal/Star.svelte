@@ -13,12 +13,17 @@
 		defineToggle('outline'),
 		defineScalar('strokeWidth'),
 	]
+	type Params = { pinch: number; outline: boolean; strokeWidth: number }
+	export const getBoundingBox = (params: Params) => ({
+		width: 100 + 10 * params.strokeWidth,
+		height: 100 + 10 * params.strokeWidth,
+	})
 </script>
 
 <script lang="ts">
 	$$restProps
 	export let fill: string
-	export let params: { pinch: number; outline: boolean; strokeWidth: number }
+	export let params: Params
 	$: strokeWidthPx = 10 + 10 * params.strokeWidth
 	$: d = stringifyPathCommands(lerpPath(pentagonPath, pinchPath, params.pinch))
 </script>

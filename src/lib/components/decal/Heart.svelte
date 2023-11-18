@@ -15,12 +15,18 @@
 		defineToggle('outline'),
 		defineScalar('strokeWidth'),
 	]
+
+	type Params = { dip: number; taper: number; outline: boolean; strokeWidth: number }
+	export const getBoundingBox = (params: Params) => ({
+		width: 90 + 10 * params.strokeWidth,
+		height: 90 + 10 * params.strokeWidth,
+	})
 </script>
 
 <script lang="ts">
 	$$restProps
 	export let fill: string
-	export let params: { dip: number; taper: number; outline: boolean; strokeWidth: number }
+	export let params: Params
 	$: strokeWidthPx = 10 + 10 * params.strokeWidth
 	$: d = stringifyPathCommands(
 		(() => {
