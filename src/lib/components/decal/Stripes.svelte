@@ -20,7 +20,7 @@
 	}
 
 	export const getBoundingBox = (params: Params) => {
-		const stripeNodes = getStripeNodes(params.nodes, params.stripeCount)
+		const stripeNodes = getStripeNodes(params)
 		return getBoundingBoxFromStripeNodes(stripeNodes)
 	}
 
@@ -78,13 +78,16 @@
 				sweepTo: number
 		  }
 	)
-	function getStripeNodes(nodes: StripesNode[], stripeCount = STRIPE_COUNT_DEFAULT) {
-		let angle = 0
+	function getStripeNodes(params: Pick<Params, 'nodes' | 'startAngle' | 'stripeCount'>) {
+		let angle = params.startAngle ?? 0
+		const nodes = params.nodes
+		const stripeCount = params.stripeCount ?? STRIPE_COUNT_DEFAULT
+		const [initialX, initialY] = getXYFromAngle(angle)
 		const stripes = Array.from({ length: stripeCount }, (_, s) => ({
 			stripeNodes: [] as StripeNode[],
 			draw: true,
-			x: -s * THICKNESS,
-			y: 0,
+			x: s * initialX * THICKNESS,
+			y: s * initialY * THICKNESS,
 		}))
 		if (!nodes[0]) return stripes.map((s) => s.stripeNodes)
 		const outsideRadius = stripeCount - 1
@@ -169,6 +172,7 @@
 
 	type Params = {
 		nodes: StripesNode[]
+		startAngle?: number
 		stripeCount?: number
 		colors: string[]
 		mixColors?: string[]
@@ -178,7 +182,7 @@
 <script lang="ts">
 	$$restProps
 	export let params: Params
-	$: stripeNodes = getStripeNodes(params.nodes, params.stripeCount)
+	$: stripeNodes = getStripeNodes(params)
 	$: stripePaths = stripeNodesToPaths(stripeNodes)
 	$: boundingBox = getBoundingBoxFromStripeNodes(stripeNodes)
 

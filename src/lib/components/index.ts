@@ -14,4 +14,4 @@ export {
 	type XyTuple,
 } from './Topper.svelte'
 export { PRIDE_FLAGS } from './decal/Flag.svelte'
-export { type StripesParams } from './decal/Stripes.svelte'
+export { type StripesParams, type StripesNode } from './decal/Stripes.svelte'
