@@ -196,14 +196,14 @@
 						params={{
 							colors: [COLORS.POP[3], COLORS.POP[1]],
 							nodes: [
-								[15, 1, [0, 2]],
+								[0, 1, [0, 2]],
 								[30, 10, []],
-								[15, 1, [0, 2]],
+								[0, 1, [0, 2]],
 							],
-							startAngle: -110,
+							startAngle: -90,
 						}}
 						{...decalTransform}
-						{...{ x: 120, y: 155, rotate: 0, scale: 0.75 }}
+						{...{ x: 110, y: 150, rotate: 0, scale: 0.75 }}
 					/>
 					<!-- <Decal name="flag" params={{ flag }} {...decalTransform} rotate={0} /> -->
 					<!-- {#each snapPoints as point}

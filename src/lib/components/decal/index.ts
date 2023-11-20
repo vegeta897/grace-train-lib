@@ -17,6 +17,8 @@ type DecalDef = {
 	noFill: boolean
 	getDefaultParamsObject: () => ParamsObject
 	getBoundingBox: BoundingBoxFn
+	minScale?: number
+	maxScale?: number
 }
 
 function defineDecal(importObject: {
@@ -24,6 +26,8 @@ function defineDecal(importObject: {
 	paramConfig?: ParamDefinition[]
 	noFill?: boolean
 	getBoundingBox?: BoundingBoxFn
+	minScale?: number
+	maxScale?: number
 }): DecalDef {
 	return {
 		component: importObject.default,
@@ -31,6 +35,8 @@ function defineDecal(importObject: {
 		noFill: importObject.noFill ?? false,
 		getDefaultParamsObject: () => getDefaultParamsObject(importObject.paramConfig),
 		getBoundingBox: importObject.getBoundingBox || (() => ({ width: 100, height: 100 })),
+		minScale: importObject.minScale,
+		maxScale: importObject.maxScale,
 	}
 }
 
