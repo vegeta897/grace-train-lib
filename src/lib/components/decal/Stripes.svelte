@@ -40,14 +40,15 @@
 		}
 		stripeNodes.forEach((stripe) => {
 			for (const node of stripe) {
-				const { x, y } = node
+				const { x, y, preview } = node
+				if (preview) continue // WARNING: Preview nodes can't be at the start
 				updateBounds(x, y)
 				if (node.type === 'A') {
 					const { cx, cy, radius, sweepFrom, sweepTo } = node
 					if (angleIsBetween(90, sweepFrom, sweepTo)) updateBounds(cx + radius, cy)
-					if (angleIsBetween(0, sweepFrom, sweepTo)) updateBounds(cx, cy - radius)
-					if (angleIsBetween(180, sweepFrom, sweepTo)) updateBounds(cx, cy + radius)
-					if (angleIsBetween(270, sweepFrom, sweepTo)) updateBounds(cx - radius, cy)
+					else if (angleIsBetween(0, sweepFrom, sweepTo)) updateBounds(cx, cy - radius)
+					else if (angleIsBetween(180, sweepFrom, sweepTo)) updateBounds(cx, cy + radius)
+					else if (angleIsBetween(270, sweepFrom, sweepTo)) updateBounds(cx - radius, cy)
 				}
 			}
 		})
