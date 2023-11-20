@@ -19,7 +19,7 @@
 	const columnSizes = [
 		500,
 		//300,
-		//150,
+		150,
 		//100
 	]
 
@@ -34,7 +34,6 @@
 	let flag = 'rainbow'
 
 	const stripesParams: StripesParams = { thickness: 25 }
-	let showStripes = true
 	let arcTurn = 60
 	let arcLength = 0
 
@@ -84,10 +83,6 @@
 			<button on:click={() => (flag = flagName)}>{flagName}</button>
 		{/each}
 	</div>
-	<label
-		>Draw stripes
-		<input type="checkbox" bind:checked={showStripes} />
-	</label>
 	<label>
 		Turn angle
 		<input type="range" min={-90} max={90} step={15} bind:value={arcTurn} />
@@ -104,122 +99,119 @@
 		<ContainerSvg>
 			<Body name="boxy">
 				<svelte:fragment slot="decals">
-					{#if showStripes}
-						<!-- logo -->
-						<Decal
-							name="stripes"
-							params={{
-								colors: colorRun('POP', 1, 3),
-								// mixColors: colorRun('POP', 1, 3),
-								nodes: [
-									[-90, 0],
-									[0, 0],
-									[0, 1, [1, 2]],
-									[0, 0],
-									[0, 1, [0, 1, 2]],
-									[0, 0],
-								],
-								...stripesParams,
-							}}
-							{...decalTransform}
-							{...{ x: 80, y: 80, rotate: 0, scale: 0.5 }}
-						/>
-						<!-- bb test -->
-						<Decal
-							name="stripes"
-							params={{
-								colors: colorRun('POP', 1, 3),
-								// mixColors: colorRun('POP', 1, 3),
-								nodes: [
-									[-30, 0, [0, 1, 2]],
-									[-30, 0, [1]],
-									[-30, 0],
-									[-30, 0],
-									[-30, 0],
-									[-30, 0],
-									[-30, 0],
-									[-30, 0],
-									[-30, 0],
-									[-30, 0],
-									[-30, 0, [1]],
-								],
-								...stripesParams,
-							}}
-							{...decalTransform}
-							{...{ x: 150, y: 60, rotate: 0, scale: 0.5 }}
-						/>
-						<Decal
-							name="stripes"
-							params={{
-								colors: colorRun('POP', 1, 3),
-								// mixColors: colorRun('POP', 1, 3),
-								nodes: [
-									[30, 1, [0, 1, 2]],
-									[30, 1, [1]],
-									[30, 1],
-									[30, 1],
-									[30, 1],
-									[30, 1],
-									[30, 1, [1]],
-								],
-								...stripesParams,
-							}}
-							{...decalTransform}
-							{...{ x: 200, y: 80, rotate: 0, scale: 0.5 }}
-						/>
-						<!-- spirals -->
-						<Decal
-							name="stripes"
-							params={{
-								colors: [COLORS.POP[1], COLORS.POP[3]],
-								// mixColors: colorRun('POP', 1, 3),
-								nodes: [
-									[45, 0, [0, 1, 2]],
-									[90, 0],
-									[90, 0],
-									[90, 1],
-									[90, 1],
-									[90, 2],
-									[90, 2],
-									[90, 3],
-									[90, 3],
-									[90, 4],
-									[90, 4],
-									[0, 4],
-								],
-								...stripesParams,
-							}}
-							{...decalTransform}
-							{...{ x: 325, y: 70, rotate: 0, scale: 0.25 }}
-						/>
-						<!-- controllable -->
-						<Decal
-							name="stripes"
-							params={{
-								colors: colorRun('POP', 4, 3),
-								// mixColors: colorRun('POP', 1, 3),
-								nodes: stripeNodes,
-								...stripesParams,
-							}}
-							{...decalTransform}
-							{...{ x: 320, y: 180, rotate: 0, scale: 0.5 }}
-						/>
-						<!-- hot dog! -->
-						<Decal
-							name="stripes"
-							params={{
-								colors: [COLORS.POP[3], COLORS.POP[1]],
-								nodes: [
-									[15, 1, [0, 2]],
-									[30, 10],
-									[15, 1, [0, 2]],
-								],
-								...stripesParams,
-							}}
-							{...decalTransform}
-							{...{ x: 170, y: 130, rotate: -110, scale: 0.75 }}
-						/>
-					{/if}
+					<!-- logo -->
+					<Decal
+						name="stripes"
+						params={{
+							colors: colorRun('POP', 1, 3),
+							// mixColors: colorRun('POP', 1, 3),
+							nodes: [
+								[-90, 0],
+								[0, 0],
+								[0, 1, [1, 2]],
+								[0, 0],
+								[0, 1, [0, 1, 2]],
+								[0, 0],
+							],
+							...stripesParams,
+						}}
+						{...decalTransform}
+						{...{ x: 70, y: 70, rotate: 0, scale: 0.5 }}
+					/>
+					<!-- bb test -->
+					<Decal
+						name="stripes"
+						params={{
+							colors: colorRun('POP', 1, 3),
+							// mixColors: colorRun('POP', 1, 3),
+							nodes: [
+								[-30, 0, [0, 1, 2]],
+								[-30, 0, [1]],
+								[-30, 0],
+								[-30, 0],
+								[-30, 0],
+								[-30, 0],
+								[-30, 0],
+								[-30, 0],
+								[-30, 0],
+								[-30, 0],
+								[-30, 0, [1]],
+							],
+							...stripesParams,
+						}}
+						{...decalTransform}
+						{...{ x: 150, y: 70, rotate: 0, scale: 0.5 }}
+					/>
+					<Decal
+						name="stripes"
+						params={{
+							colors: colorRun('POP', 1, 3),
+							// mixColors: colorRun('POP', 1, 3),
+							nodes: [
+								[30, 1, [0, 1, 2]],
+								[30, 1, [1]],
+								[30, 1],
+								[30, 1],
+								[30, 1],
+								[30, 1],
+								[30, 1, [1]],
+							],
+							...stripesParams,
+						}}
+						{...decalTransform}
+						{...{ x: 235, y: 80, rotate: 0, scale: 0.5 }}
+					/>
+					<!-- spirals -->
+					<Decal
+						name="stripes"
+						params={{
+							colors: [COLORS.POP[1], COLORS.POP[3]],
+							// mixColors: colorRun('POP', 1, 3),
+							nodes: [
+								[45, 0, [0, 1, 2]],
+								[90, 0],
+								[90, 0],
+								[90, 1],
+								[90, 1],
+								[90, 2],
+								[90, 2],
+								[90, 3],
+								[90, 3],
+								[-30, 5],
+							],
+							...stripesParams,
+						}}
+						{...decalTransform}
+						{...{ x: 325, y: 75, rotate: 0, scale: 0.25 }}
+					/>
+					<!-- controllable -->
+					<Decal
+						name="stripes"
+						params={{
+							colors: colorRun('POP', 4, 3),
+							// mixColors: colorRun('POP', 1, 3),
+							nodes: stripeNodes,
+							...stripesParams,
+						}}
+						{...decalTransform}
+						{...{ x: 290, y: 160, rotate: 0, scale: 0.5 }}
+					/>
+					<!-- hot dog! -->
+					<Decal
+						name="stripes"
+						params={{
+							colors: [COLORS.POP[3], COLORS.POP[1]],
+							nodes: [
+								[15, 1, [0, 2]],
+								[30, 10],
+								[15, 1, [0, 2]],
+							],
+							startAngle: -110,
+							...stripesParams,
+						}}
+						{...decalTransform}
+						{...{ x: 120, y: 155, rotate: 0, scale: 0.75 }}
+					/>
 					<!-- <Decal name="flag" params={{ flag }} {...decalTransform} rotate={0} /> -->
 					<!-- {#each snapPoints as point}
 						<circle cx={point.x} cy={point.y} r="1" />
