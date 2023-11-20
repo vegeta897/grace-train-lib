@@ -19,14 +19,14 @@
 		}
 	}
 
-	export const getStripesMetrics = (params: Params) => {
+	export const getStripesMetrics = (params: StripesParams) => {
 		const stripeNodes = getStripeNodes(params)
 		const boundingBox = getBoundingBoxFromStripeNodes(stripeNodes)
 		const lastNode = stripeNodes[0][stripeNodes[0].length - 1]
 		return { boundingBox, lastNode }
 	}
 
-	export const getBoundingBox = (params: Params) =>
+	export const getBoundingBox = (params: StripesParams) =>
 		getBoundingBoxFromStripeNodes(getStripeNodes(params))
 
 	function getBoundingBoxFromStripeNodes(stripeNodes: StripeNode[][]) {
@@ -69,9 +69,14 @@
 		return [Math.cos(rad) * radius, Math.sin(rad) * radius]
 	}
 
-	export type StripesNode = [turn?: number, length?: number, noDraw?: number[]]
+	export type StripesNode = [
+		turn?: number,
+		length?: number,
+		noDraw?: number[],
+		preview?: boolean,
+	]
 
-	type StripeNode = { x: number; y: number; angle: number } & (
+	type StripeNode = { x: number; y: number; angle: number; preview: boolean } & (
 		| { type: 'L' | 'M' }
 		| {
 				type: 'A'
@@ -83,9 +88,10 @@
 				sweepTo: number
 		  }
 	)
-	function getStripeNodes(params: Pick<Params, 'nodes' | 'startAngle' | 'stripeCount'>) {
+	function getStripeNodes(
+		params: Pick<StripesParams, 'nodes' | 'startAngle' | 'stripeCount'>
+	) {
 		let angle = params.startAngle ?? 0
-		const nodes = params.nodes
 		const stripeCount = params.stripeCount ?? STRIPE_COUNT_DEFAULT
 		const [initialX, initialY] = getXYFromAngle(angle)
 		const stripes = Array.from({ length: stripeCount }, (_, s) => ({
@@ -94,18 +100,19 @@
 			x: s * initialX * THICKNESS,
 			y: s * initialY * THICKNESS,
 		}))
-		if (!nodes[0]) return stripes.map((s) => s.stripeNodes)
+		if (!params.nodes[0]) return stripes.map((s) => s.stripeNodes)
 		const outsideRadius = stripeCount - 1
-		for (const node of nodes) {
+		for (const node of params.nodes) {
 			const turn = Math.max(-90, Math.min(90, node[0] || 0))
 			const length = Math.min(20, node[1] || 0)
 			const noDraw = node[2] || []
+			const preview = node[3] ?? false
 			stripes.forEach((stripe, s) => {
 				if (noDraw.includes(s)) {
 					stripe.draw = false
 				} else if (!stripe.draw || stripe.stripeNodes.length === 0) {
 					// Resume stripe
-					stripe.stripeNodes.push({ type: 'M', x: stripe.x, y: stripe.y, angle })
+					stripe.stripeNodes.push({ type: 'M', x: stripe.x, y: stripe.y, angle, preview })
 					stripe.draw = true
 				}
 			})
@@ -115,7 +122,13 @@
 					stripe.x += xOffset
 					stripe.y += yOffset
 					if (stripe.draw)
-						stripe.stripeNodes.push({ type: 'L', x: stripe.x, y: stripe.y, angle })
+						stripe.stripeNodes.push({
+							type: 'L',
+							x: stripe.x,
+							y: stripe.y,
+							angle,
+							preview,
+						})
 				})
 			} else {
 				const side = Math.sign(turn) // Turning left or right
@@ -137,13 +150,14 @@
 							type: 'A',
 							x: stripe.x,
 							y: stripe.y,
+							angle: newAngle,
+							preview,
 							radius,
 							side,
 							cx,
 							cy,
 							sweepFrom,
 							sweepTo,
-							angle: newAngle,
 						})
 				})
 				angle = newAngle
@@ -152,15 +166,21 @@
 		return stripes.map((s) => s.stripeNodes)
 	}
 
-	export type StripesParams = { thickness: number }
 	export const paramConfig = [defineNumberList('thickness', [25], 25)] // TODO: Don't need thickness
 
-	function stripeNodesToPaths(stripeNodes: ReturnType<typeof getStripeNodes>): string[] {
+	function stripeNodesToPaths(stripeNodes: StripeNode[][], preview = false): string[] {
+		// Exit early in preview mode if no preview nodes found
+		if (preview && !stripeNodes.some((s) => s.some((n) => n.preview))) return []
 		const paths = stripeNodes.map(() => '')
 		stripeNodes.forEach((stripe, s) => {
 			for (const node of stripe) {
 				const x = Math.round(node.x * 100) / 100 // Should be enough precision
 				const y = Math.round(node.y * 100) / 100
+				if (node.preview !== preview) {
+					// This is pretty smart
+					paths[s] += `M${x} ${y}`
+					continue
+				}
 				switch (node.type) {
 					case 'M':
 					case 'L':
@@ -176,7 +196,7 @@
 		return paths
 	}
 
-	type Params = {
+	export type StripesParams = {
 		nodes: StripesNode[]
 		startAngle?: number
 		stripeCount?: number
@@ -187,9 +207,10 @@
 
 <script lang="ts">
 	$$restProps
-	export let params: Params
+	export let params: StripesParams
 	$: stripeNodes = getStripeNodes(params)
 	$: stripePaths = stripeNodesToPaths(stripeNodes)
+	$: previewStripePaths = stripeNodesToPaths(stripeNodes, true)
 	$: boundingBox = getBoundingBoxFromStripeNodes(stripeNodes)
 
 	// TODO: Compute all possible arc end positions (for a set length/angle range)
@@ -203,6 +224,18 @@
 			stroke-width={THICKNESS + 0.3}
 			fill="none"
 			d={pathData}
+			stroke={params.mixColors
+				? `url(#stripe-grad-${colorIndex})`
+				: params.colors[colorIndex]}
+		/>
+	{/each}
+	{#each previewStripePaths as pathData, s}
+		{@const colorIndex = s % params.colors.length}
+		<path
+			stroke-width={THICKNESS + 0.3}
+			fill="none"
+			d={pathData}
+			style:opacity="0.7"
 			stroke={params.mixColors
 				? `url(#stripe-grad-${colorIndex})`
 				: params.colors[colorIndex]}
