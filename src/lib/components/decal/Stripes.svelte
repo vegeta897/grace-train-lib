@@ -3,10 +3,12 @@
 	import { defineNumberList } from './params'
 
 	const THICKNESS = 25
+	const BOX_PAD = 5
 	const STRIPE_COUNT_DEFAULT = 3
 
 	export const noFill = true
-	export const minimumScale = 1 // TODO: Implement this for decal configs
+	export const minScale = 1
+	export const maxScale = 3
 
 	// https://stackoverflow.com/a/42424631/2612679
 	function angleIsBetween(angle: number, from: number, to: number) {
@@ -55,12 +57,12 @@
 		const width = xBounds[1] - xBounds[0]
 		const height = yBounds[1] - yBounds[0]
 		return {
-			x: xBounds[0] - THICKNESS / 2,
-			y: yBounds[0] - THICKNESS / 2,
+			x: xBounds[0] - THICKNESS / 2 - BOX_PAD,
+			y: yBounds[0] - THICKNESS / 2 - BOX_PAD,
 			ox: xBounds[0] + width / 2,
 			oy: yBounds[0] + height / 2,
-			width: Math.max(50, width + THICKNESS), // 50 is a good minimum size
-			height: Math.max(50, height + THICKNESS),
+			width: Math.max(50, width + THICKNESS + BOX_PAD * 2), // 50 is a good minimum size
+			height: Math.max(50, height + THICKNESS + BOX_PAD * 2),
 		}
 	}
 
@@ -169,19 +171,19 @@
 
 	export const paramConfig = [defineNumberList('thickness', [25], 25)] // TODO: Don't need thickness
 
-	function stripeNodesToPaths(stripeNodes: StripeNode[][], preview = false): string[] {
+	function stripeNodesToPaths(stripeNodes: StripeNode[][]): string[] {
 		// Exit early in preview mode if no preview nodes found
-		if (preview && !stripeNodes.some((s) => s.some((n) => n.preview))) return []
+		// if (preview && !stripeNodes.some((s) => s.some((n) => n.preview))) return []
 		const paths = stripeNodes.map(() => '')
 		stripeNodes.forEach((stripe, s) => {
 			for (const node of stripe) {
 				const x = Math.round(node.x * 100) / 100 // Should be enough precision
 				const y = Math.round(node.y * 100) / 100
-				if (node.preview !== preview) {
-					// This is pretty smart
-					paths[s] += `M${x} ${y}`
-					continue
-				}
+				// if (node.preview !== preview) {
+				// 	// This is pretty smart
+				// 	paths[s] += `M${x} ${y}`
+				// 	continue
+				// }
 				switch (node.type) {
 					case 'M':
 					case 'L':
@@ -211,7 +213,7 @@
 	export let params: StripesParams
 	$: stripeNodes = getStripeNodes(params)
 	$: stripePaths = stripeNodesToPaths(stripeNodes)
-	$: previewStripePaths = stripeNodesToPaths(stripeNodes, true)
+	// $: previewStripePaths = stripeNodesToPaths(stripeNodes, true)
 	$: boundingBox = getBoundingBoxFromStripeNodes(stripeNodes)
 
 	// TODO: Compute all possible arc end positions (for a set length/angle range)
@@ -230,7 +232,7 @@
 				: params.colors[colorIndex]}
 		/>
 	{/each}
-	{#each previewStripePaths as pathData, s}
+	<!-- {#each previewStripePaths as pathData, s}
 		{@const colorIndex = s % params.colors.length}
 		<path
 			stroke-width={THICKNESS + 0.3}
@@ -241,7 +243,7 @@
 				? `url(#stripe-grad-${colorIndex})`
 				: params.colors[colorIndex]}
 		/>
-	{/each}
+	{/each} -->
 </g>
 {#if params.mixColors}
 	{#each params.mixColors as toColor, m}
