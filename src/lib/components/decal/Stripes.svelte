@@ -19,10 +19,15 @@
 		}
 	}
 
-	export const getBoundingBox = (params: Params) => {
+	export const getStripesMetrics = (params: Params) => {
 		const stripeNodes = getStripeNodes(params)
-		return getBoundingBoxFromStripeNodes(stripeNodes)
+		const boundingBox = getBoundingBoxFromStripeNodes(stripeNodes)
+		const lastNode = stripeNodes[0][stripeNodes[0].length - 1]
+		return { boundingBox, lastNode }
 	}
+
+	export const getBoundingBox = (params: Params) =>
+		getBoundingBoxFromStripeNodes(getStripeNodes(params))
 
 	function getBoundingBoxFromStripeNodes(stripeNodes: StripeNode[][]) {
 		let xBounds = [Infinity, -Infinity]
@@ -66,7 +71,7 @@
 
 	export type StripesNode = [turn?: number, length?: number, noDraw?: number[]]
 
-	type StripeNode = { x: number; y: number } & (
+	type StripeNode = { x: number; y: number; angle: number } & (
 		| { type: 'L' | 'M' }
 		| {
 				type: 'A'
@@ -100,7 +105,7 @@
 					stripe.draw = false
 				} else if (!stripe.draw || stripe.stripeNodes.length === 0) {
 					// Resume stripe
-					stripe.stripeNodes.push({ type: 'M', x: stripe.x, y: stripe.y })
+					stripe.stripeNodes.push({ type: 'M', x: stripe.x, y: stripe.y, angle })
 					stripe.draw = true
 				}
 			})
@@ -110,7 +115,7 @@
 					stripe.x += xOffset
 					stripe.y += yOffset
 					if (stripe.draw)
-						stripe.stripeNodes.push({ type: 'L', x: stripe.x, y: stripe.y })
+						stripe.stripeNodes.push({ type: 'L', x: stripe.x, y: stripe.y, angle })
 				})
 			} else {
 				const side = Math.sign(turn) // Turning left or right
@@ -138,6 +143,7 @@
 							cy,
 							sweepFrom,
 							sweepTo,
+							angle: newAngle,
 						})
 				})
 				angle = newAngle
