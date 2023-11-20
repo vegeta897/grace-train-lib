@@ -11,7 +11,6 @@
 	import DecalParams from './DecalParams.svelte'
 	import { getDefaultParamsObject } from '$lib/components/decal/params'
 	import { PRIDE_FLAGS } from '$lib/components/decal/Flag.svelte'
-	import type { StripesParams } from '$lib/components'
 	import { colorRun } from '$lib/colors'
 
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
@@ -33,7 +32,6 @@
 	let circleParams = getDefaultParamsObject(decalDefs.circle.paramConfig)
 	let flag = 'rainbow'
 
-	const stripesParams: StripesParams = { thickness: 25 }
 	let arcTurn = 60
 	let arcLength = 0
 
@@ -113,7 +111,6 @@
 								[0, 1, [0, 1, 2]],
 								[0, 0],
 							],
-							...stripesParams,
 						}}
 						{...decalTransform}
 						{...{ x: 70, y: 70, rotate: 0, scale: 0.5 }}
@@ -137,7 +134,6 @@
 								[-30, 0],
 								[-30, 0, [1]],
 							],
-							...stripesParams,
 						}}
 						{...decalTransform}
 						{...{ x: 150, y: 70, rotate: 0, scale: 0.5 }}
@@ -156,7 +152,6 @@
 								[30, 1],
 								[30, 1, [1]],
 							],
-							...stripesParams,
 						}}
 						{...decalTransform}
 						{...{ x: 235, y: 80, rotate: 0, scale: 0.5 }}
@@ -179,7 +174,6 @@
 								[90, 3],
 								[-30, 5],
 							],
-							...stripesParams,
 						}}
 						{...decalTransform}
 						{...{ x: 325, y: 75, rotate: 0, scale: 0.25 }}
@@ -191,7 +185,6 @@
 							colors: colorRun('POP', 4, 3),
 							// mixColors: colorRun('POP', 1, 3),
 							nodes: stripeNodes,
-							...stripesParams,
 						}}
 						{...decalTransform}
 						{...{ x: 290, y: 160, rotate: 0, scale: 0.5 }}
@@ -203,11 +196,10 @@
 							colors: [COLORS.POP[3], COLORS.POP[1]],
 							nodes: [
 								[15, 1, [0, 2]],
-								[30, 10],
+								[30, 10, []],
 								[15, 1, [0, 2]],
 							],
 							startAngle: -110,
-							...stripesParams,
 						}}
 						{...decalTransform}
 						{...{ x: 120, y: 155, rotate: 0, scale: 0.75 }}
