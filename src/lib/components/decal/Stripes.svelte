@@ -184,8 +184,6 @@
 		return stripes.map((s) => s.stripeNodes)
 	}
 
-	export const paramConfig = [defineNumberList('thickness', [25], 25)] // TODO: Don't need thickness
-
 	function stripeNodesToPaths(stripeNodes: StripeNode[][]): string[] {
 		const paths = stripeNodes.map(() => '')
 		stripeNodes.forEach((stripe, s) => {
@@ -222,6 +220,8 @@
 		})
 		return highlights
 	}
+
+	export const paramConfig = [defineNumberList('stripeCount', [1, 2, 3, 4, 5], true, 3)]
 
 	export type StripesParams = {
 		nodes: StripesNode[]

@@ -3,8 +3,9 @@ export type ParamDefinition = {
 } & (
 	| { type: 'scalar'; defaultValue: number }
 	| { type: 'toggle'; defaultValue: boolean }
-	| { type: 'stringList'; list: string[]; defaultValue: string }
-	| { type: 'numberList'; list: number[]; defaultValue: number }
+	// List is "any" type so svelte type checker doesn't complain
+	| { type: 'stringList'; list: any[]; slider: boolean; defaultValue: string }
+	| { type: 'numberList'; list: any[]; slider: boolean; defaultValue: number }
 )
 export type ParamsObject<T extends Record<string, any> = Record<string, any>> = T
 
@@ -27,12 +28,14 @@ export function defineToggle(name: string, defaultValue = false): ParamDefinitio
 export function defineNumberList<T extends number[]>(
 	name: string,
 	list: T,
+	slider: boolean,
 	defaultValue: T[number]
 ): ParamDefinition {
 	return {
 		type: 'numberList',
 		name,
 		list,
+		slider,
 		defaultValue,
 	}
 }
@@ -40,12 +43,14 @@ export function defineNumberList<T extends number[]>(
 export function defineStringList<T extends string[]>(
 	name: string,
 	list: T,
+	slider: boolean,
 	defaultValue: T[number]
 ): ParamDefinition {
 	return {
 		type: 'stringList',
 		name,
 		list,
+		slider,
 		defaultValue,
 	}
 }
