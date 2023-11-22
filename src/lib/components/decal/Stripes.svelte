@@ -231,6 +231,7 @@
 		mixColors?: string[]
 		highlightNode?: number
 		highlightColor?: string
+		extraThickness?: number
 	}
 </script>
 
@@ -252,7 +253,7 @@
 	{#each stripePaths as pathData, s}
 		{@const colorIndex = s % params.colors.length}
 		<path
-			stroke-width={THICKNESS + 0.5}
+			stroke-width={THICKNESS + (params.extraThickness ?? 0.5)}
 			fill="none"
 			d={pathData}
 			stroke={params.mixColors
