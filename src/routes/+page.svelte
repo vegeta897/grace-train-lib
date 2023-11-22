@@ -112,9 +112,11 @@
 								[0, 0],
 								[0, 2, [], true],
 							],
+							highlightNode: 0,
+							highlightColor: '#58c7f3',
 						}}
 						{...decalTransform}
-						{...{ x: 70, y: 70, rotate: 0, scale: 0.5 }}
+						{...{ x: 70, y: 70, rotate: 0, scale: 1 }}
 					/>
 					<!-- bb test -->
 					<Decal

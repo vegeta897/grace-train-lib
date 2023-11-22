@@ -8,7 +8,7 @@
 
 	export const noFill = true
 	export const minScale = 1
-	export const maxScale = 3
+	export const maxScale = 2
 
 	// https://stackoverflow.com/a/42424631/2612679
 	function angleIsBetween(angle: number, from: number, to: number) {
@@ -79,7 +79,13 @@
 		preview?: boolean,
 	]
 
-	type StripeNode = { x: number; y: number; angle: number; preview: boolean } & (
+	type StripeNode = {
+		x: number
+		y: number
+		angle: number
+		preview: boolean
+		highlight: boolean
+	} & (
 		| { type: 'L' | 'M' }
 		| {
 				type: 'A'
@@ -91,9 +97,7 @@
 				sweepTo: number
 		  }
 	)
-	function getStripeNodes(
-		params: Pick<StripesParams, 'nodes' | 'startAngle' | 'stripeCount'>
-	) {
+	function getStripeNodes(params: StripesParams) {
 		let angle = params.startAngle ?? 0
 		const stripeCount = params.stripeCount ?? STRIPE_COUNT_DEFAULT
 		const [initialX, initialY] = getXYFromAngle(angle)
@@ -105,17 +109,26 @@
 		}))
 		if (!params.nodes[0]) return stripes.map((s) => s.stripeNodes)
 		const outsideRadius = stripeCount - 1
-		for (const node of params.nodes) {
+		for (let n = 0; n < params.nodes.length; n++) {
+			const node = params.nodes[n]
 			const turn = Math.max(-90, Math.min(90, node[0] || 0))
 			const length = Math.min(20, node[1] || 0)
 			const noDraw = node[2] || []
 			const preview = node[3] ?? false
+			const highlight = n === params.highlightNode
 			stripes.forEach((stripe, s) => {
 				if (noDraw.includes(s)) {
 					stripe.draw = false
 				} else if (!stripe.draw || stripe.stripeNodes.length === 0) {
 					// Resume stripe
-					stripe.stripeNodes.push({ type: 'M', x: stripe.x, y: stripe.y, angle, preview })
+					stripe.stripeNodes.push({
+						type: 'M',
+						x: stripe.x,
+						y: stripe.y,
+						angle,
+						preview,
+						highlight,
+					})
 					stripe.draw = true
 				}
 			})
@@ -131,6 +144,7 @@
 							y: stripe.y,
 							angle,
 							preview,
+							highlight,
 						})
 				})
 			} else {
@@ -155,6 +169,7 @@
 							y: stripe.y,
 							angle: newAngle,
 							preview,
+							highlight,
 							radius,
 							side,
 							cx,
@@ -172,18 +187,11 @@
 	export const paramConfig = [defineNumberList('thickness', [25], 25)] // TODO: Don't need thickness
 
 	function stripeNodesToPaths(stripeNodes: StripeNode[][]): string[] {
-		// Exit early in preview mode if no preview nodes found
-		// if (preview && !stripeNodes.some((s) => s.some((n) => n.preview))) return []
 		const paths = stripeNodes.map(() => '')
 		stripeNodes.forEach((stripe, s) => {
 			for (const node of stripe) {
 				const x = Math.round(node.x * 100) / 100 // Should be enough precision
 				const y = Math.round(node.y * 100) / 100
-				// if (node.preview !== preview) {
-				// 	// This is pretty smart
-				// 	paths[s] += `M${x} ${y}`
-				// 	continue
-				// }
 				switch (node.type) {
 					case 'M':
 					case 'L':
@@ -199,32 +207,52 @@
 		return paths
 	}
 
+	function getHighlightNodes(stripeNodes: StripeNode[][]) {
+		const highlights: StripeNode[][] = stripeNodes.map((_) => [])
+		stripeNodes.forEach((stripe, s) => {
+			for (let n = 0; n < stripe.length; n++) {
+				const node = stripe[n]
+				const nextNode = stripe[n + 1]
+				if (!node.highlight && nextNode?.highlight && nextNode?.type !== 'M') {
+					highlights[s].push({ ...node, type: 'M' })
+				} else if (node.highlight) {
+					highlights[s].push(node)
+				}
+			}
+		})
+		return highlights
+	}
+
 	export type StripesParams = {
 		nodes: StripesNode[]
 		startAngle?: number
 		stripeCount?: number
 		colors: string[]
 		mixColors?: string[]
+		highlightNode?: number
+		highlightColor?: string
 	}
 </script>
 
 <script lang="ts">
+	// TODO: Move some functions and markup to a more generic component that can be
+	// used for the decal and for the depot so we don't have so much depot-specific
+	// stuff mixed in when used in the overlay
 	$$restProps
 	export let params: StripesParams
 	$: stripeNodes = getStripeNodes(params)
 	$: stripePaths = stripeNodesToPaths(stripeNodes)
-	// $: previewStripePaths = stripeNodesToPaths(stripeNodes, true)
+	$: highlightNodes =
+		params.highlightNode !== undefined ? getHighlightNodes(stripeNodes) : []
+	$: highlightPaths = stripeNodesToPaths(highlightNodes)
 	$: boundingBox = getBoundingBoxFromStripeNodes(stripeNodes)
-
-	// TODO: Compute all possible arc end positions (for a set length/angle range)
-	// and allow user to drag endpoint around in the canvas
 </script>
 
 <g transform="translate({-boundingBox.ox},{-boundingBox.oy})">
 	{#each stripePaths as pathData, s}
 		{@const colorIndex = s % params.colors.length}
 		<path
-			stroke-width={THICKNESS + 0.3}
+			stroke-width={THICKNESS + 0.5}
 			fill="none"
 			d={pathData}
 			stroke={params.mixColors
@@ -232,18 +260,25 @@
 				: params.colors[colorIndex]}
 		/>
 	{/each}
-	<!-- {#each previewStripePaths as pathData, s}
-		{@const colorIndex = s % params.colors.length}
+	{#each highlightNodes as hStripe}
+		{#each hStripe as hNode}
+			<circle cx={hNode.x} cy={hNode.y} fill="#FFF" r={THICKNESS / 4} />
+		{/each}
+	{/each}
+	{#each highlightPaths as pathData}
+		<path stroke-width={THICKNESS / 3} fill="none" d={pathData} stroke="#FFF" />
 		<path
-			stroke-width={THICKNESS + 0.3}
+			stroke-width={THICKNESS / 8}
 			fill="none"
 			d={pathData}
-			style:opacity="0.7"
-			stroke={params.mixColors
-				? `url(#stripe-grad-${colorIndex})`
-				: params.colors[colorIndex]}
+			stroke={params.highlightColor}
 		/>
-	{/each} -->
+	{/each}
+	{#each highlightNodes as hStripe}
+		{#each hStripe as hNode}
+			<circle cx={hNode.x} cy={hNode.y} fill={params.highlightColor} r={THICKNESS / 7} />
+		{/each}
+	{/each}
 </g>
 {#if params.mixColors}
 	{#each params.mixColors as toColor, m}
