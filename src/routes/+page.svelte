@@ -122,6 +122,7 @@
 							],
 							highlightNode: 0,
 							highlightColor: '#58c7f3',
+							showNodes: true,
 						}}
 						{...decalTransform}
 						{...{ x: 70, y: 70, rotate: 0, scale: 1 }}

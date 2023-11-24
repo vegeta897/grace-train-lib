@@ -1,6 +1,5 @@
 <script lang="ts" context="module">
 	import { wrapNumber } from '$lib/util'
-	import { defineNumberList } from './params'
 
 	const THICKNESS = 25
 	const BOX_PAD = 5
@@ -221,8 +220,6 @@
 		return highlights
 	}
 
-	export const paramConfig = [defineNumberList('stripeCount', [1, 2, 3, 4, 5], true, 3)]
-
 	export type StripesParams = {
 		nodes: StripesNode[]
 		startAngle?: number
@@ -232,6 +229,7 @@
 		highlightNode?: number
 		highlightColor?: string
 		extraThickness?: number
+		showNodes?: boolean
 	}
 </script>
 
@@ -261,6 +259,11 @@
 				: params.colors[colorIndex]}
 		/>
 	{/each}
+	{#if params.showNodes}
+		{#each stripeNodes.flat() as node}
+			<circle cx={node.x} cy={node.y} fill="#FFF" r={THICKNESS / 7} />
+		{/each}
+	{/if}
 	{#each highlightNodes as hStripe}
 		{#each hStripe as hNode}
 			<circle cx={hNode.x} cy={hNode.y} fill="#FFF" r={THICKNESS / 4} />
