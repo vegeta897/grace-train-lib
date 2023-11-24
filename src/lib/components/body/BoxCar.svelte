@@ -25,7 +25,6 @@
 	class="color-transition"
 	style="fill:{popColor};stroke:{popColor};"
 />
-<slot name="wheels" />
 <path
 	d="M37.5,212.5l-25,-175l350,0l-25,175l-300,0Z"
 	class="color-transition"
@@ -37,6 +36,7 @@
 	class="color-transition"
 	style="fill:none;stroke:{baseColor};"
 />
+<slot name="wheels" />
 {#if stripeColor !== 'none'}
 	<path
 		d="M366.143,99.934l-357.286,0l8.144,56.945l340.998,0l8.144,-56.945Z"

@@ -44,6 +44,7 @@
 				rimColor={car.wheelColor}
 				capColor={car.bodyColor || COLORS.BASE[3]}
 				fromCenter={car.wheelFromCenter}
+				size={car.wheelSize}
 				slot="wheels"
 			/>
 		</Body>

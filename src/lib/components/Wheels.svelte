@@ -4,23 +4,25 @@
 	export let rimColor: string = COLORS.POP[1]
 	export let capColor: string = COLORS.BASE[3]
 	export let fromCenter = 100
+	export let size = 25
 
 	// Note! Default values are not reverted to if undefined is passed in after init
 	$: rimColor = rimColor || COLORS.POP[1]
 	$: capColor = capColor || COLORS.BASE[3]
 	$: fromCenter = fromCenter || 100
+	$: cy = 262.5 + (25 - size)
 </script>
 
 <circle
 	cx={187.5 - fromCenter}
-	cy="262.5"
-	r="25"
+	{cy}
+	r={size - 0.25}
 	style="fill:{capColor};stroke:{rimColor};"
 />
 <circle
 	cx={187.5 + fromCenter}
-	cy="262.5"
-	r="25"
+	{cy}
+	r={size - 0.25}
 	style="fill:{capColor};stroke:{rimColor};"
 />
 

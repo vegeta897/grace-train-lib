@@ -50,6 +50,8 @@
 		[],
 	]
 
+	let wheelSize = 25
+
 	let changingDecalFill: string = COLORS.POP[0]
 	// let changingDecalFillIndex = 0
 	onMount(() => {
@@ -91,6 +93,12 @@
 		<input type="range" min={0} max={8} bind:value={arcLength} />
 	</label>
 	{arcLength}
+	<div>
+		<label>
+			Wheel size
+			<input type="range" min={22} max={32} bind:value={wheelSize} />
+		</label>
+	</div>
 </form>
 {#each columnSizes as size}
 	<div class="showcase" style="--column-size: {size}px">
@@ -212,6 +220,7 @@
 						<circle cx={point.x} cy={point.y} r="1" />
 					{/each} -->
 				</svelte:fragment>
+				<Wheels size={wheelSize} slot="wheels" />
 			</Body>
 		</ContainerSvg>
 		<ContainerSvg>

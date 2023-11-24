@@ -22,6 +22,7 @@ export type GraceTrainCar =
 			bodyPopColor?: string
 			wheelColor?: string
 			wheelFromCenter: number
+			wheelSize: number
 			decals: {
 				name: DecalName
 				fill: string
