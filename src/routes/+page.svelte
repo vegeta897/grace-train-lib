@@ -231,6 +231,8 @@
 						name="heart"
 						params={heartParams}
 						{...decalTransform}
+						x={60}
+						y={200}
 						scale={1.9398}
 						animateAppear
 						delayAppear={100}
@@ -250,11 +252,11 @@
 						name="star"
 						params={starParams}
 						{...decalTransform}
-						x={60}
-						y={200}
+						x={200}
+						y={120}
 						fill={COLORS.POP[3]}
-						rotate={30}
-						scale={1.9398}
+						rotate={0}
+						scale={1.5}
 						animateAppear
 						delayAppear={100}
 					/>

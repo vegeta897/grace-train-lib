@@ -23,6 +23,18 @@
 			/>
 		{:else if param.type === 'toggle'}
 			<input name={param.name} type="checkbox" bind:checked={params[param.name]} />
+		{:else if param.slider}
+			{@const list = param.list}
+			<input
+				id={param.name}
+				type="range"
+				min={0}
+				max={list.length - 1}
+				step="1"
+				value={list.indexOf(params[param.name])}
+				on:input={(e) => (params[param.name] = list[e.currentTarget.valueAsNumber])}
+				class="range"
+			/>
 		{/if}
 	{/each}
 </div>
