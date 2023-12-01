@@ -9,33 +9,20 @@
 	$: popColor = popColor || COLORS.POP[1]
 </script>
 
-<rect
-	x="162.5"
-	y="12.5"
-	width="50"
-	height="25"
-	class="color-transition"
-	style="fill:none;stroke:{popColor};"
-/>
+<rect x="162.5" y="12.5" width="50" height="25" style="fill:none;stroke:{popColor};" />
 <rect
 	x="37.5"
 	y="212.5"
 	width="300"
 	height="25"
-	class="color-transition"
 	style="fill:{popColor};stroke:{popColor};"
 />
 <path
 	d="M37.5,212.5l-25,-175l350,0l-25,175l-300,0Z"
-	class="color-transition"
 	style="fill:{baseColor};stroke:{baseColor};"
 />
 <slot name="decals" />
-<path
-	d="M12.5,212.5l350,0"
-	class="color-transition"
-	style="fill:none;stroke:{baseColor};"
-/>
+<path d="M12.5,212.5l350,0" style="fill:none;stroke:{baseColor};" />
 <slot name="wheels" />
 {#if stripeColor !== 'none'}
 	<path
@@ -44,11 +31,3 @@
 	/>
 {/if}
 <slot name="toppers" />
-
-<style>
-	.color-transition {
-		transition-property: fill, stroke;
-		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-		transition-duration: 150ms;
-	}
-</style>
