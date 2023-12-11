@@ -251,7 +251,7 @@
 	{#each stripePaths as pathData, s}
 		{@const colorIndex = s % params.colors.length}
 		<path
-			stroke-width={THICKNESS + (params.extraThickness ?? 0.5)}
+			stroke-width={THICKNESS + (params.extraThickness ?? 1)}
 			fill="none"
 			d={pathData}
 			stroke={params.mixColors
