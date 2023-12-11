@@ -4,9 +4,17 @@ import * as Star from './Star.svelte'
 import * as Circle from './Circle.svelte'
 import * as Flag from './Flag.svelte'
 import * as Stripes from './Stripes.svelte'
+import * as Flower from './Flower.svelte'
 import { getDefaultParamsObject, type ParamDefinition, type ParamsObject } from './params'
 
-export const DECAL_NAMES = ['star', 'heart', 'circle', 'flag', 'stripes'] as const
+export const DECAL_NAMES = [
+	'star',
+	'heart',
+	'circle',
+	'flag',
+	'stripes',
+	'flower',
+] as const
 export type DecalName = (typeof DECAL_NAMES)[number]
 
 // TODO: Abstract params stuff to be used for body and topper as well
@@ -46,6 +54,7 @@ export const decalDefs: Record<DecalName, DecalDef> = {
 	circle: defineDecal(Circle),
 	flag: defineDecal(Flag),
 	stripes: defineDecal(Stripes),
+	flower: defineDecal(Flower),
 } as const
 
 // Converts relative decal x,y to global

@@ -30,6 +30,7 @@
 	let heartParams = getDefaultParamsObject(decalDefs.heart.paramConfig)
 	let starParams = getDefaultParamsObject(decalDefs.star.paramConfig)
 	let circleParams = getDefaultParamsObject(decalDefs.circle.paramConfig)
+	let flowerParams = getDefaultParamsObject(decalDefs.flower.paramConfig)
 	let flag = 'rainbow'
 
 	let arcTurn = 60
@@ -78,6 +79,7 @@
 	<DecalParams decalName="heart" bind:params={heartParams} />
 	<DecalParams decalName="star" bind:params={starParams} />
 	<DecalParams decalName="circle" bind:params={circleParams} />
+	<DecalParams decalName="flower" bind:params={flowerParams} />
 	<div>
 		{#each PRIDE_FLAGS as flagName}
 			<button on:click={() => (flag = flagName)}>{flagName}</button>
@@ -300,14 +302,7 @@
 		</ContainerSvg>
 		<ContainerSvg>
 			<Body name="tanky">
-				<Decal
-					name="star"
-					params={starParams}
-					{...decalTransform}
-					slot="decals"
-					animateAppear
-					delayAppear={200}
-				/>
+				<Decal name="flower" params={flowerParams} {...decalTransform} slot="decals" />
 				<WheelsChange slot="wheels" rimColor={changingRimColor} />
 			</Body>
 		</ContainerSvg>
