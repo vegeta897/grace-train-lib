@@ -10,10 +10,10 @@
 	)
 
 	export const paramConfig = [
-		defineScalar('dip', 0.34),
+		defineScalar('dip', 'dip', 0.34),
 		defineScalar('taper'),
 		defineToggle('outline'),
-		defineScalar('strokeWidth'),
+		defineScalar('strokeWidth', 'thickness'),
 	]
 
 	type Params = { dip: number; taper: number; outline: boolean; strokeWidth: number }

@@ -23,9 +23,9 @@
 	// }
 
 	export const paramConfig = [
-		defineScalar('pinch', 0.52),
+		defineScalar('pinch', 'pinch', 0.52),
 		defineToggle('outline'),
-		defineScalar('strokeWidth'),
+		defineScalar('strokeWidth', 'thickness'),
 	]
 	type Params = { pinch: number; outline: boolean; strokeWidth: number }
 	export const getBoundingBox = (params: Params) => ({

@@ -4,7 +4,7 @@
 	const getRx = (pinch: number) => 50 - Math.max(0, pinch - 0.5) * 60
 	const getRy = (pinch: number) => 50 - Math.max(0, 0.5 - pinch) * 60
 
-	export const paramConfig = [defineScalar('pinch', 0.5), defineScalar('hollow')]
+	export const paramConfig = [defineScalar('pinch', 'pinch', 0.5), defineScalar('hollow')]
 
 	type Params = { pinch: number; hollow: number }
 	export const getBoundingBox = (params: Params) => ({

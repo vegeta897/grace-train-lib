@@ -17,7 +17,7 @@
 		'intersex',
 	] as const
 	export const paramConfig = [
-		defineStringList('flag', [...PRIDE_FLAGS], false, 'rainbow'),
+		defineStringList('flag', 'flag', [...PRIDE_FLAGS], false, false, 'rainbow'),
 	]
 	const prideFlagData: Record<string, string> = {
 		rainbow:

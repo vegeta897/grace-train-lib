@@ -2,13 +2,27 @@
 	export const noFill = true
 
 	export const paramConfig = [
-		defineStringList('petalColor', [...COLORS.POP], true, COLORS.POP[0]),
-		defineStringList('centerColor', [...COLORS.POP], true, COLORS.POP[4]),
-		defineNumberList('petals', [4, 5, 6, 7, 8, 9, 10], true, 6),
-		defineScalar('petalBloom', 0.5),
-		defineScalar('petalLength', 0.5),
-		defineScalar('petalWidth', 0.5),
-		defineScalar('centerSize', 0.5),
+		defineStringList(
+			'petalColor',
+			'petal color',
+			[...COLORS.POP],
+			true,
+			true,
+			COLORS.POP[0]
+		),
+		defineStringList(
+			'centerColor',
+			'center color',
+			[...COLORS.POP],
+			true,
+			true,
+			COLORS.POP[4]
+		),
+		defineNumberList('petals', 'petals', [4, 5, 6, 7, 8, 9, 10], true, 6),
+		defineScalar('petalBloom', 'bloom', 0.5),
+		defineScalar('petalLength', 'stretch', 0.5),
+		defineScalar('petalWidth', 'widen', 0.5),
+		defineScalar('centerSize', 'center size', 0.5),
 	]
 
 	export const petalTranslateY = (scalar: number) => (0.5 - scalar) * 20
