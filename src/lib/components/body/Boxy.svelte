@@ -18,16 +18,27 @@
 	style="fill:{popColor};stroke:{popColor};"
 />
 <path
-	d="M37.5,200c0,0 -25,0 -25,-75c0,-75 25,-75 25,-75l300,0c0,0 25,0 25,75c-0,75 -25,75 -25,75l-300,-0Z"
+	d="M37.5,212.5l-25,-175l350,0l-25,175l-300,0Z"
 	style="fill:{baseColor};stroke:{baseColor};"
 />
-<slot name="decals" />
+<!-- Clip paths work on elements with strokes! -->
+<!-- The clip path itself ignores its own stroke, but we don't care! -->
+<g clip-path="url(#boxy-decal-clip)">
+	<slot name="decals" />
+</g>
 <path d="M12.5,212.5l350,0" style="fill:none;stroke:{baseColor};" />
 <slot name="wheels" />
 {#if stripeColor !== 'none'}
 	<path
-		d="M374.044,99.934l-373.024,0c-0,0 -1.02,9.223 -1.02,28.473c0,15.457 1.763,28.472 1.763,28.472l371.616,0c0,0 1.663,-13.268 1.663,-28.472c0,-17.099 -0.998,-28.473 -0.998,-28.473Z"
+		d="M366.143,99.934l-357.286,0l8.144,56.945l340.998,0l8.144,-56.945Z"
 		style="fill:{stripeColor}"
 	/>
 {/if}
 <slot name="toppers" />
+<defs>
+	<clipPath id="boxy-decal-clip">
+		<path
+			d="M23.087,200l-22.961,-160.732c-0.513,-3.587 0.557,-7.221 2.931,-9.958c2.374,-2.738 5.819,-4.31 9.443,-4.31l350,0c3.624,-0 7.069,1.572 9.443,4.31c2.374,2.737 3.444,6.371 2.931,9.958l-22.961,160.732l-328.826,0Z"
+		/>
+	</clipPath>
+</defs>

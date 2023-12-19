@@ -11,18 +11,13 @@
 	export let stripeColor: string | undefined = 'none'
 
 	// TODO: Move wheels and toppers out of body?
-	// At least, don't include ContainerSVG here
 </script>
 
 <svelte:component this={body[name].component} {baseColor} {popColor} {stripeColor}>
 	<slot name="wheels" slot="wheels">
 		<Wheels />
 	</slot>
-	<!-- Clip paths work on elements with strokes! -->
-	<!-- The clip path itself ignores its own stroke, but we don't care! -->
-	<g clip-path="url(#{name}-decal-clip)" slot="decals">
-		<slot name="decals" />
-	</g>
+	<slot name="decals" slot="decals" />
 	<!-- <slot name="toppers" slot="toppers" /> -->
 	<svelte:fragment slot="toppers">
 		<slot name="toppers" topLine={body[name].topperLine} />
@@ -32,8 +27,3 @@
 			{/each} -->
 	</svelte:fragment>
 </svelte:component>
-<defs>
-	<clipPath id="{name}-decal-clip">
-		<path d={body[name].decalClipPath} />
-	</clipPath>
-</defs>
