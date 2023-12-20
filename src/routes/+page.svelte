@@ -105,7 +105,7 @@
 {#each columnSizes as size}
 	<div class="showcase" style="--column-size: {size}px">
 		<ContainerSvg>
-			<Body name="boxy">
+			<Body name="coachy">
 				<svelte:fragment slot="decals">
 					<!-- logo -->
 					<Decal

@@ -1,0 +1,50 @@
+<script lang="ts">
+	import { COLORS } from '$lib/colors.js'
+
+	export let baseColor: string = COLORS.BASE[3]
+	export let popColor: string = COLORS.POP[1]
+	export let stripeColor: string = 'none'
+
+	$: baseColor = baseColor || COLORS.BASE[3]
+	$: popColor = popColor || COLORS.POP[1]
+</script>
+
+<rect x="162.5" y="12.5" width="50" height="25" style="fill:none;stroke:{popColor};" />
+<rect
+	x="37.5"
+	y="212.5"
+	width="300"
+	height="25"
+	style="fill:{popColor};stroke:{popColor};"
+/>
+<path d="M37.5,67.5l0,90" style="fill:none;stroke:{baseColor};" />
+<path d="M137.5,67.5l-0,90" style="fill:none;stroke:{baseColor};" />
+<path d="M237.5,67.5l-0,90" style="fill:none;stroke:{baseColor};" />
+<path d="M337.5,67.5l-0,90" style="fill:none;stroke:{baseColor};" />
+<rect
+	x="37.5"
+	y="37.5"
+	width="300"
+	height="30"
+	style="fill:{baseColor};stroke:{baseColor};"
+/>
+<rect
+	x="37.5"
+	y="157.5"
+	width="300"
+	height="55"
+	style="fill:{baseColor};stroke:{baseColor};"
+/>
+<g clip-path="url(#coachy-decal-clip)">
+	<slot name="decals" />
+</g>
+<path d="M12.5,212.5l350,0" style="fill:none;stroke:{baseColor};" />
+<slot name="wheels" />
+<slot name="toppers" />
+<defs>
+	<clipPath id="coachy-decal-clip">
+		<path
+			d="M25,200l0,-162.5c-0,-6.904 5.596,-12.5 12.5,-12.5l300,0c6.904,-0 12.5,5.596 12.5,12.5l0,162.5l-325,0Zm300,-120l-75,0l-0,64.978l75,-0l-0,-64.978Zm-100,0l-75,0l-0,64.978l75,-0l-0,-64.978Zm-100,0l-75,0l-0,64.978l75,-0l-0,-64.978Z"
+		/>
+	</clipPath>
+</defs>
