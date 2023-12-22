@@ -7,9 +7,9 @@ import type { XyTuple } from '../Topper.svelte'
 
 type BodyComponent = ComponentType<
 	SvelteComponent<{
-		baseColor?: string
-		popColor?: string
-		stripeColor?: string
+		baseColor: string
+		popColor: string
+		stripeColor: string
 	}>
 >
 

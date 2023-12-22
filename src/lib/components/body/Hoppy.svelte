@@ -1,12 +1,7 @@
 <script lang="ts">
-	import { COLORS } from '$lib/colors.js'
-
-	export let baseColor: string = COLORS.BASE[3]
-	export let popColor: string = COLORS.POP[1]
-	export let stripeColor: string = 'none'
-	// TODO: Move this to Body.svelte
-	$: baseColor = baseColor || COLORS.BASE[3]
-	$: popColor = popColor || COLORS.POP[1]
+	export let baseColor: string
+	export let popColor: string
+	export let stripeColor: string
 </script>
 
 <rect x="162.5" y="12.5" width="50" height="25" style="fill:none;stroke:{popColor};" />

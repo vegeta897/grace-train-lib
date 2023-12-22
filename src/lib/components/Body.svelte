@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+	import { COLORS } from '$lib'
 	import Wheels from './Wheels.svelte'
 	import type { BodyName } from './body/index.js'
 	import { body } from './body/index.js'
@@ -6,11 +7,16 @@
 
 <script lang="ts">
 	export let name: BodyName
-	export let baseColor: string | undefined = undefined
-	export let popColor: string | undefined = undefined
-	export let stripeColor: string | undefined = 'none'
-
-	// TODO: Move wheels and toppers out of body?
+	const props = $$restProps
+	interface $$Props {
+		name: BodyName
+		baseColor?: string
+		popColor?: string
+		stripeColor?: string
+	}
+	$: baseColor = props.baseColor || COLORS.BASE[3]
+	$: popColor = props.popColor || COLORS.POP[1]
+	$: stripeColor = props.stripeColor || 'none'
 </script>
 
 <svelte:component this={body[name].component} {baseColor} {popColor} {stripeColor}>
