@@ -2,6 +2,7 @@ import type { ComponentType, SvelteComponent } from 'svelte'
 import Boxy from './Boxy.svelte'
 import Tanky from './Tanky.svelte'
 import Coachy from './Coachy.svelte'
+import Hoppy from './Hoppy.svelte'
 import type { XyTuple } from '../Topper.svelte'
 
 type BodyComponent = ComponentType<
@@ -12,7 +13,7 @@ type BodyComponent = ComponentType<
 	}>
 >
 
-export const BODY_NAMES = ['boxy', 'tanky', 'coachy'] as const
+export const BODY_NAMES = ['boxy', 'tanky', 'coachy', 'hoppy'] as const
 export type BodyName = (typeof BODY_NAMES)[number]
 
 export const body: Record<BodyName, { component: BodyComponent; topperLine: XyTuple[] }> =
@@ -42,12 +43,23 @@ export const body: Record<BodyName, { component: BodyComponent; topperLine: XyTu
 		coachy: {
 			component: Coachy,
 			topperLine: [
-				[35, 25],
+				[25, 25],
 				[110, 25],
 				[160, 0],
 				[215, 0],
 				[265, 25],
-				[340, 25],
+				[350, 25],
+			],
+		},
+		hoppy: {
+			component: Hoppy,
+			topperLine: [
+				[37, 25],
+				[110, 25],
+				[160, 0],
+				[215, 0],
+				[265, 25],
+				[338, 25],
 			],
 		},
 	}

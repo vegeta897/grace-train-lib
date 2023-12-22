@@ -227,7 +227,7 @@
 			</Body>
 		</ContainerSvg>
 		<ContainerSvg>
-			<Body name="boxy" baseColor={COLORS.BASE[0]}>
+			<Body name="hoppy" baseColor={COLORS.BASE[0]}>
 				<svelte:fragment slot="decals">
 					<Decal
 						name="heart"
