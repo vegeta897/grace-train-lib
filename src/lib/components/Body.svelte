@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-	import { COLORS } from '$lib'
+	import { COLOR_NAMES } from '$lib'
 	import Wheels from './Wheels.svelte'
 	import type { BodyName } from './body/index.js'
 	import { body } from './body/index.js'
@@ -14,8 +14,8 @@
 		popColor?: string
 		stripeColor?: string
 	}
-	$: baseColor = props.baseColor || COLORS.BASE[3]
-	$: popColor = props.popColor || COLORS.POP[1]
+	$: baseColor = props.baseColor || COLOR_NAMES.BASE.BASE
+	$: popColor = props.popColor || COLOR_NAMES.POP.POP
 	$: stripeColor = props.stripeColor || 'none'
 </script>
 

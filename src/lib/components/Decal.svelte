@@ -3,14 +3,14 @@
 </script>
 
 <script lang="ts">
-	import { COLORS } from '$lib'
+	import { COLOR_NAMES } from '$lib'
 	import { popIn } from '$lib/util'
 	import type { DecalName } from './decal'
 	import { decalDefs } from './decal'
 	import type { ParamsObject } from './decal/params'
 
 	export let name: DecalName
-	export let fill: string = COLORS.POP[5]
+	export let fill: string = COLOR_NAMES.POP.LIME
 	export let x = 0
 	export let y = 0
 	export let scale = 1

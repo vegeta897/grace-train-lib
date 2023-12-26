@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { COLORS } from '$lib/colors.js'
+	import { COLOR_NAMES } from '$lib/colors.js'
 
-	export let rimColor: string = COLORS.POP[1]
-	export let capColor: string = COLORS.BASE[3]
+	export let rimColor: string = COLOR_NAMES.POP.POP
+	export let capColor: string = COLOR_NAMES.BASE.BASE
 	export let fromCenter = 100
 	export let size = 25
 
 	// Note! Default values are not reverted to if undefined is passed in after init
-	$: rimColor = rimColor || COLORS.POP[1]
-	$: capColor = capColor || COLORS.BASE[3]
+	$: rimColor = rimColor || COLOR_NAMES.POP.POP
+	$: capColor = capColor || COLOR_NAMES.BASE.BASE
 	$: fromCenter = fromCenter || 100
 	$: cy = 262.5 + (25 - size)
 </script>

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { COLORS } from '$lib/colors.js'
+	import { COLOR_NAMES } from '$lib/colors.js'
 	import Wheels from './Wheels.svelte'
 
-	export let rimColor: string = COLORS.POP[1]
-	export let capColor: string = COLORS.BASE[3]
+	export let rimColor: string = COLOR_NAMES.POP.POP
+	export let capColor: string = COLOR_NAMES.BASE.BASE
 	export let fromCenter = 100
 
 	let prevRimColor: string

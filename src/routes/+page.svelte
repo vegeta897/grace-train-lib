@@ -6,12 +6,11 @@
 	import Topper from '$lib/components/Topper.svelte'
 	import { onMount } from 'svelte'
 	import ContainerSvg from '$lib/components/ContainerSVG.svelte'
-	import { COLORS } from '$lib'
+	import { COLORS, COLOR_NAMES, colorRun } from '$lib'
 	import { decalDefs } from '$lib/components/decal'
 	import DecalParams from './DecalParams.svelte'
 	import { getDefaultParamsObject } from '$lib/components/decal/params'
 	import { PRIDE_FLAGS } from '$lib/components/decal/Flag.svelte'
-	import { colorRun } from '$lib/colors'
 
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
@@ -22,7 +21,7 @@
 		//100
 	]
 
-	const changingRimColors = [undefined, COLORS.POP[5]]
+	const changingRimColors = [undefined, COLOR_NAMES.POP.LIME]
 	let changingRimColor = changingRimColors[0]
 
 	let topperPosition = 0.8
@@ -53,11 +52,11 @@
 
 	let wheelSize = 25
 	let baseColorIndex = 3
-	let popColorIndex = 1
+	let popColorIndex = 3
 	$: baseColor = COLORS.BASE[baseColorIndex]
 	$: popColor = COLORS.POP[popColorIndex]
 
-	let changingDecalFill: string = COLORS.POP[0]
+	let changingDecalFill: string = COLOR_NAMES.POP.PIZZAZZ
 	// let changingDecalFillIndex = 0
 	onMount(() => {
 		// const changingDecalFillInterval = setInterval(() => {
@@ -133,7 +132,7 @@
 					<Decal
 						name="stripes"
 						params={{
-							colors: colorRun('POP', 1, 3),
+							colors: colorRun('POP', 3, 3, 3),
 							// mixColors: colorRun('POP', 1, 3),
 							nodes: [
 								[-90, 0],
@@ -155,7 +154,7 @@
 					<Decal
 						name="stripes"
 						params={{
-							colors: colorRun('POP', 1, 3),
+							colors: colorRun('POP', 3, 3, 5),
 							// mixColors: colorRun('POP', 1, 3),
 							nodes: [
 								[-30, 0, [0, 1, 2]],
@@ -177,7 +176,7 @@
 					<Decal
 						name="stripes"
 						params={{
-							colors: colorRun('POP', 1, 3),
+							colors: colorRun('POP', 1, 3, 4),
 							// mixColors: colorRun('POP', 1, 3),
 							nodes: [
 								[30, 1, [0, 1, 2]],
@@ -196,7 +195,7 @@
 					<Decal
 						name="stripes"
 						params={{
-							colors: [COLORS.POP[1], COLORS.POP[3]],
+							colors: [COLOR_NAMES.POP.POP, COLOR_NAMES.POP.PUMPKIN],
 							// mixColors: colorRun('POP', 1, 3),
 							nodes: [
 								[45, 0, [0, 1, 2]],
@@ -218,7 +217,7 @@
 					<Decal
 						name="stripes"
 						params={{
-							colors: colorRun('POP', 4, 3),
+							colors: colorRun('POP', 4, 3, 3),
 							// mixColors: colorRun('POP', 1, 3),
 							nodes: stripeNodes,
 						}}
@@ -229,7 +228,7 @@
 					<Decal
 						name="stripes"
 						params={{
-							colors: [COLORS.POP[3], COLORS.POP[1]],
+							colors: [COLOR_NAMES.POP.PUMPKIN, COLOR_NAMES.POP.POP],
 							nodes: [
 								[0, 1, [0, 2]],
 								[30, 10, []],
@@ -278,7 +277,7 @@
 						{...decalTransform}
 						x={200}
 						y={120}
-						fill={COLORS.POP[3]}
+						fill={COLOR_NAMES.POP.PUMPKIN}
 						rotate={0}
 						scale={1.5}
 						animateAppear
@@ -290,7 +289,7 @@
 						{...decalTransform}
 						x={360}
 						y={200}
-						fill={COLORS.POP[6]}
+						fill={COLOR_NAMES.POP.EMERALD}
 						rotate={30}
 						scale={1.9398}
 						animateAppear
@@ -302,7 +301,7 @@
 						{...decalTransform}
 						x={360}
 						y={50}
-						fill={COLORS.POP[5]}
+						fill={COLOR_NAMES.POP.LIME}
 						rotate={30.005}
 						scale={1.9398}
 						animateAppear
@@ -319,7 +318,7 @@
 						rotate={0}
 					/>
 				</svelte:fragment>
-				<Wheels slot="wheels" rimColor={COLORS.POP[5]} />
+				<Wheels slot="wheels" rimColor={COLOR_NAMES.POP.LIME} />
 			</Body>
 		</ContainerSvg>
 		<ContainerSvg>

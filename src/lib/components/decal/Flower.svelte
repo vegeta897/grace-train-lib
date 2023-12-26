@@ -1,4 +1,6 @@
 <script lang="ts" context="module">
+	import { COLORS, COLOR_NAMES } from '$lib'
+
 	export const noFill = true
 
 	export const paramConfig = [
@@ -8,7 +10,7 @@
 			[...COLORS.POP],
 			true,
 			true,
-			COLORS.POP[0]
+			COLOR_NAMES.POP.PIZZAZZ
 		),
 		defineStringList(
 			'centerColor',
@@ -16,7 +18,7 @@
 			[...COLORS.POP],
 			true,
 			true,
-			COLORS.POP[4]
+			COLOR_NAMES.POP.CANARY
 		),
 		defineNumberList('petals', 'petals', [4, 5, 6, 7, 8, 9, 10], true, 6),
 		defineScalar('petalBloom', 'bloom', 0.5),
@@ -48,7 +50,6 @@
 </script>
 
 <script lang="ts">
-	import { COLORS } from '$lib'
 	import { defineNumberList, defineScalar, defineStringList } from './params'
 
 	$$restProps
