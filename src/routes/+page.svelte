@@ -52,6 +52,10 @@
 	]
 
 	let wheelSize = 25
+	let baseColorIndex = 3
+	let popColorIndex = 1
+	$: baseColor = COLORS.BASE[baseColorIndex]
+	$: popColor = COLORS.POP[popColorIndex]
 
 	let changingDecalFill: string = COLORS.POP[0]
 	// let changingDecalFillIndex = 0
@@ -100,12 +104,30 @@
 			Wheel size
 			<input type="range" min={22} max={32} bind:value={wheelSize} />
 		</label>
+		<label>
+			Base color
+			<input
+				type="range"
+				min={0}
+				max={COLORS.BASE.length - 1}
+				bind:value={baseColorIndex}
+			/>
+		</label>
+		<label>
+			Pop color
+			<input
+				type="range"
+				min={0}
+				max={COLORS.POP.length - 1}
+				bind:value={popColorIndex}
+			/>
+		</label>
 	</div>
 </form>
 {#each columnSizes as size}
 	<div class="showcase" style="--column-size: {size}px">
 		<ContainerSvg>
-			<Body name="coachy">
+			<Body name="coachy" {baseColor} {popColor}>
 				<svelte:fragment slot="decals">
 					<!-- logo -->
 					<Decal
@@ -227,7 +249,7 @@
 			</Body>
 		</ContainerSvg>
 		<ContainerSvg>
-			<Body name="hoppy" baseColor={COLORS.BASE[0]}>
+			<Body name="hoppy" {baseColor} {popColor}>
 				<svelte:fragment slot="decals">
 					<Decal
 						name="heart"

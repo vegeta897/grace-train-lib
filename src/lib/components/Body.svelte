@@ -7,7 +7,7 @@
 
 <script lang="ts">
 	export let name: BodyName
-	const props = $$restProps
+	$: props = $$restProps
 	interface $$Props {
 		name: BodyName
 		baseColor?: string
@@ -15,6 +15,7 @@
 		stripeColor?: string
 	}
 	$: baseColor = props.baseColor || COLORS.BASE[3]
+	$: console.log(props.baseColor)
 	$: popColor = props.popColor || COLORS.POP[1]
 	$: stripeColor = props.stripeColor || 'none'
 </script>
