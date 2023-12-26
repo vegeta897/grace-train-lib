@@ -33,3 +33,6 @@
 		{/each} -->
 	</svelte:fragment>
 </svelte:component>
+<defs>
+	<clipPath id="{name}-decal-clip"> <path d={body[name].decalClipPath} /> </clipPath>
+</defs>

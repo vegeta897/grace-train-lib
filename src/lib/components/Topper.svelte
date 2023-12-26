@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
 	export const TOPPER_NAMES = ['party_hat'] as const
 	export type TopperName = (typeof TOPPER_NAMES)[number]
-	export type XyTuple = [x: number, y: number]
+	export type TopperLine = [x: number, y: number][]
 	import { sineInOut } from 'svelte/easing'
 
 	const SVG_DATA: Record<
@@ -24,12 +24,12 @@
 	export let name: TopperName
 	export let colors: string[]
 	export let position: number
-	export let topLine: XyTuple[]
+	export let topLine: TopperLine
 	export let offset = 0
 	export let scale = 1
 	export let rotate = 0
 
-	function getYposition(x: number, topLine: XyTuple[]) {
+	function getYposition(x: number, topLine: TopperLine) {
 		for (let i = 0; i < topLine.length; i++) {
 			const point = topLine[i]
 			if (point[0] === x) return point[1]

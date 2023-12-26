@@ -1,3 +1,18 @@
+<script lang="ts" context="module">
+	import type { TopperLine } from '../Topper.svelte'
+
+	export const decalClipPath =
+		'M25,80c-6.904,0 -12.5,-5.596 -12.5,-12.5l0,-30c0,-6.904 5.596,-12.5 12.5,-12.5l325,0c6.904,-0 12.5,5.596 12.5,12.5l0,30c0,6.904 -5.596,12.5 -12.5,12.5l0,120l-325,0l0,-120Zm300,0l-75,0l-0,64.978l75,-0l-0,-64.978Zm-100,0l-75,0l-0,64.978l75,-0l-0,-64.978Zm-100,0l-75,0l-0,64.978l75,-0l-0,-64.978Z'
+	export const topperLine: TopperLine = [
+		[25, 25],
+		[110, 25],
+		[160, 0],
+		[215, 0],
+		[265, 25],
+		[350, 25],
+	]
+</script>
+
 <script lang="ts">
 	export let baseColor: string
 	export let popColor: string
@@ -36,10 +51,3 @@
 <path d="M12.5,212.5l350,0" style="fill:none;stroke:{baseColor};" />
 <slot name="wheels" />
 <slot name="toppers" />
-<defs>
-	<clipPath id="coachy-decal-clip">
-		<path
-			d="M25,80c-6.904,0 -12.5,-5.596 -12.5,-12.5l0,-30c0,-6.904 5.596,-12.5 12.5,-12.5l325,0c6.904,-0 12.5,5.596 12.5,12.5l0,30c0,6.904 -5.596,12.5 -12.5,12.5l0,120l-325,0l0,-120Zm300,0l-75,0l-0,64.978l75,-0l-0,-64.978Zm-100,0l-75,0l-0,64.978l75,-0l-0,-64.978Zm-100,0l-75,0l-0,64.978l75,-0l-0,-64.978Z"
-		/>
-	</clipPath>
-</defs>

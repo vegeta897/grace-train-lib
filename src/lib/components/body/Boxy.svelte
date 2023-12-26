@@ -1,3 +1,18 @@
+<script lang="ts" context="module">
+	import type { TopperLine } from '../Topper.svelte'
+
+	export const decalClipPath =
+		'M23.087,200l-22.961,-160.732c-0.513,-3.587 0.557,-7.221 2.931,-9.958c2.374,-2.738 5.819,-4.31 9.443,-4.31l350,0c3.624,-0 7.069,1.572 9.443,4.31c2.374,2.737 3.444,6.371 2.931,9.958l-22.961,160.732l-328.826,0Z'
+	export const topperLine: TopperLine = [
+		[12, 25],
+		[110, 25],
+		[160, 0],
+		[215, 0],
+		[265, 25],
+		[363, 25],
+	]
+</script>
+
 <script lang="ts">
 	export let baseColor: string
 	export let popColor: string
@@ -30,10 +45,3 @@
 	/>
 {/if}
 <slot name="toppers" />
-<defs>
-	<clipPath id="boxy-decal-clip">
-		<path
-			d="M23.087,200l-22.961,-160.732c-0.513,-3.587 0.557,-7.221 2.931,-9.958c2.374,-2.738 5.819,-4.31 9.443,-4.31l350,0c3.624,-0 7.069,1.572 9.443,4.31c2.374,2.737 3.444,6.371 2.931,9.958l-22.961,160.732l-328.826,0Z"
-		/>
-	</clipPath>
-</defs>

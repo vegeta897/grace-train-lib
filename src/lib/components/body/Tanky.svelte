@@ -1,3 +1,18 @@
+<script lang="ts" context="module">
+	import type { TopperLine } from '../Topper.svelte'
+
+	export const decalClipPath =
+		'M16.577,200c-8.597,-11.4 -16.577,-33.157 -16.577,-74.652c0,-90.642 37.484,-87.849 37.503,-87.848l299.997,0c0.01,0 0.021,0 0.031,0c0,0 37.527,-2.726 37.527,87.5c-0,41.713 -7.98,63.564 -16.595,75l-341.886,0Z'
+	export const topperLine: TopperLine = [
+		[34, 38],
+		[107, 38],
+		[160, 0],
+		[215, 0],
+		[268, 38],
+		[341, 38],
+	]
+</script>
+
 <script lang="ts">
 	export let baseColor: string
 	export let popColor: string
@@ -28,10 +43,3 @@
 	/>
 {/if}
 <slot name="toppers" />
-<defs>
-	<clipPath id="tanky-decal-clip">
-		<path
-			d="M16.577,200c-8.597,-11.4 -16.577,-33.157 -16.577,-74.652c0,-90.642 37.484,-87.849 37.503,-87.848l299.997,0c0.01,0 0.021,0 0.031,0c0,0 37.527,-2.726 37.527,87.5c-0,41.713 -7.98,63.564 -16.595,75l-341.886,0Z"
-		/>
-	</clipPath>
-</defs>
