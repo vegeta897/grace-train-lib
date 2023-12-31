@@ -71,10 +71,6 @@
 		// 		]
 		// }, 2000)
 		// return () => clearInterval(changingRimInterval)
-		// const topperInterval = setInterval(() => {
-		// 	topperPosition = (topperPosition + 0.005) % 1
-		// }, 30)
-		// return () => clearInterval(topperInterval)
 	})
 </script>
 
@@ -120,6 +116,10 @@
 				max={COLORS.POP.length - 1}
 				bind:value={popColorIndex}
 			/>
+		</label>
+		<label>
+			Topper position
+			<input type="range" min="0" max="1" step="0.01" bind:value={topperPosition} />
 		</label>
 	</div>
 </form>
@@ -184,6 +184,16 @@
 						scale={1.9398}
 						animateAppear
 						delayAppear={100}
+					/>
+				</svelte:fragment>
+				<svelte:fragment slot="toppers" let:topLine>
+					<Topper
+						{topLine}
+						position={topperPosition}
+						colors={['#00adf8', '#79f800']}
+						name="party_hat"
+						scale={1}
+						rotate={0}
 					/>
 				</svelte:fragment>
 				<Wheels size={wheelSize} slot="wheels" />
@@ -357,5 +367,6 @@
 		row-gap: 2rem;
 		column-gap: 2rem;
 		margin-bottom: 1rem;
+		overflow-y: clip;
 	}
 </style>

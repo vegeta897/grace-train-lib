@@ -31,7 +31,6 @@
 	<slot name="toppers" slot="toppers" topLine={body[name].topperLine} />
 	<!-- <svelte:fragment slot="toppers">
 		<slot name="toppers" topLine={body[name].topperLine} />
-		TODO: Remove? Use an actual topper to test with
 		{#each body[name].topperLine as [tpx, tpy]}
 			<circle cx={tpx} cy={tpy} r="3" fill="none" stroke-width="2" stroke="red" />
 		{/each}
