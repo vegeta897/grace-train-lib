@@ -31,9 +31,7 @@
 	d="M37.5,200c0,0 -25,0 -25,-75c0,-75 25,-75 25,-75l300,0c0,0 25,0 25,75c-0,75 -25,75 -25,75l-300,-0Z"
 	style="fill:{baseColor};stroke:{baseColor};"
 />
-<g clip-path="url(#tanky-decal-clip)">
-	<slot name="decals" />
-</g>
+<slot name="decals" />
 <path d="M12.5,212.5l350,0" style="fill:none;stroke:{baseColor};" />
 <slot name="wheels" />
 {#if stripeColor !== 'none'}

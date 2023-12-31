@@ -1,9 +1,10 @@
 import type { ComponentType, SvelteComponent } from 'svelte'
+import type { TopperLine } from '../Topper.svelte'
 import * as Boxy from './Boxy.svelte'
 import * as Tanky from './Tanky.svelte'
 import * as Coachy from './Coachy.svelte'
 import * as Hoppy from './Hoppy.svelte'
-import type { TopperLine } from '../Topper.svelte'
+import * as Loggy from './Loggy.svelte'
 
 type BodyComponent = ComponentType<
 	SvelteComponent<
@@ -13,7 +14,7 @@ type BodyComponent = ComponentType<
 	>
 >
 
-export const BODY_NAMES = ['boxy', 'tanky', 'coachy', 'hoppy'] as const
+export const BODY_NAMES = ['boxy', 'tanky', 'coachy', 'hoppy', 'loggy'] as const
 export type BodyName = (typeof BODY_NAMES)[number]
 
 function defineBody(importObject: {
@@ -33,4 +34,5 @@ export const body: Record<BodyName, ReturnType<typeof defineBody>> = {
 	tanky: defineBody(Tanky),
 	coachy: defineBody(Coachy),
 	hoppy: defineBody(Hoppy),
+	loggy: defineBody(Loggy),
 }

@@ -33,9 +33,7 @@
 />
 <!-- Clip paths work on elements with strokes! -->
 <!-- The clip path itself ignores its own stroke, but we don't care! -->
-<g clip-path="url(#boxy-decal-clip)">
-	<slot name="decals" />
-</g>
+<slot name="decals" />
 <path d="M12.5,212.5l350,0" style="fill:none;stroke:{baseColor};" />
 <slot name="wheels" />
 {#if stripeColor !== 'none'}

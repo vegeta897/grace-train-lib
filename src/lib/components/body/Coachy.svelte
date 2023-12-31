@@ -28,9 +28,9 @@
 	style="fill:{popColor};stroke:{popColor};"
 />
 <path d="M37.5,67.5l0,90" style="fill:none;stroke:{baseColor};" />
-<path d="M137.5,67.5l-0,90" style="fill:none;stroke:{baseColor};" />
-<path d="M237.5,67.5l-0,90" style="fill:none;stroke:{baseColor};" />
-<path d="M337.5,67.5l-0,90" style="fill:none;stroke:{baseColor};" />
+<path d="M137.5,67.5l0,90" style="fill:none;stroke:{baseColor};" />
+<path d="M237.5,67.5l0,90" style="fill:none;stroke:{baseColor};" />
+<path d="M337.5,67.5l0,90" style="fill:none;stroke:{baseColor};" />
 <rect
 	x="25"
 	y="37.5"
@@ -45,9 +45,7 @@
 	height="55"
 	style="fill:{baseColor};stroke:{baseColor};"
 />
-<g clip-path="url(#coachy-decal-clip)">
-	<slot name="decals" />
-</g>
+<slot name="decals" />
 <path d="M12.5,212.5l350,0" style="fill:none;stroke:{baseColor};" />
 <slot name="wheels" />
 <slot name="toppers" />

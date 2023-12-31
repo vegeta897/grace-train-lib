@@ -41,8 +41,6 @@
 	style="fill:{baseColor};stroke:{baseColor};"
 />
 <slot name="wheels" />
+<slot name="decals" />
 <slot name="toppers" />
-<g clip-path="url(#hoppy-decal-clip)">
-	<slot name="decals" />
-</g>
 <path d="M12.5,212.5h350" style="fill:none;stroke:{baseColor};" />
