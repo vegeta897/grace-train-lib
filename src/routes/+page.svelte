@@ -126,7 +126,71 @@
 {#each columnSizes as size}
 	<div class="showcase" style="--column-size: {size}px">
 		<ContainerSvg>
-			<Body name="loggy" {baseColor} {popColor}>
+			<Body name="chemy" {baseColor} {popColor}>
+				<svelte:fragment slot="decals">
+					<Decal
+						name="heart"
+						params={heartParams}
+						{...decalTransform}
+						x={60}
+						y={200}
+						scale={1.9398}
+						animateAppear
+						delayAppear={100}
+					/>
+					<Decal
+						name="flag"
+						params={{ flag }}
+						{...decalTransform}
+						x={75}
+						y={75}
+						scale={1.1398}
+						animateAppear
+						delayAppear={100}
+						rotate={-10}
+					/>
+					<Decal
+						name="star"
+						params={starParams}
+						{...decalTransform}
+						x={200}
+						y={120}
+						fill={COLOR_NAMES.POP.PUMPKIN}
+						rotate={0}
+						scale={1.5}
+						animateAppear
+						delayAppear={100}
+					/>
+					<Decal
+						name="circle"
+						params={circleParams}
+						{...decalTransform}
+						x={360}
+						y={200}
+						fill={COLOR_NAMES.POP.EMERALD}
+						rotate={30}
+						scale={1.9398}
+						animateAppear
+						delayAppear={100}
+					/>
+					<Decal
+						name="star"
+						params={starParams}
+						{...decalTransform}
+						x={360}
+						y={50}
+						fill={COLOR_NAMES.POP.LIME}
+						rotate={30.005}
+						scale={1.9398}
+						animateAppear
+						delayAppear={100}
+					/>
+				</svelte:fragment>
+				<Wheels size={wheelSize} slot="wheels" />
+			</Body>
+		</ContainerSvg>
+		<ContainerSvg>
+			<Body name="hoppy" {baseColor} {popColor}>
 				<svelte:fragment slot="decals">
 					<!-- logo -->
 					<Decal
@@ -243,70 +307,6 @@
 					<!-- {#each snapPoints as point}
 						<circle cx={point.x} cy={point.y} r="1" />
 					{/each} -->
-				</svelte:fragment>
-				<Wheels size={wheelSize} slot="wheels" />
-			</Body>
-		</ContainerSvg>
-		<ContainerSvg>
-			<Body name="hoppy" {baseColor} {popColor}>
-				<svelte:fragment slot="decals">
-					<Decal
-						name="heart"
-						params={heartParams}
-						{...decalTransform}
-						x={60}
-						y={200}
-						scale={1.9398}
-						animateAppear
-						delayAppear={100}
-					/>
-					<Decal
-						name="flag"
-						params={{ flag }}
-						{...decalTransform}
-						x={75}
-						y={75}
-						scale={1.1398}
-						animateAppear
-						delayAppear={100}
-						rotate={-10}
-					/>
-					<Decal
-						name="star"
-						params={starParams}
-						{...decalTransform}
-						x={200}
-						y={120}
-						fill={COLOR_NAMES.POP.PUMPKIN}
-						rotate={0}
-						scale={1.5}
-						animateAppear
-						delayAppear={100}
-					/>
-					<Decal
-						name="circle"
-						params={circleParams}
-						{...decalTransform}
-						x={360}
-						y={200}
-						fill={COLOR_NAMES.POP.EMERALD}
-						rotate={30}
-						scale={1.9398}
-						animateAppear
-						delayAppear={100}
-					/>
-					<Decal
-						name="star"
-						params={starParams}
-						{...decalTransform}
-						x={360}
-						y={50}
-						fill={COLOR_NAMES.POP.LIME}
-						rotate={30.005}
-						scale={1.9398}
-						animateAppear
-						delayAppear={100}
-					/>
 				</svelte:fragment>
 				<svelte:fragment slot="toppers" let:topLine>
 					<Topper
