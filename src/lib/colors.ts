@@ -1,4 +1,4 @@
-import { mix } from 'color2k'
+import { mix, toHex } from 'color2k'
 
 export const COLOR_NAMES = {
 	POP: {
@@ -49,8 +49,8 @@ function buildGradient(colors: string[]) {
 		const thisColor = colors[i]
 		if (i > 0) {
 			const prevColor = colors[i - 1]
-			gradient.push(mix(prevColor, thisColor, 1 / 3))
-			gradient.push(mix(prevColor, thisColor, 2 / 3))
+			gradient.push(toHex(mix(prevColor, thisColor, 1 / 3)))
+			gradient.push(toHex(mix(prevColor, thisColor, 2 / 3)))
 		}
 		gradient.push(thisColor)
 	}
