@@ -7,6 +7,9 @@ import * as Hoppy from './Hoppy.svelte'
 import * as Loggy from './Loggy.svelte'
 import * as Chemy from './Chemy.svelte'
 
+export const BODY_NAMES = ['boxy', 'tanky', 'coachy', 'hoppy', 'loggy', 'chemy'] as const
+export type BodyName = (typeof BODY_NAMES)[number]
+
 type BodyComponent = ComponentType<
 	SvelteComponent<
 		{ baseColor: string; popColor: string; stripeColor: string },
@@ -14,9 +17,6 @@ type BodyComponent = ComponentType<
 		{ decals: {}; toppers: {}; wheels: {} }
 	>
 >
-
-export const BODY_NAMES = ['boxy', 'tanky', 'coachy', 'hoppy', 'loggy', 'chemy'] as const
-export type BodyName = (typeof BODY_NAMES)[number]
 
 function defineBody(importObject: {
 	default: BodyComponent

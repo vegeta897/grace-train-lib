@@ -52,8 +52,7 @@
 	class:transition-metrics={transition !== 'none'}
 >
 	<g in:popIn|global={{ delay: delayAppear, skip: !animateAppear }}>
-		<svelte:component this={decalDefs[name].component} {fill} {scale} {params}
-		></svelte:component>
+		<svelte:component this={decalDefs[name].component} {fill} {scale} {params} />
 	</g>
 	<!-- {#if bounds}
 		<rect
