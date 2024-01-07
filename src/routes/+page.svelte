@@ -15,7 +15,7 @@
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
 
 	const columnSizes = [
-		500,
+		800,
 		//300,
 		//150,
 		//100
@@ -25,6 +25,9 @@
 	let changingRimColor = changingRimColors[0]
 
 	let topperPosition = 0.8
+	let topperOffset = 0
+	let topperScale = 1
+	let topperRotate = 0
 
 	let heartParams = getDefaultParamsObject(decalDefs.heart.paramConfig)
 	let starParams = getDefaultParamsObject(decalDefs.star.paramConfig)
@@ -75,25 +78,28 @@
 </script>
 
 <form>
-	<DecalParams decalName="heart" bind:params={heartParams} />
-	<DecalParams decalName="star" bind:params={starParams} />
-	<DecalParams decalName="circle" bind:params={circleParams} />
-	<DecalParams decalName="flower" bind:params={flowerParams} />
-	<div>
-		{#each PRIDE_FLAGS as flagName}
-			<button on:click={() => (flag = flagName)}>{flagName}</button>
-		{/each}
-	</div>
-	<label>
-		Turn angle
-		<input type="range" min={-90} max={90} step={15} bind:value={arcTurn} />
-	</label>
-	{arcTurn}
-	<label>
-		Turn length
-		<input type="range" min={0} max={8} bind:value={arcLength} />
-	</label>
-	{arcLength}
+	<details>
+		<summary style="font-size: 1.5rem;">decal params</summary>
+		<DecalParams decalName="heart" bind:params={heartParams} />
+		<DecalParams decalName="star" bind:params={starParams} />
+		<DecalParams decalName="circle" bind:params={circleParams} />
+		<DecalParams decalName="flower" bind:params={flowerParams} />
+		<div>
+			{#each PRIDE_FLAGS as flagName}
+				<button on:click={() => (flag = flagName)}>{flagName}</button>
+			{/each}
+		</div>
+		<label>
+			Turn angle
+			<input type="range" min={-90} max={90} step={15} bind:value={arcTurn} />
+		</label>
+		{arcTurn}
+		<label>
+			Turn length
+			<input type="range" min={0} max={8} bind:value={arcLength} />
+		</label>
+		{arcLength}
+	</details>
 	<div>
 		<label>
 			Wheel size
@@ -117,14 +123,28 @@
 				bind:value={popColorIndex}
 			/>
 		</label>
+	</div>
+	<div>
 		<label>
 			Topper position
-			<input type="range" min="0" max="1" step="0.01" bind:value={topperPosition} />
+			<input type="range" min="0" max="1" step={1 / 400} bind:value={topperPosition} />
+		</label>
+		<label>
+			Topper offset
+			<input type="range" min="-20" max="20" step="1" bind:value={topperOffset} />
+		</label>
+		<label>
+			Topper scale
+			<input type="range" min="0.5" max="1.2" step="0.01" bind:value={topperScale} />
+		</label>
+		<label>
+			Topper rotate
+			<input type="range" min="-45" max="45" step="1" bind:value={topperRotate} />
 		</label>
 	</div>
 </form>
 {#each columnSizes as size}
-	<div class="showcase" style="--column-size: {size}px">
+	<div class="showcase" style="--column-size: {size}px; padding-top: {size / 8}px">
 		<ContainerSvg>
 			<Body name="chemy" {baseColor} {popColor}>
 				<svelte:fragment slot="decals">
@@ -189,11 +209,12 @@
 				<svelte:fragment slot="toppers" let:topLine>
 					<Topper
 						{topLine}
-						position={topperPosition}
-						colors={['#00adf8', '#79f800']}
 						name="party_hat"
-						scale={1}
-						rotate={0}
+						colors={['#00adf8', '#79f800']}
+						position={topperPosition}
+						scale={topperScale}
+						rotate={topperRotate}
+						offset={topperOffset}
 					/>
 				</svelte:fragment>
 				<Wheels size={wheelSize} slot="wheels" />
@@ -321,11 +342,12 @@
 				<svelte:fragment slot="toppers" let:topLine>
 					<Topper
 						{topLine}
-						position={topperPosition}
-						colors={['#00adf8', '#79f800']}
 						name="party_hat"
-						scale={1}
-						rotate={0}
+						colors={['#00adf8', '#79f800']}
+						position={topperPosition}
+						scale={topperScale}
+						rotate={topperRotate}
+						offset={topperOffset}
 					/>
 				</svelte:fragment>
 				<Wheels slot="wheels" rimColor={COLOR_NAMES.POP.LIME} />
@@ -364,7 +386,6 @@
 	.showcase {
 		display: grid;
 		grid-template-columns: repeat(4, var(--column-size));
-		row-gap: 2rem;
 		column-gap: 2rem;
 		margin-bottom: 1rem;
 		overflow-y: clip;

@@ -19,24 +19,14 @@ export type DecalName = (typeof DECAL_NAMES)[number]
 
 // TODO: Abstract params stuff to be used for body and topper as well
 
-type DecalDef = {
-	component: ComponentType<SvelteComponent>
-	paramConfig: ParamDefinition[]
-	noFill: boolean
-	getDefaultParamsObject: () => ParamsObject
-	getBoundingBox: BoundingBoxFn
-	minScale?: number
-	maxScale?: number
-}
-
 function defineDecal(importObject: {
 	default: ComponentType<SvelteComponent>
 	paramConfig?: ParamDefinition[]
 	noFill?: boolean
-	getBoundingBox?: BoundingBoxFn
+	getBoundingBox?: DecalBoundingBoxFn
 	minScale?: number
 	maxScale?: number
-}): DecalDef {
+}) {
 	return {
 		component: importObject.default,
 		paramConfig: importObject.paramConfig || [],
@@ -48,7 +38,7 @@ function defineDecal(importObject: {
 	}
 }
 
-export const decalDefs: Record<DecalName, DecalDef> = {
+export const decalDefs: Record<DecalName, ReturnType<typeof defineDecal>> = {
 	heart: defineDecal(Heart),
 	star: defineDecal(Star),
 	circle: defineDecal(Circle),
@@ -88,4 +78,4 @@ type BoundingBox = {
 	width: number
 	height: number
 }
-export type BoundingBoxFn = (params: ParamsObject<any>) => BoundingBox
+export type DecalBoundingBoxFn = (params: ParamsObject<any>) => BoundingBox
