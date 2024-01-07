@@ -40,7 +40,7 @@
 	d="M112.454,212.5l-74.94,-137.5l299.972,0l-74.94,137.5l-150.092,0Z"
 	style="fill:{baseColor};stroke:{baseColor};"
 />
-<slot name="wheels" />
 <slot name="decals" />
-<slot name="toppers" />
 <path d="M12.5,212.5h350" style="fill:none;stroke:{baseColor};" />
+<slot name="wheels" />
+<slot name="toppers" />
