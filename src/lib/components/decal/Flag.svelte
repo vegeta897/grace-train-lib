@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-	import { defineStringList } from './params'
+	import { defineListPicker } from './params'
 	import { noAnim, flagWipe } from '$lib/util'
 	export const noFill = true
 	export const PRIDE_FLAGS = [
@@ -17,7 +17,7 @@
 		'intersex',
 	] as const
 	export const paramConfig = [
-		defineStringList('flag', 'flag', [...PRIDE_FLAGS], false, false, 'rainbow'),
+		defineListPicker('flag', 'flag', [...PRIDE_FLAGS], [100, 60], 'rainbow'),
 	]
 	const prideFlagData: Record<string, string> = {
 		rainbow:

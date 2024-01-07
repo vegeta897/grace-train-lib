@@ -6,13 +6,17 @@ export type ParamDefinition = {
 	| { type: 'toggle'; defaultValue: boolean }
 	// List is "any" type so svelte type checker doesn't complain
 	| {
-			type: 'stringList'
+			type: 'listSlider'
 			list: any[]
-			slider: boolean
 			color: boolean
-			defaultValue: string
+			defaultValue: any
 	  }
-	| { type: 'numberList'; list: any[]; slider: boolean; defaultValue: number }
+	| {
+			type: 'listPicker'
+			list: any[]
+			thumbSize: [width: number, height: number]
+			defaultValue: any
+	  }
 )
 export type ParamsObject<T extends Record<string, any> = Record<string, any>> = T
 
@@ -42,49 +46,39 @@ export function defineToggle(
 	}
 }
 
-export function defineNumberList<T extends number[]>(
+export function defineListSlider<T extends any[]>(
 	name: string,
 	displayName = name,
 	list: T,
-	slider: boolean,
-	defaultValue: T[number]
-): ParamDefinition {
-	return {
-		type: 'numberList',
-		name,
-		displayName,
-		list,
-		slider,
-		defaultValue,
-	}
-}
-
-export function defineStringList<T extends string[]>(
-	name: string,
-	displayName = name,
-	list: T,
-	slider: boolean,
 	color: boolean,
 	defaultValue: T[number]
 ): ParamDefinition {
 	return {
-		type: 'stringList',
+		type: 'listSlider',
 		name,
 		displayName,
 		list,
-		slider,
 		color,
 		defaultValue,
 	}
 }
 
-// export function updateParamsObject<P extends ParamDefinition>(
-// 	def: P,
-// 	value: P['defaultValue'],
-// 	paramsObject: ParamsObject
-// ) {
-// 	paramsObject[def.name] = value
-// }
+export function defineListPicker<T extends any[]>(
+	name: string,
+	displayName = name,
+	list: T,
+	thumbSize: [width: number, height: number],
+	defaultValue: T[number]
+): ParamDefinition {
+	return {
+		type: 'listPicker',
+		name,
+		displayName,
+		list,
+		thumbSize,
+		defaultValue,
+	}
+}
 
 export function getDefaultParamsObject(paramDefs: ParamDefinition[] = []): ParamsObject {
 	return Object.fromEntries(

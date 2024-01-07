@@ -1,26 +1,25 @@
 <script lang="ts" context="module">
 	import { COLORS, COLOR_NAMES } from '$lib'
+	import { defineListSlider, defineScalar } from './params'
 
 	export const noFill = true
 
 	export const paramConfig = [
-		defineStringList(
+		defineListSlider(
 			'petalColor',
 			'petal color',
 			[...COLORS.POP],
 			true,
-			true,
 			COLOR_NAMES.POP.PIZZAZZ
 		),
-		defineStringList(
+		defineListSlider(
 			'centerColor',
 			'center color',
 			[...COLORS.POP],
 			true,
-			true,
 			COLOR_NAMES.POP.CANARY
 		),
-		defineNumberList('petals', 'petals', [4, 5, 6, 7, 8, 9, 10], true, 6),
+		defineListSlider('petals', 'petals', [4, 5, 6, 7, 8, 9, 10], false, 6),
 		defineScalar('petalBloom', 'bloom', 0.5),
 		defineScalar('petalLength', 'stretch', 0.5),
 		defineScalar('petalWidth', 'widen', 0.5),
@@ -50,8 +49,6 @@
 </script>
 
 <script lang="ts">
-	import { defineNumberList, defineScalar, defineStringList } from './params'
-
 	$$restProps
 	export let params: Params
 
