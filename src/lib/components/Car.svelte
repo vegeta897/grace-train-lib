@@ -5,11 +5,11 @@
 
 	export let car: GraceTrainCar
 	export let width = '100%'
-
 	export let svgElement: SVGElement | undefined = undefined
+	export let viewBox = '0 0 375 300'
 </script>
 
-<ContainerSvg {width} viewBox="0 0 375 300" bind:svgElement>
+<ContainerSvg {width} {viewBox} bind:svgElement>
 	{#if typeof car === 'string'}
 		<Body name="boxy" stripeColor={car}></Body>
 	{:else}
