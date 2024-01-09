@@ -26,7 +26,7 @@
 				/>
 			{:else if param.type === 'toggle'}
 				<input name={param.name} type="checkbox" bind:checked={params[param.name]} />
-			{:else if param.slider}
+			{:else}
 				{@const list = param.list}
 				<input
 					id={param.name}
