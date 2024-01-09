@@ -17,7 +17,7 @@
 		'intersex',
 	] as const
 	export const paramConfig = [
-		defineListPicker('flag', 'flag', [...PRIDE_FLAGS], [100, 60], 'rainbow'),
+		defineListPicker('flag', 'flag', [...PRIDE_FLAGS], 'rainbow'),
 	]
 	const prideFlagData: Record<string, string> = {
 		rainbow:

@@ -14,7 +14,6 @@ export type ParamDefinition = {
 	| {
 			type: 'listPicker'
 			list: any[]
-			thumbSize: [width: number, height: number]
 			defaultValue: any
 	  }
 )
@@ -67,7 +66,6 @@ export function defineListPicker<T extends any[]>(
 	name: string,
 	displayName = name,
 	list: T,
-	thumbSize: [width: number, height: number],
 	defaultValue: T[number]
 ): ParamDefinition {
 	return {
@@ -75,7 +73,6 @@ export function defineListPicker<T extends any[]>(
 		name,
 		displayName,
 		list,
-		thumbSize,
 		defaultValue,
 	}
 }
