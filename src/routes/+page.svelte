@@ -10,12 +10,11 @@
 	import { decalDefs } from '$lib/components/decal'
 	import DecalParams from './DecalParams.svelte'
 	import { getDefaultParamsObject } from '$lib/components/decal/params'
-	import { PRIDE_FLAGS } from '$lib/components/decal/Flag.svelte'
 
-	const decalTransform = { x: 375 / 2, y: 120, scale: 1.5, rotate: 0 }
+	const decalTransform = { x: 375 / 2, y: 120, scale: 1, rotate: 0 }
 
 	const columnSizes = [
-		800,
+		600,
 		//300,
 		//150,
 		//100
@@ -33,7 +32,7 @@
 	let starParams = getDefaultParamsObject(decalDefs.star.paramConfig)
 	let circleParams = getDefaultParamsObject(decalDefs.circle.paramConfig)
 	let flowerParams = getDefaultParamsObject(decalDefs.flower.paramConfig)
-	let flag = 'rainbow'
+	let flagParams = getDefaultParamsObject(decalDefs.flag.paramConfig)
 
 	let arcTurn = 60
 	let arcLength = 0
@@ -84,11 +83,7 @@
 		<DecalParams decalName="star" bind:params={starParams} />
 		<DecalParams decalName="circle" bind:params={circleParams} />
 		<DecalParams decalName="flower" bind:params={flowerParams} />
-		<div>
-			{#each PRIDE_FLAGS as flagName}
-				<button on:click={() => (flag = flagName)}>{flagName}</button>
-			{/each}
-		</div>
+		<DecalParams decalName="flag" bind:params={flagParams} />
 		<label>
 			Turn angle
 			<input type="range" min={-90} max={90} step={15} bind:value={arcTurn} />
@@ -160,7 +155,7 @@
 					/>
 					<Decal
 						name="flag"
-						params={{ flag }}
+						params={flagParams}
 						{...decalTransform}
 						x={75}
 						y={75}
@@ -218,6 +213,12 @@
 					/>
 				</svelte:fragment>
 				<Wheels size={wheelSize} slot="wheels" />
+			</Body>
+		</ContainerSvg>
+		<ContainerSvg>
+			<Body name="tanky">
+				<Decal name="flower" params={flowerParams} {...decalTransform} slot="decals" />
+				<WheelsChange slot="wheels" rimColor={changingRimColor} />
 			</Body>
 		</ContainerSvg>
 		<ContainerSvg>
@@ -355,12 +356,6 @@
 		</ContainerSvg>
 		<ContainerSvg>
 			<Body name="tanky">
-				<Decal name="flower" params={flowerParams} {...decalTransform} slot="decals" />
-				<WheelsChange slot="wheels" rimColor={changingRimColor} />
-			</Body>
-		</ContainerSvg>
-		<ContainerSvg>
-			<Body name="tanky">
 				<Decal
 					name="circle"
 					fill={changingDecalFill}
@@ -386,7 +381,7 @@
 	.showcase {
 		display: grid;
 		grid-template-columns: repeat(4, var(--column-size));
-		column-gap: 2rem;
+		column-gap: 1rem;
 		margin-bottom: 1rem;
 		overflow-y: clip;
 	}
