@@ -41,10 +41,10 @@
 				{/each}
 			</svelte:fragment>
 			<Wheels
-				rimColor={car.wheelColor}
+				rimColor={car.wheelColor || COLOR_NAMES.POP.POP}
 				capColor={car.bodyColor || COLOR_NAMES.BASE.BASE}
-				fromCenter={car.wheelFromCenter}
-				size={car.wheelSize}
+				fromCenter={car.wheelFromCenter || 100}
+				size={car.wheelSize || 25}
 				slot="wheels"
 			/>
 		</Body>
