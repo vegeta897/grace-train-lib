@@ -10,12 +10,15 @@
 </script>
 
 <ContainerSvg {width} {viewBox} bind:svgElement>
-	{#if typeof car === 'string'}
-		<Body name="boxy" stripeColor={car}></Body>
-	{:else}
-		<Body name={car.body} baseColor={car.bodyColor} popColor={car.bodyPopColor}>
+	{#if 'depotCar' in car}
+		{@const { depotCar } = car}
+		<Body
+			name={depotCar.body}
+			baseColor={depotCar.bodyColor}
+			popColor={depotCar.bodyPopColor}
+		>
 			<svelte:fragment slot="decals">
-				{#each car.decals as decal, d}
+				{#each depotCar.decals as decal, d}
 					<Decal
 						name={decal.name}
 						fill={decal.fill}
@@ -28,7 +31,7 @@
 				{/each}
 			</svelte:fragment>
 			<svelte:fragment slot="toppers" let:topLine>
-				{#each car.toppers as topper}
+				{#each depotCar.toppers as topper}
 					<Topper
 						{topLine}
 						name={topper.name}
@@ -41,12 +44,14 @@
 				{/each}
 			</svelte:fragment>
 			<Wheels
-				rimColor={car.wheelColor || COLOR_NAMES.POP.POP}
-				capColor={car.bodyColor || COLOR_NAMES.BASE.BASE}
-				fromCenter={car.wheelFromCenter || 100}
-				size={car.wheelSize || 25}
+				rimColor={depotCar.wheelColor || COLOR_NAMES.POP.POP}
+				capColor={depotCar.bodyColor || COLOR_NAMES.BASE.BASE}
+				fromCenter={depotCar.wheelFromCenter || 100}
+				size={depotCar.wheelSize || 25}
 				slot="wheels"
 			/>
 		</Body>
+	{:else}
+		<Body name="boxy" stripeColor={car.color}></Body>
 	{/if}
 </ContainerSvg>

@@ -13,39 +13,39 @@ export type HypeEventBaseData = {
 	graces: number
 }
 
-// TODO: Create (de)serializer functions?
-export type GraceTrainCar =
-	| string
-	| {
-			body: BodyName
-			bodyColor?: string
-			bodyPopColor?: string
-			wheelColor?: string
-			wheelFromCenter: number
-			wheelSize: number
-			decals: {
-				name: DecalName
-				fill: string
-				x: number
-				y: number
-				scale: number
-				rotate: number
-				params: ParamsObject
-			}[]
-			toppers: {
-				name: TopperName
-				colors: string[]
-				position: number
-				offset: number
-				scale: number
-				rotate: number
-			}[]
-	  }
-
-export type GraceTrainData = {
-	grace: GraceEventBaseData & { cars: GraceTrainCar[]; frog?: boolean }
+// Maybe create (de)serializer functions?
+// Probably not worth computing to save a little non-user-facing bandwidth
+export type DepotCar = {
+	body: BodyName
+	bodyColor?: string
+	bodyPopColor?: string
+	wheelColor?: string
+	wheelFromCenter: number
+	wheelSize: number
+	decals: {
+		name: DecalName
+		fill: string
+		x: number
+		y: number
+		scale: number
+		rotate: number
+		params: ParamsObject
+	}[]
+	toppers: {
+		name: TopperName
+		colors: string[]
+		position: number
+		offset: number
+		scale: number
+		rotate: number
+	}[]
 }
-export type GraceTrainAddData = { grace: GraceEventBaseData & { car: GraceTrainCar } }
+export type GraceTrainCar = { depotCar: DepotCar } | { color: string }
+export type Grace = { userId: string } & GraceTrainCar
+export type GraceTrainData = {
+	grace: GraceEventBaseData & { graces: Grace[]; frog?: boolean }
+}
+export type GraceTrainAddData = { grace: GraceEventBaseData & { grace: Grace } }
 export type GraceTrainEndData = { grace: GraceEventBaseData & { username: string } }
 export type HypeTrainData = {
 	hype: HypeEventBaseData & { contributions: HypeProgress[] }
@@ -69,6 +69,10 @@ export type OverlayOptions = {
 	position: 'top' | 'bottom'
 }
 
+export type BlockUser = {
+	userId: string
+}
+
 export type TrainWSMessage =
 	| {
 			type: 'init'
@@ -78,6 +82,7 @@ export type TrainWSMessage =
 	| { type: 'train-add'; data: TrainAddData }
 	| { type: 'train-end'; data: TrainEndData }
 	| { type: 'overlay'; data: OverlayOptions }
+	| { type: 'block-user'; data: BlockUser }
 
 type DepotTrainBaseRequest = {
 	trainId: number
