@@ -49,7 +49,7 @@
 	// 	}
 	// 	return node
 	// }
-	$: bounds = topperDef.getBoundingBox()
+	// $: bounds = topperDef.getBoundingBox()
 </script>
 
 <g
@@ -57,7 +57,7 @@
 		topperDef.origin.y * scale}) scale({scale})"
 >
 	<svelte:component this={topperDef.component} {colors} />
-	{#if bounds}
+	<!-- {#if bounds}
 		<rect
 			fill="none"
 			stroke="#fff"
@@ -67,5 +67,6 @@
 			width={bounds.width}
 			height={bounds.height}
 		/>
-	{/if}
+	{/if} -->
+	<slot />
 </g>
