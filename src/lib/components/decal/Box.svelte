@@ -33,7 +33,7 @@
 	export let params: Params
 	$: strokeWidthPx = getStrokeWidth(params.strokeWidth)
 	$: height = getHeight(params.pinch)
-	$: rx = height / 2
+	$: rx = (height / 2) * params.round
 </script>
 
 <rect
