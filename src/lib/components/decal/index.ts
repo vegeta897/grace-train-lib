@@ -5,6 +5,7 @@ import * as Circle from './Circle.svelte'
 import * as Flag from './Flag.svelte'
 import * as Stripes from './Stripes.svelte'
 import * as Flower from './Flower.svelte'
+import * as Box from './Box.svelte'
 import { getDefaultParamsObject, type ParamDefinition, type ParamsObject } from './params'
 
 export const DECAL_NAMES = [
@@ -14,6 +15,7 @@ export const DECAL_NAMES = [
 	'flag',
 	'stripes',
 	'flower',
+	'box',
 ] as const
 export type DecalName = (typeof DECAL_NAMES)[number]
 
@@ -45,6 +47,7 @@ export const decalDefs: Record<DecalName, ReturnType<typeof defineDecal>> = {
 	flag: defineDecal(Flag),
 	stripes: defineDecal(Stripes),
 	flower: defineDecal(Flower),
+	box: defineDecal(Box),
 } as const
 
 // Converts relative decal x,y to global

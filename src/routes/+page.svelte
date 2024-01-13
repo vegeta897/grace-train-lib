@@ -33,6 +33,7 @@
 	let circleParams = getDefaultParamsObject(decalDefs.circle.paramConfig)
 	let flowerParams = getDefaultParamsObject(decalDefs.flower.paramConfig)
 	let flagParams = getDefaultParamsObject(decalDefs.flag.paramConfig)
+	let boxParams = getDefaultParamsObject(decalDefs.box.paramConfig)
 
 	let arcTurn = 60
 	let arcLength = 0
@@ -84,6 +85,7 @@
 		<DecalParams decalName="circle" bind:params={circleParams} />
 		<DecalParams decalName="flower" bind:params={flowerParams} />
 		<DecalParams decalName="flag" bind:params={flagParams} />
+		<DecalParams decalName="box" bind:params={boxParams} />
 		<label>
 			Turn angle
 			<input type="range" min={-90} max={90} step={15} bind:value={arcTurn} />
@@ -140,6 +142,15 @@
 </form>
 {#each columnSizes as size}
 	<div class="showcase" style="--column-size: {size}px; padding-top: {size / 8}px">
+		<ContainerSvg>
+			<Body name="tanky">
+				<svelte:fragment slot="decals">
+					<Decal name="box" params={boxParams} {...decalTransform} x={150} />
+					<Decal name="flower" params={flowerParams} {...decalTransform} x={300} />
+				</svelte:fragment>
+				<WheelsChange slot="wheels" rimColor={changingRimColor} />
+			</Body>
+		</ContainerSvg>
 		<ContainerSvg>
 			<Body name="chemy" {baseColor} {popColor}>
 				<svelte:fragment slot="decals">
@@ -213,12 +224,6 @@
 					/>
 				</svelte:fragment>
 				<Wheels size={wheelSize} slot="wheels" />
-			</Body>
-		</ContainerSvg>
-		<ContainerSvg>
-			<Body name="tanky">
-				<Decal name="flower" params={flowerParams} {...decalTransform} slot="decals" />
-				<WheelsChange slot="wheels" rimColor={changingRimColor} />
 			</Body>
 		</ContainerSvg>
 		<ContainerSvg>
