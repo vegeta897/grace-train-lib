@@ -14,7 +14,7 @@
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1, rotate: 0 }
 
 	const columnSizes = [
-		600,
+		500,
 		//300,
 		//150,
 		//100
@@ -145,8 +145,9 @@
 		<ContainerSvg>
 			<Body name="tanky">
 				<svelte:fragment slot="decals">
-					<Decal name="box" params={boxParams} {...decalTransform} x={150} />
-					<Decal name="flower" params={flowerParams} {...decalTransform} x={300} />
+					<Decal name="star" params={starParams} {...decalTransform} x={80} />
+					<Decal name="box" params={boxParams} {...decalTransform} x={200} />
+					<Decal name="flower" params={flowerParams} {...decalTransform} x={320} />
 				</svelte:fragment>
 				<WheelsChange slot="wheels" rimColor={changingRimColor} />
 			</Body>

@@ -3,10 +3,10 @@
 	import { defineScalar, defineToggle } from './params'
 
 	const pentagonPath = parsePathString(
-		'M50,5L71,21L93,36L85,61L76,86L50,86L24,86L15,61L7,36L29,21L50,5Z'
+		'M50,5L71,21L93,36L85,61L76,86L50,86L24,86L15,61L7,36L29,21Z'
 	)
 	const pinchPath = parsePathString(
-		'M50,5L50,50L93,36L50,50L76,86L50,50L24,86L50,50L7,36L50,50L50,5Z'
+		'M50,5L50,50L93,36L50,50L76,86L50,50L24,86L50,50L7,36L50,50Z'
 	)
 
 	// TODO: Use this code in a sparkle decal or something
@@ -27,18 +27,25 @@
 		defineToggle('outline'),
 		defineScalar('strokeWidth', 'thickness'),
 	]
+
+	const getStrokeWidth = (strokeWidth: number) => 10 + 10 * strokeWidth
+
+	export const getBoundingBox = (params: Params) => {
+		const strokeWidth = getStrokeWidth(params.strokeWidth)
+		return {
+			width: 86 + strokeWidth,
+			height: 90 + strokeWidth, // not centered but whatever
+		}
+	}
+
 	type Params = { pinch: number; outline: boolean; strokeWidth: number }
-	export const getBoundingBox = (params: Params) => ({
-		width: 100 + 10 * params.strokeWidth,
-		height: 100 + 10 * params.strokeWidth,
-	})
 </script>
 
 <script lang="ts">
 	$$restProps
 	export let fill: string
 	export let params: Params
-	$: strokeWidthPx = 10 + 10 * params.strokeWidth
+	$: strokeWidthPx = getStrokeWidth(params.strokeWidth)
 	$: d = stringifyPathCommands(lerpPath(pentagonPath, pinchPath, params.pinch))
 </script>
 
