@@ -2,10 +2,10 @@
 	import { defineScalar, defineToggle } from './params'
 
 	export const paramConfig = [
-		defineScalar('pinch', 'pinch'),
-		defineScalar('round', 'round'),
+		defineScalar('pinch'),
+		defineScalar('round'),
 		defineToggle('outline'),
-		defineScalar('strokeWidth', 'thickness'),
+		defineScalar('strokeWidth', 'thickness', 0.5),
 	]
 
 	const getHeight = (pinch: number) => 100 - pinch * 80
@@ -33,6 +33,7 @@
 	export let params: Params
 	$: strokeWidthPx = getStrokeWidth(params.strokeWidth)
 	$: height = getHeight(params.pinch)
+	$: rx = height / 2
 </script>
 
 <rect
@@ -40,7 +41,7 @@
 	y={-height / 2}
 	width={100}
 	{height}
-	rx={50 * params.round}
+	{rx}
 	stroke-width="{strokeWidthPx}px"
 	stroke={fill}
 	fill={params.outline ? 'none' : fill}
