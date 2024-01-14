@@ -69,7 +69,7 @@ export type OverlayOptions = {
 	position: 'top' | 'bottom'
 }
 
-export type BlockUser = {
+export type HideUser = {
 	userId: string
 }
 
@@ -82,7 +82,7 @@ export type TrainWSMessage =
 	| { type: 'train-add'; data: TrainAddData }
 	| { type: 'train-end'; data: TrainEndData }
 	| { type: 'overlay'; data: OverlayOptions }
-	| { type: 'block-user'; data: BlockUser }
+	| { type: 'hide-user'; data: HideUser }
 
 type DepotTrainBaseRequest = {
 	trainId: number
