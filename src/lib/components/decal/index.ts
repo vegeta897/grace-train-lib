@@ -6,7 +6,11 @@ import * as Flag from './Flag.svelte'
 import * as Stripes from './Stripes.svelte'
 import * as Flower from './Flower.svelte'
 import * as Box from './Box.svelte'
-import { getDefaultParamsObject, type ParamDefinition, type ParamsObject } from './params'
+import {
+	getDefaultParamsObject,
+	type ParamDefinition,
+	type ParamsObject,
+} from '../params'
 
 export const DECAL_NAMES = [
 	'star',

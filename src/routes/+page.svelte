@@ -9,7 +9,7 @@
 	import { COLORS, COLOR_NAMES, colorRun } from '$lib'
 	import { decalDefs } from '$lib/components/decal'
 	import DecalParams from './DecalParams.svelte'
-	import { getDefaultParamsObject } from '$lib/components/decal/params'
+	import { getDefaultParamsObject } from '$lib/components/params'
 
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1, rotate: 0 }
 

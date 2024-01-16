@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-	import { defineScalar, defineToggle } from './params'
+	import { defineScalar, defineToggle } from '../params'
 
 	export const paramConfig = [
 		defineScalar('pinch'),

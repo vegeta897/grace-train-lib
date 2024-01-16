@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-	import { defineListPicker } from './params'
+	import { defineListPicker } from '../params'
 	import { noAnim, flagWipe } from '$lib/util'
 	export const noFill = true
 	export const PRIDE_FLAGS = [

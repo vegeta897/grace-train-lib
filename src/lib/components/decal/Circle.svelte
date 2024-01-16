@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-	import { defineScalar } from './params'
+	import { defineScalar } from '../params'
 
 	const getRx = (pinch: number) => 50 - Math.max(0, pinch - 0.5) * 60
 	const getRy = (pinch: number) => 50 - Math.max(0, 0.5 - pinch) * 60

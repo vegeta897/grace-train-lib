@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
 	import { lerpPath, parsePathString, stringifyPathCommands } from '$lib/util'
-	import { defineScalar, defineToggle } from './params'
+	import { defineScalar, defineToggle } from '../params'
 
 	const pentagonPath = parsePathString(
 		'M50,5L71,21L93,36L85,61L76,86L50,86L24,86L15,61L7,36L29,21Z'

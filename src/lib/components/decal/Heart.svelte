@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
 	import { lerpPath, parsePathString, stringifyPathCommands } from '$lib/util'
-	import { defineScalar, defineToggle } from './params'
+	import { defineScalar, defineToggle } from '../params'
 
 	const defaultPath = parsePathString(
 		'M50,28C58,12 75,12 84,19C92,27 92,41 84,56C78,67 63,78 50,85C37,78 22,67 16,56C8,41 8,27 16,19C25,12 42,12 50,28Z'

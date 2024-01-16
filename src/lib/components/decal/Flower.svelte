@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
 	import { COLORS, COLOR_NAMES } from '$lib'
-	import { defineListPicker, defineListSlider, defineScalar } from './params'
+	import { defineListPicker, defineListSlider, defineScalar } from '../params'
 
 	export const noFill = true
 

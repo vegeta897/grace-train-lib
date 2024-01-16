@@ -7,7 +7,7 @@
 	import { popIn } from '$lib/util'
 	import type { DecalName } from './decal'
 	import { decalDefs } from './decal'
-	import type { ParamsObject } from './decal/params'
+	import type { ParamsObject } from './params'
 
 	export let name: DecalName
 	export let fill: string = COLOR_NAMES.POP.LIME
