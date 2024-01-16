@@ -39,18 +39,19 @@
 		"svelte": "^4.2.8"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^2.1.0",
-		"@sveltejs/kit": "^1.24.1",
-		"@sveltejs/package": "^2.2.2",
+		"@sveltejs/adapter-auto": "^3.1.0",
+		"@sveltejs/kit": "^2.3.2",
+		"@sveltejs/package": "^2.2.5",
+		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"color2k": "^2.0.3",
-		"prettier": "^3.0.3",
-		"prettier-plugin-svelte": "^3.0.3",
-		"publint": "^0.2.2",
+		"prettier": "^3.2.2",
+		"prettier-plugin-svelte": "^3.1.2",
+		"publint": "^0.2.7",
 		"svelte": "^4.2.8",
-		"svelte-check": "^3.5.1",
+		"svelte-check": "^3.6.3",
 		"tslib": "^2.6.2",
 		"typescript": "^5.3.3",
-		"vite": "^4.4.9"
+		"vite": "^5.0.11"
 	},
 	"types": "./dist/index.d.ts",
 	"type": "module",
