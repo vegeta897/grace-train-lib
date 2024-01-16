@@ -33,11 +33,11 @@ export type DepotCar = {
 	}[]
 	toppers: {
 		name: TopperName
-		colors: string[]
 		position: number
 		offset: number
 		scale: number
 		rotate: number
+		params: ParamsObject
 	}[]
 }
 export type GraceTrainCar = { depotCar: DepotCar } | { color: string }

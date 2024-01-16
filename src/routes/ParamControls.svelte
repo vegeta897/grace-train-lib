@@ -1,15 +1,20 @@
 <script lang="ts">
-	import type { ParamsObject } from '$lib/components'
+	import { topperDefs, type ParamsObject, type TopperName } from '$lib/components'
 	import { decalDefs, type DecalName } from '$lib/components/decal'
 
-	export let decalName: DecalName
+	export let object:
+		| { type: 'decal'; name: DecalName }
+		| { type: 'topper'; name: TopperName }
 	export let params: ParamsObject
 
-	$: paramList = decalDefs[decalName].paramConfig
+	$: paramList =
+		object.type === 'decal'
+			? decalDefs[object.name].paramConfig
+			: topperDefs[object.name].paramConfig
 </script>
 
 <div style="margin-bottom: 1rem; display: flex; flex-wrap: wrap; column-gap: 0.5rem;">
-	<h2 style:width="100%">{decalName} params</h2>
+	<h2 style:width="100%">{object.name} params</h2>
 	{#each paramList as param}
 		<div>
 			<label for={param.name}>{param.name}</label>

@@ -23,8 +23,6 @@ export const DECAL_NAMES = [
 ] as const
 export type DecalName = (typeof DECAL_NAMES)[number]
 
-// TODO: Abstract params stuff to be used for body and topper as well
-
 function defineDecal(importObject: {
 	default: ComponentType<SvelteComponent>
 	paramConfig?: ParamDefinition[]
@@ -36,15 +34,16 @@ function defineDecal(importObject: {
 	return {
 		component: importObject.default,
 		paramConfig: importObject.paramConfig || [],
-		noFill: importObject.noFill ?? false,
 		getDefaultParamsObject: () => getDefaultParamsObject(importObject.paramConfig),
 		getBoundingBox: importObject.getBoundingBox || (() => ({ width: 100, height: 100 })),
+		noFill: importObject.noFill ?? false,
 		minScale: importObject.minScale,
 		maxScale: importObject.maxScale,
 	}
 }
 
-export const decalDefs: Record<DecalName, ReturnType<typeof defineDecal>> = {
+export type DecalDef = ReturnType<typeof defineDecal>
+export const decalDefs: Record<DecalName, DecalDef> = {
 	heart: defineDecal(Heart),
 	star: defineDecal(Star),
 	circle: defineDecal(Circle),

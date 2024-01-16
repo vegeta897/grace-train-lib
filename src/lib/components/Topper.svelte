@@ -3,6 +3,7 @@
 	export type TopperLine = [x: number, y: number, easing?: Easing][]
 	import { sineInOut } from 'svelte/easing'
 	import { topperDefs, type TopperName } from './topper'
+	import type { ParamsObject } from '.'
 
 	// Don't need these yet, but maybe later
 	// const easings: Record<Easing, (t: number) => number> = {
@@ -30,12 +31,12 @@
 
 <script lang="ts">
 	export let name: TopperName
-	export let colors: string[]
-	export let position: number
-	export let topLine: TopperLine
+	export let position = 0
+	export let topLine: TopperLine = [[0, 0]]
 	export let offset = 0
 	export let scale = 1
 	export let rotate = 0
+	export let params: ParamsObject
 
 	$: xSpan = topLine[topLine.length - 1][0] - topLine[0][0]
 	$: x = topLine[0][0] + xSpan * position
@@ -56,7 +57,7 @@
 	transform="rotate({rotate},{x},{y}) translate({x - topperDef.origin.x * scale},{y -
 		topperDef.origin.y * scale}) scale({scale})"
 >
-	<svelte:component this={topperDef.component} {colors} />
+	<svelte:component this={topperDef.component} {params} />
 	<!-- {#if bounds}
 		<rect
 			fill="none"

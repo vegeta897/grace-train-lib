@@ -8,8 +8,9 @@
 	import ContainerSvg from '$lib/components/ContainerSVG.svelte'
 	import { COLORS, COLOR_NAMES, colorRun } from '$lib'
 	import { decalDefs } from '$lib/components/decal'
-	import DecalParams from './DecalParams.svelte'
+	import DecalParams from './ParamControls.svelte'
 	import { getDefaultParamsObject } from '$lib/components/params'
+	import { topperDefs } from '$lib/components'
 
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1, rotate: 0 }
 
@@ -34,6 +35,8 @@
 	let flowerParams = getDefaultParamsObject(decalDefs.flower.paramConfig)
 	let flagParams = getDefaultParamsObject(decalDefs.flag.paramConfig)
 	let boxParams = getDefaultParamsObject(decalDefs.box.paramConfig)
+
+	let partyHatParams = getDefaultParamsObject(topperDefs.party_hat.paramConfig)
 
 	let arcTurn = 60
 	let arcLength = 0
@@ -80,12 +83,12 @@
 <form>
 	<details>
 		<summary style="font-size: 1.5rem;">decal params</summary>
-		<DecalParams decalName="heart" bind:params={heartParams} />
-		<DecalParams decalName="star" bind:params={starParams} />
-		<DecalParams decalName="circle" bind:params={circleParams} />
-		<DecalParams decalName="flower" bind:params={flowerParams} />
-		<DecalParams decalName="flag" bind:params={flagParams} />
-		<DecalParams decalName="box" bind:params={boxParams} />
+		<DecalParams object={{ type: 'decal', name: 'heart' }} bind:params={heartParams} />
+		<DecalParams object={{ type: 'decal', name: 'star' }} bind:params={starParams} />
+		<DecalParams object={{ type: 'decal', name: 'circle' }} bind:params={circleParams} />
+		<DecalParams object={{ type: 'decal', name: 'flower' }} bind:params={flowerParams} />
+		<DecalParams object={{ type: 'decal', name: 'flag' }} bind:params={flagParams} />
+		<DecalParams object={{ type: 'decal', name: 'box' }} bind:params={boxParams} />
 		<label>
 			Turn angle
 			<input type="range" min={-90} max={90} step={15} bind:value={arcTurn} />
@@ -96,6 +99,13 @@
 			<input type="range" min={0} max={8} bind:value={arcLength} />
 		</label>
 		{arcLength}
+	</details>
+	<details>
+		<summary style="font-size: 1.5rem;">topper params</summary>
+		<DecalParams
+			object={{ type: 'topper', name: 'party_hat' }}
+			bind:params={partyHatParams}
+		/>
 	</details>
 	<div>
 		<label>
@@ -148,6 +158,17 @@
 					<Decal name="star" params={starParams} {...decalTransform} x={80} />
 					<Decal name="box" params={boxParams} {...decalTransform} x={200} />
 					<Decal name="flower" params={flowerParams} {...decalTransform} x={320} />
+				</svelte:fragment>
+				<svelte:fragment slot="toppers" let:topLine>
+					<Topper
+						{topLine}
+						name="party_hat"
+						params={partyHatParams}
+						position={topperPosition}
+						scale={topperScale}
+						rotate={topperRotate}
+						offset={topperOffset}
+					/>
 				</svelte:fragment>
 				<WheelsChange slot="wheels" rimColor={changingRimColor} />
 			</Body>
@@ -211,17 +232,6 @@
 						scale={1.9398}
 						animateAppear
 						delayAppear={100}
-					/>
-				</svelte:fragment>
-				<svelte:fragment slot="toppers" let:topLine>
-					<Topper
-						{topLine}
-						name="party_hat"
-						colors={['#00adf8', '#79f800']}
-						position={topperPosition}
-						scale={topperScale}
-						rotate={topperRotate}
-						offset={topperOffset}
 					/>
 				</svelte:fragment>
 				<Wheels size={wheelSize} slot="wheels" />
@@ -350,7 +360,7 @@
 					<Topper
 						{topLine}
 						name="party_hat"
-						colors={['#00adf8', '#79f800']}
+						params={partyHatParams}
 						position={topperPosition}
 						scale={topperScale}
 						rotate={topperRotate}

@@ -35,7 +35,7 @@
 					<Topper
 						{topLine}
 						name={topper.name}
-						colors={topper.colors}
+						params={topper.params}
 						position={topper.position}
 						offset={topper.offset}
 						scale={topper.scale}
