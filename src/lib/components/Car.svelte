@@ -18,7 +18,7 @@
 			popColor={depotCar.bodyPopColor}
 		>
 			<svelte:fragment slot="decals">
-				{#each depotCar.decals as decal, d}
+				{#each depotCar.decals as decal}
 					<Decal
 						name={decal.name}
 						fill={decal.fill}

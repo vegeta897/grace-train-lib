@@ -43,13 +43,6 @@
 	$: y = getYposition(x, topLine) - offset
 	$: topperDef = topperDefs[name]
 
-	// Will probably need this function in other components later
-	// function replaceColors(node: string, colors: string[]) {
-	// 	for (let i = 0; i < colors.length; i++) {
-	// 		node = node.replace(new RegExp(`\\{${i + 1}\\}`, 'g'), colors[i])
-	// 	}
-	// 	return node
-	// }
 	// $: bounds = topperDef.getBoundingBox()
 </script>
 
