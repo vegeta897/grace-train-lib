@@ -1,9 +1,6 @@
-import type { BodyName, DecalName, ParamsObject, TopperName } from '$lib/components'
+import type { Prisma } from '@prisma/client'
 
-export type GraceEventBaseData = {
-	combo: number
-	score: number
-}
+export type GraceEventBaseData = { combo: number; score: number }
 
 export type HypeEventBaseData = {
 	level: number
@@ -22,24 +19,42 @@ export type DepotCar = {
 	wheelColor?: string
 	wheelFromCenter: number
 	wheelSize: number
-	decals: {
-		name: DecalName
-		fill: string
-		x: number
-		y: number
-		scale: number
-		rotate: number
-		params: ParamsObject
-	}[]
-	toppers: {
-		name: TopperName
-		position: number
-		offset: number
-		scale: number
-		rotate: number
-		params: ParamsObject
-	}[]
+	decals: DecalData[]
+	toppers: TopperData[]
 }
+export const BODY_NAMES = ['boxy', 'tanky', 'coachy', 'hoppy', 'loggy', 'chemy'] as const
+export type BodyName = (typeof BODY_NAMES)[number]
+export const DECAL_NAMES = [
+	'star',
+	'heart',
+	'circle',
+	'flag',
+	'stripes',
+	'flower',
+	'box',
+] as const
+export type ParamsObject<T extends Record<string, any> = Record<string, any>> = T
+export type DecalName = (typeof DECAL_NAMES)[number]
+export type DecalData = {
+	name: DecalName
+	fill: string
+	x: number
+	y: number
+	scale: number
+	rotate: number
+	params: ParamsObject
+}
+export const TOPPER_NAMES = ['party_hat'] as const
+export type TopperName = (typeof TOPPER_NAMES)[number]
+export type TopperData = {
+	name: TopperName
+	position: number
+	offset: number
+	scale: number
+	rotate: number
+	params: ParamsObject
+}
+
 export type GraceTrainCar = { depotCar: DepotCar } | { color: string }
 export type Grace = { userId: string } & GraceTrainCar
 export type GraceTrainData = {
@@ -65,13 +80,9 @@ export type TrainStartData = ID & (GraceTrainData | HypeTrainData)
 export type TrainAddData = ID & (GraceTrainAddData | HypeTrainAddData)
 export type TrainEndData = ID & (GraceTrainEndData | HypeTrainEndData)
 
-export type OverlayOptions = {
-	position: 'top' | 'bottom'
-}
+export type OverlayOptions = { position: 'top' | 'bottom' }
 
-export type HideUser = {
-	userId: string
-}
+export type HideUser = { userId: string }
 
 export type TrainWSMessage =
 	| {
@@ -99,3 +110,12 @@ export type DepotTrainAddRequest = DepotTrainBaseRequest & {
 }
 
 export type DepotTrainEndRequest = DepotTrainBaseRequest
+
+export type DBCar = Prisma.CarGetPayload<{ include: { decals: true; toppers: true } }>
+
+export {
+	transformDecalFromDB,
+	transformTopperFromDB,
+	transformCarFromDBToDepotCarWithoutDecalsToppers,
+	transformCarFromDBToDepotCar,
+} from './utils'

@@ -1,3 +1,5 @@
+import type { ParamsObject } from '$lib/data'
+
 export type ParamDefinition = {
 	name: string
 	displayName: string
@@ -17,7 +19,6 @@ export type ParamDefinition = {
 			defaultValue: any
 	  }
 )
-export type ParamsObject<T extends Record<string, any> = Record<string, any>> = T
 
 export function defineScalar(
 	name: string,

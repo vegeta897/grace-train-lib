@@ -6,22 +6,8 @@ import * as Flag from './Flag.svelte'
 import * as Stripes from './Stripes.svelte'
 import * as Flower from './Flower.svelte'
 import * as Box from './Box.svelte'
-import {
-	getDefaultParamsObject,
-	type ParamDefinition,
-	type ParamsObject,
-} from '../params'
-
-export const DECAL_NAMES = [
-	'star',
-	'heart',
-	'circle',
-	'flag',
-	'stripes',
-	'flower',
-	'box',
-] as const
-export type DecalName = (typeof DECAL_NAMES)[number]
+import { getDefaultParamsObject, type ParamDefinition } from '../params'
+import type { DecalName, ParamsObject } from '$lib/data'
 
 function defineDecal(importObject: {
 	default: ComponentType<SvelteComponent>

@@ -2,9 +2,7 @@ import type { ComponentType, SvelteComponent } from 'svelte'
 import * as PartyHat from './PartyHat.svelte'
 import type { ParamDefinition } from '..'
 import { getDefaultParamsObject } from '../params'
-
-export const TOPPER_NAMES = ['party_hat'] as const
-export type TopperName = (typeof TOPPER_NAMES)[number]
+import type { TopperName } from '$lib/data'
 
 type TopperComponent = ComponentType<SvelteComponent>
 

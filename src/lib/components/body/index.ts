@@ -6,9 +6,7 @@ import * as Coachy from './Coachy.svelte'
 import * as Hoppy from './Hoppy.svelte'
 import * as Loggy from './Loggy.svelte'
 import * as Chemy from './Chemy.svelte'
-
-export const BODY_NAMES = ['boxy', 'tanky', 'coachy', 'hoppy', 'loggy', 'chemy'] as const
-export type BodyName = (typeof BODY_NAMES)[number]
+import type { BodyName } from '$lib/data'
 
 type BodyComponent = ComponentType<
 	SvelteComponent<
@@ -30,7 +28,7 @@ function defineBody(importObject: {
 	}
 }
 
-export const body: Record<BodyName, ReturnType<typeof defineBody>> = {
+export const bodyDefs: Record<BodyName, ReturnType<typeof defineBody>> = {
 	boxy: defineBody(Boxy),
 	tanky: defineBody(Tanky),
 	coachy: defineBody(Coachy),

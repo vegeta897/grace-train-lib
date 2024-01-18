@@ -1,8 +1,8 @@
 <script lang="ts" context="module">
 	import { COLOR_NAMES } from '$lib'
+	import type { BodyName } from '$lib/data'
 	import Wheels from './Wheels.svelte'
-	import type { BodyName } from './body/index.js'
-	import { body } from './body/index.js'
+	import { bodyDefs } from './body/index.js'
 </script>
 
 <script lang="ts">
@@ -19,7 +19,7 @@
 	$: stripeColor = props.stripeColor || 'none'
 </script>
 
-<svelte:component this={body[name].component} {baseColor} {popColor} {stripeColor}>
+<svelte:component this={bodyDefs[name].component} {baseColor} {popColor} {stripeColor}>
 	<slot name="wheels" slot="wheels">
 		<Wheels />
 	</slot>
@@ -28,7 +28,7 @@
 			<slot name="decals" />
 		</g>
 	</svelte:fragment>
-	<slot name="toppers" slot="toppers" topLine={body[name].topperLine} />
+	<slot name="toppers" slot="toppers" topLine={bodyDefs[name].topperLine} />
 	<!-- <svelte:fragment slot="toppers">
 		<slot name="toppers" topLine={body[name].topperLine} />
 		{#each body[name].topperLine as [tpx, tpy]}
@@ -37,5 +37,5 @@
 	</svelte:fragment> -->
 </svelte:component>
 <defs>
-	<clipPath id="{name}-decal-clip"> <path d={body[name].decalClipPath} /> </clipPath>
+	<clipPath id="{name}-decal-clip"> <path d={bodyDefs[name].decalClipPath} /> </clipPath>
 </defs>

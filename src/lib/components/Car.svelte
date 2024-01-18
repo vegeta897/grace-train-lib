@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { COLOR_NAMES } from '$lib'
-	import type { GraceTrainCar } from '$lib/trains'
+	import type { GraceTrainCar } from '$lib/data'
 	import { ContainerSvg, Body, Decal, Topper, Wheels } from '.'
 
 	export let car: GraceTrainCar

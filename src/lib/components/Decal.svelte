@@ -4,10 +4,9 @@
 
 <script lang="ts">
 	import { COLOR_NAMES } from '$lib'
+	import type { DecalName, ParamsObject } from '$lib/data'
 	import { popIn } from '$lib/util'
-	import type { DecalName } from './decal'
 	import { decalDefs } from './decal'
-	import type { ParamsObject } from './params'
 
 	export let name: DecalName
 	export let fill: string = COLOR_NAMES.POP.LIME
