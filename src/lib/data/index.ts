@@ -1,4 +1,4 @@
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '../../../dist/prisma'
 
 export type GraceEventBaseData = { combo: number; score: number }
 
