@@ -16,7 +16,7 @@
 <script lang="ts">
 	export let baseColor: string
 	export let popColor: string
-	export let stripeColor: string
+	// export let stripeColor: string
 </script>
 
 <rect x="162.5" y="12.5" width="50" height="25" style="fill:none;stroke:{popColor};" />

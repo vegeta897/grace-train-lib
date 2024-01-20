@@ -18,7 +18,7 @@
 <script lang="ts">
 	export let baseColor: string
 	export let popColor: string
-	export let stripeColor: string
+	// export let stripeColor: string
 </script>
 
 <rect

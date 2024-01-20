@@ -19,8 +19,7 @@
 	export const paramConfig = [
 		defineListPicker('flag', 'flag', [...PRIDE_FLAGS], 'rainbow'),
 	]
-	// TODO: Check bundle size when these are in a big if/else block
-	// Because the svelte compiler does some clever stuff with component markup
+	// This has a smaller bundle size than actual markup in an if/else even after compiling
 	const prideFlagData: Record<string, string> = {
 		rainbow:
 			'<rect y="69" width="100" height="11" fill="#9b34e9"/><rect y="20" width="100" height="11" fill="#fc444c"/><rect y="30" width="100" height="11" fill="#ffab16"/><rect y="40" width="100" height="11" fill="#fde01f"/><rect y="50" width="100" height="11" fill="#2dc736"/><rect y="60" width="100" height="10" fill="#3a5aed"/>',
