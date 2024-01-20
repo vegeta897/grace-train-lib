@@ -7,6 +7,7 @@
 	export let width = '100%'
 	export let svgElement: SVGElement | undefined = undefined
 	export let viewBox = '0 0 375 300'
+	export let noAnimation = false
 </script>
 
 <ContainerSvg {width} {viewBox} bind:svgElement>
@@ -27,6 +28,7 @@
 						scale={decal.scale}
 						rotate={decal.rotate}
 						params={decal.params}
+						{noAnimation}
 					/>
 				{/each}
 			</svelte:fragment>

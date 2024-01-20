@@ -20,6 +20,7 @@
 		| 'all'
 		| 'none' = 'none'
 	export let params: ParamsObject
+	export let noAnimation = false
 
 	export let animateAppear = false
 	export let delayAppear = 0
@@ -51,7 +52,13 @@
 	class:transition-metrics={transition !== 'none'}
 >
 	<g in:popIn|global={{ delay: delayAppear, skip: !animateAppear }}>
-		<svelte:component this={decalDefs[name].component} {fill} {scale} {params} />
+		<svelte:component
+			this={decalDefs[name].component}
+			{fill}
+			{scale}
+			{params}
+			{noAnimation}
+		/>
 	</g>
 	<!-- {#if bounds}
 		<rect

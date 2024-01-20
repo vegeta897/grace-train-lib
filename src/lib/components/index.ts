@@ -11,6 +11,7 @@ export { default as WheelsChange } from './WheelsChange.svelte'
 export { default as Car } from './Car.svelte'
 export { default as Topper, getYposition } from './Topper.svelte'
 export { PRIDE_FLAGS } from './decal/Flag.svelte'
+export { EMOTES } from './decal/Emote.svelte'
 export {
 	type StripesParams,
 	type StripesNode,
