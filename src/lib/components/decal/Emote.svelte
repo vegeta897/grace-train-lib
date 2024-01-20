@@ -43,7 +43,7 @@
 	export function getBoundingBox({ emote }: Params) {
 		if (emote === 'gaymer') return { width: 84, height: 82 }
 		if (emote === 'pogger' || emote === 'sogger') return { width: 120, height: 86 }
-		return { width: 130, height: 130 }
+		return { width: 112, height: 112 }
 	}
 
 	export const minScale = 1
