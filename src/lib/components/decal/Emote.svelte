@@ -105,7 +105,7 @@
 	</g>
 {:else if params.emote === 'cheese'}
 	<g transform="translate(-56,-56)" stroke-width="1">
-		<rect width="112" height="112" fill="#ffdec2" />
+		<rect width="112" height="112" rx="12.5" fill="#ffdec2" />
 		<path
 			d="m67.563 81.8c0.063-8.682-0.836-14.846-4.162-15.263-2.091-0.262-2.757 1.265-4.107 1.277-1.292 0.011-1.552-1.171-3.386-1.277-4.727-0.272-5.775 8.089-7.16 15.208 0.631 15.72 4.292 21.926 10.879 21.812 6.025-0.105 8.719-5.575 7.936-21.757z"
 			fill="#ff512f"
@@ -235,19 +235,17 @@
 {:else}
 	{@const url =
 		(noAnimation && emoteImages[params.emote][1]) || emoteImages[params.emote][0]}
-	<image x="-56" y="-56" width="112" height="112" href={url} />
-{/if}
-{#if params.emote === 'cheese' || (emoteImages[params.emote] && params.emote !== 'beans' && params.emote !== 'girlPower')}
-	<rect
-		width="120"
-		height="120"
-		x="-60"
-		y="-60"
-		stroke-width="10"
-		rx="12.5"
-		fill="none"
-		stroke={COLOR_NAMES.POP.LIME}
+	<image
+		x="-56"
+		y="-56"
+		width="112"
+		height="112"
+		href={url}
+		clip-path="url(#roundedEmoteClipPath)"
 	/>
+	<clipPath id="roundedEmoteClipPath">
+		<rect x="-56" y="-56" width="112" height="112" rx="12.5" />
+	</clipPath>
 {/if}
 <!-- <path stroke-width="0.5" stroke="#fff8" d="M-50,0h100M0,-50v100" /> -->
 <!-- <g bind:this={gElem}> -->
