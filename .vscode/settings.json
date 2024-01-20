@@ -12,6 +12,9 @@
 	"[svelte]": {
 		"editor.defaultFormatter": "svelte.svelte-vscode"
 	},
+	"[prisma]": {
+		"editor.defaultFormatter": "Prisma.prisma"
+	},
 	"typescript.tsdk": "node_modules\\typescript\\lib",
 	"editor.defaultColorDecorators": true
 }

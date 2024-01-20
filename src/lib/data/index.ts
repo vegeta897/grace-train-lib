@@ -1,4 +1,4 @@
-import type { Prisma } from '../../../dist/prisma'
+import type { Prisma } from '../../../prisma-client'
 
 export type GraceEventBaseData = { combo: number; score: number }
 
@@ -32,6 +32,7 @@ export const DECAL_NAMES = [
 	'stripes',
 	'flower',
 	'box',
+	'emote',
 ] as const
 export type ParamsObject<T extends Record<string, any> = Record<string, any>> = T
 export type DecalName = (typeof DECAL_NAMES)[number]

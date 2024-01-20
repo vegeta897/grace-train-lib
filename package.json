@@ -32,19 +32,21 @@
 			"default": "./dist/data/index.js"
 		},
 		"./prisma": {
-			"types": "./dist/prisma/index.d.ts",
-			"default": "./dist/prisma/index.js"
+			"types": "./prisma-client/index.d.ts",
+			"default": "./prisma-client/index.js"
 		}
 	},
 	"files": [
 		"dist",
 		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*"
+		"!dist/**/*.spec.*",
+		"prisma-client"
 	],
 	"peerDependencies": {
 		"svelte": "^4.2.8"
 	},
 	"devDependencies": {
+		"@prisma/client": "^5.8.1",
 		"@sveltejs/adapter-auto": "^3.1.0",
 		"@sveltejs/kit": "^2.3.2",
 		"@sveltejs/package": "^2.2.5",
@@ -69,7 +71,5 @@
 		"type": "git",
 		"url": "git+https://github.com/vegeta897/grace-train-lib.git"
 	},
-	"dependencies": {
-		"@prisma/client": "^5.8.1"
-	}
+	"dependencies": {}
 }

@@ -1,7 +1,7 @@
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["windows", "debian-openssl-1.1.x"]
-  output = "../dist/prisma"
+  output        = "../prisma-client"
 }
 
 datasource db {
@@ -153,3 +153,19 @@ enum ModAction {
   changeUserLevel
   deleteUser
 }
+
+// model Streams {
+//  id String @id @unique
+//  startTime DateTime
+//  endTime DateTime?
+//  videoURL String?
+//  status String 
+//  info Boolean?
+//  title String?
+//  games String[]
+//  thumbURL String?
+//  thumbIndex Int?
+//  messageID String? 
+//  pingButtons String? 
+//  parentStreamID String?
+// }
