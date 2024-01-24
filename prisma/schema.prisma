@@ -73,6 +73,7 @@ model Car {
   wheelSize          Int                 @default(25)
   decals             Decal[]
   toppers            Topper[]
+  tickets            String[]
   graceTrainCars     GraceTrainCar[]
   graceTrainCarStats GraceTrainCarStats?
 }
