@@ -24,6 +24,7 @@
 	// me:
 
 	export function getYposition(x: number, points: TopLinePoints) {
+		if (points.length === 1) return 0
 		for (let i = 0; i < points.length - 1; i++) {
 			const [pointX, pointY, easing = 'linear'] = points[i]
 			if (pointX === x) return pointY
