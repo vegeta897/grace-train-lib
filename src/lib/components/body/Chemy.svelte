@@ -1,17 +1,21 @@
 <script lang="ts" context="module">
-	import type { TopperLine } from '../Topper.svelte'
+	import type { TopLinePoints } from '../Topper.svelte'
 
 	export const decalClipPath =
 		'M14.206,200c-4.63,-6.927 -4.207,-12.588 -4.206,-12.595l0,-124.754c0,-0.01 0,-0.02 0,-0.03c0,-0 -2.746,-37.621 85,-37.621c87.483,0 85.041,37.2 85,37.755l-0,24.796l15,0l0,-24.9c0,-0.01 0,-0.02 0,-0.03c0,-0 -2.746,-37.621 85,-37.621c87.483,-0 85.041,37.2 85,37.755l-0,124.652l-0,0.01c-0,0 0.422,5.658 -4.17,12.583l-161.624,0c-4.63,-6.927 -4.207,-12.588 -4.206,-12.595l0,-99.854l-15,0l-0,99.856l-0,0.01c-0,0 0.422,5.658 -4.17,12.583l-161.624,0Z'
-	export const topperLine: TopperLine = [
-		[21, 42],
+	export const topperLinePoints: TopLinePoints = [
+		[8, 65, 'cubicOut'],
+		[62, 27, 'sineInOut'],
 		[74, 0],
-		[116, 0],
-		[169, 42],
-		[206, 42],
+		[116, 0, 'sineInOut'],
+		[128, 27, 'cubicIn'],
+		[182, 65],
+		[193, 65, 'cubicOut'],
+		[247, 27, 'sineInOut'],
 		[259, 0],
-		[301, 0],
-		[354, 42],
+		[301, 0, 'sineInOut'],
+		[313, 27, 'cubicIn'],
+		[367, 65],
 	]
 </script>
 

@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { topperDefs, type ParamsObject, type TopperName } from '$lib/components'
-	import { decalDefs, type DecalName } from '$lib/components/decal'
+	import { topperDefs } from '$lib/components'
+	import { decalDefs } from '$lib/components/decal'
+	import type { DecalName, TopperName, ParamsObject } from '$lib/data'
 
 	export let object:
 		| { type: 'decal'; name: DecalName }

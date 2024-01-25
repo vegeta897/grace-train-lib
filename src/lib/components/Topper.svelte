@@ -1,54 +1,81 @@
 <script lang="ts" context="module">
-	type Easing = 'sineInOut' | 'sineIn' | 'sineOut' | 'linear'
-	export type TopperLine = [x: number, y: number, easing?: Easing][]
-	import { sineInOut } from 'svelte/easing'
-	import { topperDefs, type TopperName } from './topper'
-	import type { ParamsObject } from '.'
+	type Easing = 'sineInOut' | 'sineIn' | 'sineOut' | 'cubicIn' | 'cubicOut' | 'linear'
+	export type TopLinePoints = [x: number, y: number, easing?: Easing][]
+	export type TopLine = {
+		points: TopLinePoints
+		width: number
+		startX: number
+		endX: number
+	}
+	import { cubicIn, cubicOut, linear, sineIn, sineInOut, sineOut } from 'svelte/easing'
+	import { topperDefs, type TopperDef } from './topper'
+	import type { TopperName, ParamsObject } from '$lib/data'
 
-	// Don't need these yet, but maybe later
-	// const easings: Record<Easing, (t: number) => number> = {
-	// 	sineInOut,
-	// 	sineIn,
-	// 	sineOut,
-	// 	linear,
-	// }
+	const easings: Record<Easing, (t: number) => number> = {
+		sineInOut,
+		sineIn,
+		sineOut,
+		cubicIn,
+		cubicOut,
+		linear,
+	}
 
-	export function getYposition(x: number, topLine: TopperLine) {
-		for (let i = 0; i < topLine.length; i++) {
-			const point = topLine[i]
-			if (point[0] === x) return point[1]
-			const nextPoint = topLine[i + 1]
-			if (x > point[0] && x < nextPoint[0]) {
-				const betweenPoints = sineInOut((x - point[0]) / (nextPoint[0] - point[0])) // YES!
-				const yDiff = nextPoint[1] - point[1]
-				return point[1] + yDiff * betweenPoints
+	// rational person who finishes things: you don't need to simulate physical hat placement
+	// me:
+
+	export function getYposition(x: number, points: TopLinePoints) {
+		for (let i = 0; i < points.length - 1; i++) {
+			const [pointX, pointY, easing = 'linear'] = points[i]
+			if (pointX === x) return pointY
+			const [nextPointX, nextPointY] = points[i + 1]
+			if (x > pointX && x <= nextPointX) {
+				const betweenPoints = easings[easing]((x - pointX) / (nextPointX - pointX)) // YES!
+				const yDiff = nextPointY - pointY
+				return pointY + yDiff * betweenPoints
 			}
 		}
 		console.warn('Could not calculate topper y position')
-		return topLine[topLine.length - 1][1] // Should never return here
+		return points[points.length - 1][1] // Should never return here
+	}
+
+	export function getTopperBaseTransform(
+		position: number,
+		scale: number,
+		topperDef: TopperDef,
+		topLine: TopLine
+	) {
+		const leftX =
+			topLine.startX + (topLine.width - topperDef.pivots.width * scale) * position
+		const rightX = Math.min(topLine.endX, leftX + topperDef.pivots.width * scale)
+		const originX = leftX + (topperDef.origin.x - topperDef.pivots.left.x) * scale
+		const leftY = getYposition(leftX, topLine.points)
+		const rightY = getYposition(rightX, topLine.points)
+		const originY = (leftY + rightY) / 2
+		const rotate = (Math.atan2(rightY - leftY, rightX - leftX) * 180) / Math.PI
+		return { leftX, x: originX, y: originY, rotate }
 	}
 </script>
 
 <script lang="ts">
 	export let name: TopperName
 	export let position = 0
-	export let topLine: TopperLine = [[0, 0]]
+	export let topLine: TopLine = { points: [[0, 0]], width: 0, startX: 0, endX: 0 }
 	export let offset = 0
 	export let scale = 1
 	export let rotate = 0
 	export let params: ParamsObject
 
-	$: xSpan = topLine[topLine.length - 1][0] - topLine[0][0]
-	$: x = topLine[0][0] + xSpan * position
-	$: y = getYposition(x, topLine) - offset
 	$: topperDef = topperDefs[name]
+	$: transform = getTopperBaseTransform(position, scale, topperDef, topLine)
+	$: angle = transform.rotate + rotate
+	$: y = transform.y - offset
 
 	// $: bounds = topperDef.getBoundingBox()
 </script>
 
 <g
-	transform="rotate({rotate},{x},{y}) translate({x - topperDef.origin.x * scale},{y -
-		topperDef.origin.y * scale}) scale({scale})"
+	transform="rotate({angle},{transform.x},{y}) translate({transform.x -
+		topperDef.origin.x * scale},{y - topperDef.origin.y * scale}) scale({scale})"
 >
 	<svelte:component this={topperDef.component} {params} />
 	<!-- {#if bounds}
@@ -56,8 +83,6 @@
 			fill="none"
 			stroke="#fff"
 			stroke-width="0.5"
-			x={0}
-			y={0}
 			width={bounds.width}
 			height={bounds.height}
 		/>

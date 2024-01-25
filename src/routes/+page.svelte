@@ -138,15 +138,15 @@
 		</label>
 		<label>
 			Topper offset
-			<input type="range" min="-20" max="20" step="1" bind:value={topperOffset} />
+			<input type="range" min="-8" max="8" step="1" bind:value={topperOffset} />
 		</label>
 		<label>
 			Topper scale
-			<input type="range" min="0.5" max="1.2" step="0.01" bind:value={topperScale} />
+			<input type="range" min="0.75" max="1.2" step="0.01" bind:value={topperScale} />
 		</label>
 		<label>
 			Topper rotate
-			<input type="range" min="-45" max="45" step="1" bind:value={topperRotate} />
+			<input type="range" min="-10" max="10" step="0.1" bind:value={topperRotate} />
 		</label>
 	</div>
 </form>

@@ -30,8 +30,8 @@
 	</svelte:fragment>
 	<slot name="toppers" slot="toppers" topLine={bodyDefs[name].topperLine} />
 	<!-- <svelte:fragment slot="toppers">
-		<slot name="toppers" topLine={body[name].topperLine} />
-		{#each body[name].topperLine as [tpx, tpy]}
+		<slot name="toppers" topLine={bodyDefs[name].topperLine} />
+		{#each bodyDefs[name].topperLine.points as [tpx, tpy]}
 			<circle cx={tpx} cy={tpy} r="3" fill="none" stroke-width="2" stroke="red" />
 		{/each}
 	</svelte:fragment> -->

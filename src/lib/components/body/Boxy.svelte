@@ -1,22 +1,24 @@
 <script lang="ts" context="module">
-	import type { TopperLine } from '../Topper.svelte'
+	import type { TopLinePoints } from '../Topper.svelte'
 
 	export const decalClipPath =
 		'M23.087,200l-22.961,-160.732c-0.513,-3.587 0.557,-7.221 2.931,-9.958c2.374,-2.738 5.819,-4.31 9.443,-4.31l350,0c3.624,-0 7.069,1.572 9.443,4.31c2.374,2.737 3.444,6.371 2.931,9.958l-22.961,160.732l-328.826,0Z'
-	export const topperLine: TopperLine = [
+	export const topperLinePoints: TopLinePoints = [
+		[0, 50, 'cubicOut'],
 		[12, 25],
-		[110, 25],
+		[145, 25, 'sineInOut'],
 		[160, 0],
-		[215, 0],
-		[265, 25],
-		[363, 25],
+		[215, 0, 'sineInOut'],
+		[230, 25],
+		[363, 25, 'cubicIn'],
+		[375, 50],
 	]
 </script>
 
 <script lang="ts">
 	export let baseColor: string
 	export let popColor: string
-	export let stripeColor: string
+	export let stripeColor: string | undefined = 'none'
 </script>
 
 <rect x="162.5" y="12.5" width="50" height="25" style="fill:none;stroke:{popColor};" />

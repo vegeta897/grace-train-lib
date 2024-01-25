@@ -1,13 +1,14 @@
 <script lang="ts" context="module">
 	import { COLORS, COLOR_NAMES } from '$lib'
+	import type { TopperPivots } from '.'
 	import { defineListSlider } from '../params'
 
-	export const origin = { x: 48, y: 120 }
+	export const pivots: TopperPivots = [
+		{ x: 6, y: 120 },
+		{ x: 90, y: 120 },
+	]
 	export const getBoundingBox = () => {
-		return {
-			width: 96,
-			height: 136,
-		}
+		return { width: 96, height: 136 }
 	}
 	export const paramConfig = [
 		defineListSlider('color1', 'color 1', [...COLORS.POP], true, COLOR_NAMES.POP.LIME),
