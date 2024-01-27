@@ -64,7 +64,6 @@ model Car {
   updatedAt          DateTime            @updatedAt
   revision           Int                 @default(1)
   name               String
-  published          Boolean             @default(false) // rename to "active"
   body               String              @default("boxy")
   bodyColor          String?
   bodyPopColor       String?
@@ -108,10 +107,11 @@ model Topper {
 }
 
 model GraceTrain {
-  id    BigInt          @id @unique
-  cars  GraceTrainCar[]
-  ended Boolean         @default(false)
-  score Float
+  id     BigInt          @id @unique
+  cars   GraceTrainCar[]
+  ended  Boolean         @default(false)
+  score  Float
+  signal String?
 }
 
 model GraceTrainCar {

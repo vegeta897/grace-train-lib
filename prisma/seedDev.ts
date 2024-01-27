@@ -1,4 +1,4 @@
-import { PrismaClient } from '../dist/prisma'
+import { PrismaClient } from '../prisma-client'
 const prisma = new PrismaClient()
 import { COLORS } from '../src/lib/colors'
 
@@ -20,7 +20,6 @@ async function main() {
 			userId: getUserId(number),
 			shortId: 'test' + `${number}`.padStart(4, '0'),
 			name: `Test Car ${number}`,
-			published: true,
 			bodyColor: COLORS.BASE[number * 2],
 			bodyPopColor: COLORS.POP[number * 3],
 			wheelColor: COLORS.POP[number * 3],
