@@ -1,5 +1,3 @@
-import type { Prisma } from '../../../prisma-client'
-
 export type GraceEventBaseData = { combo: number; score: number }
 
 export type HypeEventBaseData = {
@@ -111,12 +109,3 @@ export type DepotTrainAddRequest = DepotTrainBaseRequest & {
 }
 
 export type DepotTrainEndRequest = DepotTrainBaseRequest
-
-export type DBCar = Prisma.CarGetPayload<{ include: { decals: true; toppers: true } }>
-
-export {
-	transformDecalFromDB,
-	transformTopperFromDB,
-	transformCarFromDBToDepotCarWithoutDecalsToppers,
-	transformCarFromDBToDepotCar,
-} from './utils'

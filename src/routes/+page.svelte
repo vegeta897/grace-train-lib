@@ -14,6 +14,9 @@
 
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1, rotate: 0 }
 
+	// TODO: Prevent body edges bleeding out from behind decal clip path
+	// Either decrease body stroke by 0.01 or expand the stroke to a fill that exactly matches
+
 	const columnSizes = [
 		800,
 		//300,
