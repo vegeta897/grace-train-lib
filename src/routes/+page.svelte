@@ -2,7 +2,6 @@
 	import Body from '$lib/components/Body.svelte'
 	import Decal from '$lib/components/Decal.svelte'
 	import Wheels from '$lib/components/Wheels.svelte'
-	import WheelsChange from '$lib/components/WheelsChange.svelte'
 	import Topper from '$lib/components/Topper.svelte'
 	import { onMount } from 'svelte'
 	import ContainerSvg from '$lib/components/ContainerSVG.svelte'
@@ -18,14 +17,11 @@
 	// Either decrease body stroke by 0.01 or expand the stroke to a fill that exactly matches
 
 	const columnSizes = [
-		800,
-		//300,
+		// 800,
+		500, 300,
 		//150,
 		//100
 	]
-
-	const changingRimColors = [undefined, COLOR_NAMES.POP.LIME]
-	let changingRimColor = changingRimColors[0]
 
 	let topperPosition = 0.8
 	let topperOffset = 0
@@ -180,7 +176,7 @@
 						offset={topperOffset}
 					/>
 				</svelte:fragment>
-				<WheelsChange slot="wheels" rimColor={changingRimColor} />
+				<Wheels slot="wheels" baseColor={COLOR_NAMES.BASE.HEAT} flipColors />
 			</Body>
 		</ContainerSvg>
 		<ContainerSvg>
@@ -244,7 +240,13 @@
 						delayAppear={100}
 					/>
 				</svelte:fragment>
-				<Wheels size={wheelSize} slot="wheels" />
+				<Wheels
+					size={wheelSize}
+					slot="wheels"
+					popColor={COLOR_NAMES.POP.PUMPKIN}
+					baseColor={COLOR_NAMES.BASE.HEAT}
+					flipColors
+				/>
 			</Body>
 		</ContainerSvg>
 		<ContainerSvg>
@@ -377,7 +379,7 @@
 						offset={topperOffset}
 					/>
 				</svelte:fragment>
-				<Wheels slot="wheels" rimColor={COLOR_NAMES.POP.LIME} />
+				<Wheels slot="wheels" popColor={COLOR_NAMES.POP.LIME} />
 			</Body>
 		</ContainerSvg>
 		<ContainerSvg>
@@ -391,7 +393,11 @@
 					slot="decals"
 					animateAppear
 				/>
-				<WheelsChange slot="wheels" rimColor={changingRimColor} />
+				<Wheels
+					slot="wheels"
+					popColor={COLOR_NAMES.POP.CANARY}
+					baseColor={COLOR_NAMES.BASE.VIOLET}
+				/>
 			</Body>
 		</ContainerSvg>
 	</div>

@@ -14,9 +14,11 @@ export type DepotCar = {
 	body: BodyName
 	bodyColor?: string
 	bodyPopColor?: string
-	wheelColor?: string
-	wheelFromCenter: number
-	wheelSize: number
+	wheelBaseColor?: string
+	wheelPopColor?: string
+	wheelFlipColors?: boolean
+	wheelFromCenter?: number
+	wheelSize?: number
 	decals: DecalData[]
 	toppers: TopperData[]
 }

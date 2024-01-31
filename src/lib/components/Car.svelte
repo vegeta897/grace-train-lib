@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { COLOR_NAMES } from '$lib'
 	import type { GraceTrainCar } from '$lib/data'
 	import { ContainerSvg, Body, Decal, Topper, Wheels } from '.'
 
@@ -46,10 +45,11 @@
 				{/each}
 			</svelte:fragment>
 			<Wheels
-				rimColor={depotCar.wheelColor || COLOR_NAMES.POP.POP}
-				capColor={depotCar.bodyColor || COLOR_NAMES.BASE.BASE}
-				fromCenter={depotCar.wheelFromCenter || 100}
-				size={depotCar.wheelSize || 25}
+				popColor={depotCar.wheelPopColor}
+				baseColor={depotCar.wheelBaseColor}
+				flipColors={depotCar.wheelFlipColors}
+				fromCenter={depotCar.wheelFromCenter}
+				size={depotCar.wheelSize}
 				slot="wheels"
 			/>
 		</Body>
