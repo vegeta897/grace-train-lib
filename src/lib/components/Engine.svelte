@@ -2,8 +2,6 @@
 	import { COLOR_NAMES } from '$lib/colors'
 	import { ContainerSvg } from '.'
 
-	// TODO: Animate piston attached to big wheel
-
 	export let width = '100%'
 	export let facing: 'right' | 'left' = 'right'
 	export let animate = false
