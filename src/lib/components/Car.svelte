@@ -56,4 +56,5 @@
 	{:else}
 		<Body name="boxy" stripeColor={car.color}></Body>
 	{/if}
+	<slot />
 </ContainerSvg>
