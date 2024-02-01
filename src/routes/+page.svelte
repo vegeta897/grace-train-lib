@@ -10,6 +10,7 @@
 	import DecalParams from './ParamControls.svelte'
 	import { getDefaultParamsObject } from '$lib/components/params'
 	import { topperDefs } from '$lib/components'
+	import Engine from '$lib/components/Engine.svelte'
 
 	const decalTransform = { x: 375 / 2, y: 120, scale: 1, rotate: 0 }
 
@@ -18,9 +19,10 @@
 
 	const columnSizes = [
 		// 800,
-		500, 300,
-		//150,
-		//100
+		500,
+		// 300,
+		// 150,
+		100,
 	]
 
 	let topperPosition = 0.8
@@ -151,6 +153,7 @@
 </form>
 {#each columnSizes as size}
 	<div class="showcase" style="--column-size: {size}px; padding-top: {size / 8}px">
+		<Engine facing="left" />
 		<ContainerSvg>
 			<Body name="tanky">
 				<svelte:fragment slot="decals">
@@ -412,7 +415,7 @@
 	}
 	.showcase {
 		display: grid;
-		grid-template-columns: repeat(4, var(--column-size));
+		grid-template-columns: repeat(5, var(--column-size));
 		column-gap: 1rem;
 		margin-bottom: 1rem;
 		overflow-y: clip;
