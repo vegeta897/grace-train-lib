@@ -20,6 +20,7 @@
 </script>
 
 <script lang="ts">
+	$$restProps
 	export let baseColor: string
 	export let popColor: string
 	// export let stripeColor: string
