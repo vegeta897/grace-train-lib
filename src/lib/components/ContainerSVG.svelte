@@ -11,7 +11,7 @@
 	xmlns="http://www.w3.org/2000/svg"
 	{viewBox}
 	class={className}
-	{width}
+	style:width
 	bind:this={svgElement}
 	stroke-linecap="round"
 	stroke-linejoin="round"
