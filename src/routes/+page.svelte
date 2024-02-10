@@ -157,14 +157,14 @@
 		<ContainerSvg>
 			<Body name="tanky">
 				<svelte:fragment slot="decals">
-					<Decal name="star" params={starParams} {...decalTransform} x={80} />
-					<!-- <Decal
+					<!-- <Decal name="star" params={starParams} {...decalTransform} x={80} /> -->
+					<Decal
 						name="box"
 						fill={COLOR_NAMES.POP.EMERALD}
 						params={boxParams}
 						{...decalTransform}
-						x={200}
-					/> -->
+						x={80}
+					/>
 					<Decal name="emote" {...decalTransform} params={{ emote: 'grr' }} x={200} />
 					<Decal name="flower" params={flowerParams} {...decalTransform} x={320} />
 				</svelte:fragment>

@@ -5,16 +5,16 @@
 		defineScalar('pinch'),
 		defineScalar('round'),
 		defineToggle('outline'),
-		defineScalar('strokeWidth', 'thickness', 0.5),
+		defineScalar('strokeWidth', 'thickness', 0.75),
 	]
 
-	const getHeight = (pinch: number) => 100 - pinch * 80
+	const getHeight = (pinch: number) => 75 - pinch * 60
 	const getStrokeWidth = (strokeWidth: number) => 10 + 20 * strokeWidth
 
 	export const getBoundingBox = (params: Params) => {
 		const strokeWidth = getStrokeWidth(params.strokeWidth)
 		return {
-			width: 100 + strokeWidth,
+			width: 75 + strokeWidth,
 			height: getHeight(params.pinch) + strokeWidth,
 		}
 	}
@@ -37,9 +37,9 @@
 </script>
 
 <rect
-	x={-50}
+	x={-75 / 2}
 	y={-height / 2}
-	width={100}
+	width={75}
 	{height}
 	{rx}
 	stroke-width="{strokeWidthPx}px"
