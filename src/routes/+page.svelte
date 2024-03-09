@@ -18,14 +18,14 @@
 	// Either decrease body stroke by 0.01 or expand the stroke to a fill that exactly matches
 
 	const columnSizes = [
-		// 800,
+		// 1200,
+		//800,
 		500,
 		// 300,
-		// 150,
-		100,
+		150, 100,
 	]
 
-	let topperPosition = 0.8
+	let topperPosition = 0.7
 	let topperOffset = 0
 	let topperScale = 1
 	let topperRotate = 0
@@ -36,6 +36,7 @@
 	let flowerParams = getDefaultParamsObject(decalDefs.flower.paramConfig)
 	let flagParams = getDefaultParamsObject(decalDefs.flag.paramConfig)
 	let boxParams = getDefaultParamsObject(decalDefs.box.paramConfig)
+	let eyesParams = getDefaultParamsObject(decalDefs.eyes.paramConfig)
 
 	let partyHatParams = getDefaultParamsObject(topperDefs.party_hat.paramConfig)
 
@@ -82,7 +83,7 @@
 </script>
 
 <form>
-	<details>
+	<details open>
 		<summary style="font-size: 1.5rem;">decal params</summary>
 		<DecalParams object={{ type: 'decal', name: 'heart' }} bind:params={heartParams} />
 		<DecalParams object={{ type: 'decal', name: 'star' }} bind:params={starParams} />
@@ -90,6 +91,7 @@
 		<DecalParams object={{ type: 'decal', name: 'flower' }} bind:params={flowerParams} />
 		<DecalParams object={{ type: 'decal', name: 'flag' }} bind:params={flagParams} />
 		<DecalParams object={{ type: 'decal', name: 'box' }} bind:params={boxParams} />
+		<DecalParams object={{ type: 'decal', name: 'eyes' }} bind:params={eyesParams} />
 		<label>
 			Turn angle
 			<input type="range" min={-90} max={90} step={15} bind:value={arcTurn} />
@@ -153,19 +155,26 @@
 </form>
 {#each columnSizes as size}
 	<div class="showcase" style="--column-size: {size}px; padding-top: {size / 8}px">
-		<Engine facing="left" />
+		<!-- <Engine facing="left" /> -->
 		<ContainerSvg>
 			<Body name="tanky">
 				<svelte:fragment slot="decals">
 					<!-- <Decal name="star" params={starParams} {...decalTransform} x={80} /> -->
 					<Decal
+						name="eyes"
+						fill={COLOR_NAMES.POP.EMERALD}
+						params={eyesParams}
+						{...decalTransform}
+						x={80}
+					/>
+					<!-- <Decal
 						name="box"
 						fill={COLOR_NAMES.POP.EMERALD}
 						params={boxParams}
 						{...decalTransform}
 						x={80}
-					/>
-					<Decal name="emote" {...decalTransform} params={{ emote: 'grr' }} x={200} />
+					/> -->
+					<Decal name="emote" {...decalTransform} params={{ emote: 'cheese' }} x={200} />
 					<Decal name="flower" params={flowerParams} {...decalTransform} x={320} />
 				</svelte:fragment>
 				<svelte:fragment slot="toppers" let:topLine>

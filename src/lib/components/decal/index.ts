@@ -7,6 +7,7 @@ import * as Stripes from './Stripes.svelte'
 import * as Flower from './Flower.svelte'
 import * as Box from './Box.svelte'
 import * as Emote from './Emote.svelte'
+import * as Eyes from './Eyes.svelte'
 import { getDefaultParamsObject, type ParamDefinition } from '../params'
 import type { DecalName, ParamsObject } from '$lib/data'
 
@@ -39,6 +40,7 @@ export const decalDefs: Record<DecalName, DecalDef> = {
 	flower: defineDecal(Flower),
 	box: defineDecal(Box),
 	emote: defineDecal(Emote),
+	eyes: defineDecal(Eyes),
 } as const
 
 // Converts relative decal x,y to global

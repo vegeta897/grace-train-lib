@@ -33,6 +33,7 @@ export const DECAL_NAMES = [
 	'flower',
 	'box',
 	'emote',
+	'eyes',
 ] as const
 export type ParamsObject<T extends Record<string, any> = Record<string, any>> = T
 export type DecalName = (typeof DECAL_NAMES)[number]
