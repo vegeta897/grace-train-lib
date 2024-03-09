@@ -14,7 +14,7 @@
 			: topperDefs[object.name].paramConfig
 </script>
 
-<div style="margin-bottom: 1rem; display: flex; flex-wrap: wrap; column-gap: 0.5rem;">
+<div style="margin-bottom: 0.5rem; display: flex; flex-wrap: wrap; column-gap: 0.25rem;">
 	<h2 style:width="100%">{object.name} params</h2>
 	{#each paramList as param}
 		<div>
@@ -52,5 +52,6 @@
 <style>
 	h2 {
 		margin: 0;
+		font-size: 18px;
 	}
 </style>
