@@ -43,6 +43,7 @@
 
 	export const minScale = 1
 	export const maxScale = 3
+	export const noFill = true
 
 	function getPupilPosition({ angle, height, glance, size }: Params, pupilScale: number) {
 		const pupilRadius = PUPIL_RADIUS * pupilScale
