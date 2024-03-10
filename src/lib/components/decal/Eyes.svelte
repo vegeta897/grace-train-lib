@@ -26,7 +26,7 @@
 			COLORS.BASE[14]
 		),
 		defineScalar('height', 'height', 0.2),
-		defineScalar('size', 'size', 0.5),
+		defineScalar('iris', 'iris', 0.5),
 		defineScalar('gap', 'gap', 0.6),
 		defineScalar('glance', 'glance', 0.8),
 		defineScalar('angle'),
@@ -45,7 +45,7 @@
 	export const maxScale = 3
 	export const noFill = true
 
-	function getPupilPosition({ angle, height, glance, size }: Params, pupilScale: number) {
+	function getPupilPosition({ angle, height, glance }: Params, pupilScale: number) {
 		const pupilRadius = PUPIL_RADIUS * pupilScale
 		const widthScale = EYE_RADIUS - pupilRadius
 		const heightScale = getHeight(height) / 2 - pupilRadius
@@ -58,7 +58,7 @@
 	type Params = {
 		color: string
 		height: number
-		size: number
+		iris: number
 		gap: number
 		glance: number
 		angle: number
@@ -80,14 +80,14 @@
 	$: ry = getHeight(params.height) / 2
 	$: halfSpace = getGap(params.gap) / 2
 	$: eyeXs = [-EYE_RADIUS - halfSpace, EYE_RADIUS + halfSpace]
-	$: pupilScale = 0.2 + params.size * 0.8
-	$: leftPupilXY = getPupilPosition(params, pupilScale)
+	$: irisScale = 0.2 + params.iris * 0.8
+	$: leftPupilXY = getPupilPosition(params, irisScale)
 	$: rightPupilXY =
 		params.googly === 0
 			? leftPupilXY
 			: getPupilPosition(
 					{ ...params, angle: params.angle + params.googly / 2 },
-					pupilScale
+					irisScale
 				)
 	$: pupilPositions = [leftPupilXY, rightPupilXY]
 </script>
@@ -99,7 +99,7 @@
 		<ellipse cx={eyeXs[i]} ry={ry * 1.02} rx={EYE_RADIUS * 1.02} />
 	</clipPath>
 	<g clip-path="url(#{eye}EyeClip)">
-		<g transform="translate({eyeXs[i] + x} {y}) scale({pupilScale})">
+		<g transform="translate({eyeXs[i] + x} {y}) scale({irisScale})">
 			<ellipse fill={params.color} ry={PUPIL_RADIUS * 1.35} rx={PUPIL_RADIUS * 1.35} />
 			<ellipse fill={BLACK} ry={PUPIL_RADIUS} rx={PUPIL_RADIUS} />
 			{#if params.glint === 'dot'}
