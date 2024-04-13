@@ -6,10 +6,10 @@
 	export const topperLinePoints: TopLinePoints = [
 		[22, 50, 'cubicOut'],
 		[37, 25],
-		[145, 25, 'sineInOut'],
+		[150, 25, 'cubicOut'],
 		[160, 0],
-		[215, 0, 'sineInOut'],
-		[230, 25],
+		[215, 0, 'cubicIn'],
+		[225, 25],
 		[338, 25, 'cubicIn'],
 		[353, 50],
 	]
